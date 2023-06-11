@@ -1,0 +1,6 @@
+﻿@using Localization.Services;
+@inject LanguageService _localization
+
+@{
+    ViewData["Title"] = @_localization.GetLocalizedString("Page.Title.Home");
+}

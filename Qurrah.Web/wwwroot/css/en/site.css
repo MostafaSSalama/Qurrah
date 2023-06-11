@@ -1,0 +1,105 @@
+:root {
+    --bs-primary-rgb: 0, 105, 55 !important;
+}
+
+html, body {
+    height: 100%;
+    font-size: 14px;
+    direction: ltr;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Tajawal", sans-serif;
+}
+
+.rounded-top-0 {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #0b6a39;
+    --bs-btn-border-color: #0b6a39;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #07582e;
+    --bs-btn-hover-border-color: #07582e;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #07582e;
+    --bs-btn-active-border-color: #07582e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #0b6a39;
+    --bs-btn-disabled-border-color: #0b6a39;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #0b6a39;
+    --bs-btn-border-color: #0b6a39;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #0b6a39;
+    --bs-btn-hover-border-color: #0b6a39;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #0b6a39;
+    --bs-btn-active-border-color: #0b6a39;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #0b6a39;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #0b6a39;
+    --bs-gradient: none;
+}
+
+.rounded-bottom-left-4 {
+    border-bottom-left-radius: 1rem !important;
+}
+
+.rounded-bottom-right-4 {
+    border-bottom-right-radius: 1rem !important;
+}
+
+.tox.tox-silver-sink.tox-tinymce-aux .tox-notifications-container {
+    display: none !important;
+}
+
+.max-text-2-lines {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/*    .max-text-2-lines:hover {
+        display: block;
+    }*/
+[type=number], [type=tel] {
+    direction: ltr;
+}
+
+@media (min-width: 768px) {
+    .mt-sm-150 {
+        margin-top: 150px !important;
+    }
+}
+
+.code-block pre {
+    background-color: #efefef;
+    padding: 20px;
+    direction: ltr;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}

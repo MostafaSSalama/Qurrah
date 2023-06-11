@@ -1,0 +1,25 @@
+﻿@inject IHttpContextAccessor ctxAccessor
+@{
+    string successMessage = ctxAccessor.HttpContext.Session.GetString("Success");
+    string errorMessage = ctxAccessor.HttpContext.Session.GetString("Error");
+
+    @if (!string.IsNullOrWhiteSpace(successMessage) || !string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script type="text/javascript">
+            setTimeout(function () {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: '@(!string.IsNullOrWhiteSpace(successMessage) ? "success" : "error")',
+                    title: '@(!string.IsNullOrWhiteSpace(successMessage) ? successMessage : errorMessage)',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
+            }, 1000);
+        </script>
+
+    }
+    //Empty the session
+    ctxAccessor.HttpContext.Session.SetString("Success", string.Empty);
+}

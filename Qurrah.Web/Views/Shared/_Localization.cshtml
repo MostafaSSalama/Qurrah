@@ -1,0 +1,14 @@
+﻿<div class="dropdown text-end">
+    @if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "ar-sa")
+    {
+        <a class="nav-link px-2" asp-area="Public" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
+            English
+        </a>
+    }
+    else
+    {
+        <a class="nav-link px-2" asp-area="Public" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ar-SA">
+            العربية
+        </a>
+    }
+</div>
