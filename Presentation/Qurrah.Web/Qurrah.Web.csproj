@@ -27,12 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Qurrah.Business\Qurrah.Business.csproj" />
-    <ProjectReference Include="..\Qurrah.Data\Qurrah.Data.csproj" />
-    <ProjectReference Include="..\Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Resources\SharedResource.ar-SA.resx">
       <Generator></Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -41,6 +35,12 @@
 
   <ItemGroup>
     <Folder Include="QurrahLogs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Business\Qurrah.Business\Qurrah.Business.csproj" />
+    <ProjectReference Include="..\..\Core\Data\Qurrah.Data\Qurrah.Data.csproj" />
+    <ProjectReference Include="..\..\Core\Integration\Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj" />
   </ItemGroup>
 
 </Project>

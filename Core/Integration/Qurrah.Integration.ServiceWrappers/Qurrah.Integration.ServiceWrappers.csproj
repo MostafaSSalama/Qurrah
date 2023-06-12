@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Qurrah.Entities\Qurrah.Entities.csproj" />
-    <ProjectReference Include="..\Qurrah.Models\Qurrah.Models.csproj" />
+    <ProjectReference Include="..\..\Data\Qurrah.Entities\Qurrah.Entities.csproj" />
+    <ProjectReference Include="..\..\Data\Qurrah.Models\Qurrah.Models.csproj" />
   </ItemGroup>
 
 </Project>
