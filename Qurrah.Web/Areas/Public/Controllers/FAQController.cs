@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Localization.Services;
-using MagicVilla.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Qurrah.Business.Logging;
+using Qurrah.Business.Logging.Logger;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using Qurrah.Models.Integration;
 using Qurrah.Models.Integration.DTOs.FAQ;
@@ -16,14 +17,16 @@ namespace Qurrah.Web.Areas.Public.Controllers
         #region Fields
         IFAQService _faqService;
         private LanguageService _localization;
+        IExceptionLogging _exceptionLogging;
         IMapper _mapper;
         #endregion
 
         #region Ctor
-        public FAQController(IFAQService faqService, IMapper mapper, LanguageService localization)
+        public FAQController(IFAQService faqService, IMapper mapper, LanguageService localization, IExceptionLogging exceptionLogging)
         {
             _faqService = faqService;
             _localization = localization;
+            _exceptionLogging = exceptionLogging;
             _mapper = mapper;
         }
         #endregion
@@ -41,7 +44,7 @@ namespace Qurrah.Web.Areas.Public.Controllers
             catch (Exception ex)
             {
                 HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
-                //TODO : Add logs
+                _exceptionLogging.Log(ex);
             }
             return View(faqsClassified ?? new List<FAQClassifiedDTO>());
         }

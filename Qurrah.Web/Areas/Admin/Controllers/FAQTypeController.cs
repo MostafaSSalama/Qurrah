@@ -2,6 +2,8 @@
 using Localization.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Qurrah.Business.Logging;
+using Qurrah.Business.Logging.Logger;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using Qurrah.Models.Integration;
 using Qurrah.Models.Integration.DTOs.FAQType;
@@ -12,18 +14,19 @@ namespace Qurrah.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class FAQTypeController : Controller
     {
-
         #region Fields
         private readonly IFAQTypeService _faqTypeService;
         private LanguageService _localization;
+        IExceptionLogging _exceptionLogging;
         private readonly IMapper _mapper;
         #endregion
 
         #region Ctor
-        public FAQTypeController(IFAQTypeService faqTypeService, IMapper mapper, LanguageService localization)
+        public FAQTypeController(IFAQTypeService faqTypeService, IMapper mapper, LanguageService localization, IExceptionLogging exceptionLogging)
         {
             _faqTypeService = faqTypeService;
             _localization = localization;
+            _exceptionLogging = exceptionLogging;
             _mapper = mapper;
         }
         #endregion
@@ -42,7 +45,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
-                //TODO : Add logging
+                _exceptionLogging.Log(ex);
             }
             return View(faqTypes ?? new List<FAQTypeDTO>());
         }
@@ -61,31 +64,9 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                //TODO : Add logging
+                _exceptionLogging.Log(ex);
             }
             return NotFound();
-        }
-
-
-        [HttpGet]
-        public async Task<ActionResult> Delete(int id)
-        {
-            try
-            {
-                var response = await _faqTypeService.DeleteAsync<APIResponse>(id);
-                if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.NoContent)
-                {
-                    HttpContext.Session.SetString("Success", _localization.GetLocalizedString("Messages.SuccessMessages.DeleteGeneralSuccess"));
-                    return Json(new { success = true });
-                }
-            }
-            catch (Exception ex)
-            {
-                //TODO : Add logging
-            }
-
-            HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
-            return Json(new { success = false });
         }
 
         [HttpGet]
@@ -95,6 +76,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(FAQTypeCreateDTO faqTypeCreateDTO)
         {
             try
@@ -113,7 +95,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                //TODO : Add logging
+                _exceptionLogging.Log(ex);
             }
             return View(faqTypeCreateDTO);
         }
@@ -132,12 +114,13 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                //TODO : Add logging
+                _exceptionLogging.Log(ex);
             }
             return NotFound();
         }
 
         [HttpPost(Name = "Update")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(FAQTypeUpdateDTO faqTypeUpdateDTO)
         {
             try
@@ -154,9 +137,30 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                //TODO : Add logging
+                _exceptionLogging.Log(ex);
             }
             return View(faqTypeUpdateDTO);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                var response = await _faqTypeService.DeleteAsync<APIResponse>(id);
+                if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.NoContent)
+                {
+                    HttpContext.Session.SetString("Success", _localization.GetLocalizedString("Messages.SuccessMessages.DeleteGeneralSuccess"));
+                    return Json(new { success = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogging.Log(ex);
+            }
+
+            HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+            return Json(new { success = false });
         }
         #endregion
     }

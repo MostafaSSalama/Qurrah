@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Qurrah.Business.EmailService;
+using Qurrah.Business.Logging;
+using Qurrah.Business.Logging.ILogger;
+using Qurrah.Business.Logging.Logger;
 using Qurrah.Data;
 using Qurrah.Data.Repository;
 using Qurrah.Data.Repository.IRepository;
 using Qurrah.Entities;
 using Qurrah.Integration.ServiceWrappers.Mapping;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
+using Serilog;
 using System.Globalization;
 using System.Reflection;
 
@@ -20,6 +24,21 @@ var builder = WebApplication.CreateBuilder(args);
 {
     {
         builder.Services.AddControllersWithViews();
+
+        #region SeriLog
+        Log.Logger = new LoggerConfiguration().MinimumLevel
+                                              .Error()
+                                              .WriteTo
+                                              .File("QurrahLogs/Logs.txt", rollingInterval: RollingInterval.Day)
+                                              .CreateLogger();
+        builder.Host.UseSerilog();
+
+        builder.Services.AddScoped<IErrorLogger, SeriLogger>();
+        builder.Services.AddScoped<IInfoLogger, SeriLogger>();
+        builder.Services.AddScoped<IExceptionLogging, ExceptionLogging>();
+        builder.Services.AddScoped<IInfoLogging, InfoLogging>();
+
+        #endregion
 
         #region Localization
         //Localiztion - Step 1
@@ -55,15 +74,6 @@ var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddDbContext<QurrahDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("QurrahConnectionString")));
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         #endregion
-
-        //Use Sessions - Step 2
-        builder.Services.AddDistributedMemoryCache();
-        builder.Services.AddSession(options =>
-        {
-            options.Cookie.HttpOnly = true;
-            options.Cookie.IsEssential = true;
-            options.IdleTimeout = TimeSpan.FromMinutes(30);
-        });
 
         #region Identity
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -131,7 +141,9 @@ var builder = WebApplication.CreateBuilder(args);
         app.UseAuthentication();
 
         app.UseAuthorization();
-
+        
+        app.MapRazorPages();
+        
         app.MapControllerRoute(
             name: "area",
             pattern: "{area=Public}/{controller=Home}/{action=Index}/{id?}");

@@ -210,6 +210,15 @@
   <data name="FAQType.View.HeaderTitle" xml:space="preserve">
     <value>استعراض نوع أسئلة متكررة</value>
   </data>
+  <data name="Identity.Buttons.Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Identity.Buttons.Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="Identity.Buttons.Register" xml:space="preserve">
+    <value>مستخدم جديد</value>
+  </data>
   <data name="Menu.TopMenu.Admin.FAQ" xml:space="preserve">
     <value>الأسئلة المتكررة</value>
   </data>
@@ -233,6 +242,9 @@
   </data>
   <data name="Messages.SuccessMessages.SaveGeneralSuccess" xml:space="preserve">
     <value>تم حفظ البيانات بنجاح</value>
+  </data>
+  <data name="Messages.Welcome" xml:space="preserve">
+    <value>مرحبا</value>
   </data>
   <data name="Page.Title.Home" xml:space="preserve">
     <value>الصفحة الرئيسية</value>

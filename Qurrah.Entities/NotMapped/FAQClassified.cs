@@ -1,4 +1,4 @@
-﻿namespace Qurrah.Entities
+﻿namespace Qurrah.Entities.NotMapped
 {
     public class FAQClassified
     {

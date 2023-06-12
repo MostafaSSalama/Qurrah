@@ -24,5 +24,7 @@ namespace Qurrah.Entities
         [Required(AllowEmptyStrings = false)]
         [Range(1, 1000)]
         public int DisplayOrder { get; set; }
+
+        public List<FAQ> FAQs { get; set; }
     }
 }

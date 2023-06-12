@@ -1,5 +1,10 @@
 ﻿@using Localization.Services;
+@using Microsoft.AspNetCore.Identity;
+@using Qurrah.Entities;
+@using static Qurrah.Business.Constatnts;
+
 @inject LanguageService _localization
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,22 +37,23 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
                 <ul class='nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0 @(_localization.CurrentLanguage == SupportedLanguage.Arabic ? "ms-lg-auto" : "me-lg-auto")'>
-                    <li><a asp-area="Public" asp-controller="Home" asp-action="Index" class="nav-link px-2 fw-bold text-body">@_localization.GetLocalizedString("Menu.TopMenu.Home")</a></li>
+                    <li class="nav-item fw-bold"><a asp-area="Public" asp-controller="Home" asp-action="Index" class="nav-link px-2 text-light">@_localization.GetLocalizedString("Menu.TopMenu.Home")</a></li>
+                    <partial name="_LoginPartial" />
 
-                    <li><a asp-area="Public" asp-controller="FAQ" asp-action="Index" class="nav-link px-2 fw-bold text-body">@_localization.GetLocalizedString("Menu.TopMenu.Public.FAQ")</a></li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
-                        <div class="dropdown-menu">
-                            <a asp-area="Admin" asp-controller="FAQType" asp-action="Index" class="nav-link px-2 fw-bold text-body">@_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQType")</a>
-                            <div class="dropdown-divider"></div>
-                            <a asp-area="Admin" asp-controller="FAQ" asp-action="Index" class="nav-link px-2 fw-bold text-body">@_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQ")</a>
-                        </div>
-                    </li>
+                    @if (User.IsInRole(Role.Administrator))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQ")</a>
+                            <div class="dropdown-menu">
+                                <a asp-area="Admin" asp-controller="FAQType" asp-action="Index" class="nav-link px-2 text-body">@_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQType")</a>
+                                <div class="dropdown-divider"></div>
+                                <a asp-area="Admin" asp-controller="FAQ" asp-action="Index" class="nav-link px-2 text-body">@_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQ")</a>
+                            </div>
+                        </li>
+                    }
                 </ul>
 
                 <partial name="_Localization" />
-                @*<partial name="_LoginPartial" />*@
 
             </div>
         </div>
@@ -58,6 +64,11 @@
         @RenderBody()
     </main>
 
+    <footer class="text-muted py-5">
+        <div class="container">
+            <a asp-area="Public" asp-controller="FAQ" asp-action="Index" class="btn btn-link fw-bold">@_localization.GetLocalizedString("Menu.TopMenu.Public.FAQ")</a>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.js"></script>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Entities", "Qurrah.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Data", "Qurrah.Data\Qurrah.Data.csproj", "{A12CC969-7F86-4AD7-950E-E12622DBBB27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Web.APIs", "Qurrah.Web.APIs\Qurrah.Web.APIs.csproj", "{1648C83F-6543-4A93-89E9-165E42035EC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Web.APIs", "APIs\Qurrah.Web.APIs\Qurrah.Web.APIs.csproj", "{1648C83F-6543-4A93-89E9-165E42035EC3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Business", "Qurrah.Business\Qurrah.Business.csproj", "{4891A969-410C-40E0-B7BE-BECBC39A8A85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qurrah.Integration.ServiceWrappers", "Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj", "{823B866D-9830-4D87-B3E6-309A7874B8E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Integration.ServiceWrappers", "Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj", "{823B866D-9830-4D87-B3E6-309A7874B8E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qurrah.Models", "Qurrah.Models\Qurrah.Models.csproj", "{27F1D038-A88A-4359-AEAA-0F8B9DD7AE35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Models", "Qurrah.Models\Qurrah.Models.csproj", "{27F1D038-A88A-4359-AEAA-0F8B9DD7AE35}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{3FE40196-F587-4F59-8B6C-450D676E4CCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1648C83F-6543-4A93-89E9-165E42035EC3} = {3FE40196-F587-4F59-8B6C-450D676E4CCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89F7A115-CEDF-4A5D-860F-609FB5B5EB67}

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Qurrah.Entities;
+using Qurrah.Entities.NotMapped;
 using Qurrah.Models.Integration.DTOs.FAQ;
 using Qurrah.Models.Integration.DTOs.FAQType;
 

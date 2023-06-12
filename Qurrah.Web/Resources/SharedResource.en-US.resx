@@ -214,6 +214,15 @@
   <data name="FAQType.View.HeaderTitle" xml:space="preserve">
     <value>Display FAQ Type</value>
   </data>
+  <data name="Identity.Buttons.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Identity.Buttons.Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Identity.Buttons.Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Menu.TopMenu.Admin.FAQ" xml:space="preserve">
     <value>FAQs</value>
   </data>
@@ -237,6 +246,9 @@
   </data>
   <data name="Messages.SuccessMessages.SaveGeneralSuccess" xml:space="preserve">
     <value>Data has been saved successfully</value>
+  </data>
+  <data name="Messages.Welcome" xml:space="preserve">
+    <value>Welcome</value>
   </data>
   <data name="Page.Title.Home" xml:space="preserve">
     <value>Home</value>

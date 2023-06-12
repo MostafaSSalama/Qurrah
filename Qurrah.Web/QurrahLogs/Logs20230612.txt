@@ -1,0 +1,2 @@
+2023-06-12 12:29:13.035 +03:00 [ERR] An error occured System.Exception: OOOOOOOOOOOOOOOOOOOOOOOooooooooooooooooOOOOO
+   at Qurrah.Web.Areas.Public.Controllers.FAQController.Index() in E:\Qurrah\SC\Qurrah\Qurrah.Web\Areas\Public\Controllers\FAQController.cs:line 40

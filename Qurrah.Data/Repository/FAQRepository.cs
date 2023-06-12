@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Qurrah.Entities;
+using Qurrah.Entities.NotMapped;
 
 namespace Qurrah.Data.Repository
 {
