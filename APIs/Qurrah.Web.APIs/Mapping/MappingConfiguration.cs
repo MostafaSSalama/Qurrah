@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Qurrah.Entities;
-using Qurrah.Entities.NotMapped;
+using Qurrah.Entities.NoMapping;
+using Qurrah.Web.APIs.Models.DTOs.Authentication;
 using Qurrah.Web.APIs.Models.DTOs.FAQ;
 using Qurrah.Web.APIs.Models.DTOs.FAQType;
 
@@ -19,6 +20,17 @@ namespace Qurrah.Web.APIs.Mapping
             CreateMap<FAQ, FAQUpdateDTO>().ReverseMap();
 
             CreateMap<FAQClassified, FAQClassifiedDTO>().ReverseMap();
+
+            CreateMap<ParentUserRegistrationRequest, ParentUserRegistrationRequestDTO>().ReverseMap();
+
+            CreateMap<CenterOwnerDTO, CenterOwner>();
+
+            CreateMap<CenterUserRegistrationRequestDTO, CenterUserRegistrationRequest>()
+                    .ForMember(dto => dto.CenterOwner, c => c.MapFrom(r => r.CenterOwner)).ReverseMap();
+            
+            CreateMap<RegistrationResponse, RegistrationResponseDTO>().ReverseMap();
+            CreateMap<LoginRequest, LoginRequestDTO>().ReverseMap();
+            CreateMap<LoginResponse, LoginResponseDTO>().ReverseMap();
         }
     }
 }

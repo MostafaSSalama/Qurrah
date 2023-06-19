@@ -7,7 +7,7 @@ namespace Qurrah.Web.APIs.Utilities
     {
         public static APIResponse HandleException(Exception ex)
         {
-            return new APIResponse(false, HttpStatusCode.InternalServerError, null, new List<string[]> { new string[] { ex.ToString() } });
+            return new APIResponse(false, HttpStatusCode.InternalServerError, null, new List<string[]> { new string[] { ex.Message } });
         }
     }
 }

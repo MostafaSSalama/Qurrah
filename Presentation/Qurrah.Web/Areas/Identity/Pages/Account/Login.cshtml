@@ -1,8 +1,10 @@
 ﻿@page
+@using Localization.Services;
+@inject LanguageService _localization
 @model LoginModel
 
 @{
-    ViewData["Title"] = "تسجيل الدخول";
+    ViewData["Title"] = @_localization.GetLocalizedString("Identity.Login.HeaderTitle");
 }
 
 <section class="container mt-5 mt-sm-150">
@@ -11,45 +13,33 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-body px-5">
                     <form id="account" method="post">
-                        <h2>@ViewData["Title"]</h2>
+                        <h2>@_localization.GetLocalizedString("Identity.Login.HeaderTitle")</h2>
                         <hr />
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-12">
                             <div class="form-floating my-2">
-                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Model.Input.Email" />
-                                <label asp-for="Input.Email" class="form-label"></label>
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                <input asp-for="LoginRequest.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Model.Input.Email" />
+                                <label asp-for="LoginRequest.UserName" class="form-label"></label>
+                                <span asp-validation-for="LoginRequest.UserName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating my-2">
-                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Model.Input.Password" />
-                                <label asp-for="Input.Password" class="form-label"></label>
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                <input asp-for="LoginRequest.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Model.Input.Password" />
+                                <label asp-for="LoginRequest.Password" class="form-label"></label>
+                                <span asp-validation-for="LoginRequest.Password" class="text-danger"></span>
                             </div>
                         </div>
                         <div calss="col-12 pt-2">
                             <div class="checkbox">
-                                <label asp-for="Input.RememberMe" class="form-label">
-                                    <input class="form-check-input" asp-for="Input.RememberMe" />
-                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                <label asp-for="LoginRequest.RememberMe" class="form-label">
+                                    <input class="form-check-input" asp-for="LoginRequest.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.LoginRequest.RememberMe)
                                 </label>
                             </div>
                         </div>
                         <div class="pt-4 mb-4">
-                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">تسجيل الدخول</button>
-                        </div>
-                        <div>
-                            <p>
-                                @*<a id="forgot-password" asp-page="./ForgotPassword">نسيت كلمة المرور؟</a>*@
-                                <a id="forgot-password" href="#">نسيت كلمة المرور؟</a>
-                            </p>
-                            <p>
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">مستخدم جديد</a>
-                            </p>
-                            @*                            <p>
-                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                            </p>*@
+                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@_localization.GetLocalizedString("Button.Login.DefaultValue")</button>
                         </div>
                     </form>
                 </div>

@@ -132,6 +132,9 @@
   <data name="Button.Edit.DefaultValue" xml:space="preserve">
     <value>تعديل</value>
   </data>
+  <data name="Button.Login.DefaultValue" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
   <data name="Button.Submit.DefaultValue" xml:space="preserve">
     <value>حفظ</value>
   </data>
@@ -210,6 +213,9 @@
   <data name="FAQType.View.HeaderTitle" xml:space="preserve">
     <value>استعراض نوع أسئلة متكررة</value>
   </data>
+  <data name="Hints.MobileExample" xml:space="preserve">
+    <value>مثال: 0123456789</value>
+  </data>
   <data name="Identity.Buttons.Login" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
@@ -218,6 +224,24 @@
   </data>
   <data name="Identity.Buttons.Register" xml:space="preserve">
     <value>مستخدم جديد</value>
+  </data>
+  <data name="Identity.Buttons.RegisterCenter" xml:space="preserve">
+    <value>مركز</value>
+  </data>
+  <data name="Identity.Buttons.RegisterParent" xml:space="preserve">
+    <value>ولي أمر</value>
+  </data>
+  <data name="Identity.Login.HeaderTitle" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Identity.Register.Buttons.Register" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="Identity.Register.Center.HeaderTitle" xml:space="preserve">
+    <value>تسجيل مستخدم (مركز)</value>
+  </data>
+  <data name="Identity.Register.Parent.HeaderTitle" xml:space="preserve">
+    <value>تسجيل مستخدم (ولي أمر)</value>
   </data>
   <data name="Menu.TopMenu.Admin.FAQ" xml:space="preserve">
     <value>الأسئلة المتكررة</value>
@@ -231,14 +255,26 @@
   <data name="Menu.TopMenu.Public.FAQ" xml:space="preserve">
     <value>الأسئلة المتكررة</value>
   </data>
+  <data name="Messages.ErrorMessages.CredentialsNotCorrect" xml:space="preserve">
+    <value>اسم المستخدم / البريد الإلكتروني أو كلمة المرور غير صحيحة</value>
+  </data>
   <data name="Messages.ErrorMessages.DeleteGeneralError" xml:space="preserve">
     <value>حدث خطأ أثناء الحذف!</value>
+  </data>
+  <data name="Messages.ErrorMessages.GeneralError" xml:space="preserve">
+    <value>عفواً، حدث خطأ</value>
   </data>
   <data name="Messages.ErrorMessages.LoadGeneralError" xml:space="preserve">
     <value>حدث خطأ أثناء تحميل العناصر</value>
   </data>
+  <data name="Messages.ErrorMessages.UserAlreadyExists" xml:space="preserve">
+    <value>اسم المستخدم أو البريد الإلكتروني مستخدم من قبل</value>
+  </data>
   <data name="Messages.SuccessMessages.DeleteGeneralSuccess" xml:space="preserve">
     <value>تم الحذف بنجاح</value>
+  </data>
+  <data name="Messages.SuccessMessages.RegisterUserSuccess" xml:space="preserve">
+    <value>تم تسجيل المستخدم بنجاح</value>
   </data>
   <data name="Messages.SuccessMessages.SaveGeneralSuccess" xml:space="preserve">
     <value>تم حفظ البيانات بنجاح</value>
@@ -255,6 +291,57 @@
   <data name="Qurrah" xml:space="preserve">
     <value>قرة</value>
   </data>
+  <data name="Registration.CenterUser.CenterName" xml:space="preserve">
+    <value>اسم المركز</value>
+  </data>
+  <data name="Registration.Login.Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Registration.Login.RememberMe" xml:space="preserve">
+    <value>تذكرني</value>
+  </data>
+  <data name="Registration.Login.UserNameOrEmail" xml:space="preserve">
+    <value>اسم المستخدم أو البريد الإلكتروني</value>
+  </data>
+  <data name="Registration.ParentUser.ConfirmPassword" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Registration.ParentUser.Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="Registration.ParentUser.FirstName" xml:space="preserve">
+    <value>الاسم الأول</value>
+  </data>
+  <data name="Registration.ParentUser.FourthName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
+  <data name="Registration.ParentUser.Gender" xml:space="preserve">
+    <value>الجنس</value>
+  </data>
+  <data name="Registration.ParentUser.IdNumber" xml:space="preserve">
+    <value>رقم الهوية</value>
+  </data>
+  <data name="Registration.ParentUser.Login.Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Registration.ParentUser.MobileNumber" xml:space="preserve">
+    <value>رقم الجوال</value>
+  </data>
+  <data name="Registration.ParentUser.Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Registration.ParentUser.PhoneNumber" xml:space="preserve">
+    <value>رقم التليفون</value>
+  </data>
+  <data name="Registration.ParentUser.SecondName" xml:space="preserve">
+    <value>الاسم الثاني</value>
+  </data>
+  <data name="Registration.ParentUser.ThirdName" xml:space="preserve">
+    <value>الاسم الثالث</value>
+  </data>
+  <data name="Registration.ParentUser.UserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
   <data name="SweetAlert.CancelButtonText" xml:space="preserve">
     <value>إلغاء</value>
   </data>
@@ -267,11 +354,23 @@
   <data name="SweetAlert.Question" xml:space="preserve">
     <value>هل حقاً ترغب في إتمام الحذف؟</value>
   </data>
+  <data name="Validation.Compare.NotMatchedPassword" xml:space="preserve">
+    <value>كلمة المرور غير متطابقة</value>
+  </data>
+  <data name="Validation.GeneralErrorMessage" xml:space="preserve">
+    <value>برجاء مراجعة البيانات المدخلة</value>
+  </data>
   <data name="Validation.Range.OneToThousandErrorMessage" xml:space="preserve">
     <value>قيمة الحقل يجب أن تكون بين 1 و 1000</value>
   </data>
+  <data name="Validation.RegularExpression.10Digits" xml:space="preserve">
+    <value>يجب إدخال 10 أرقام فقط</value>
+  </data>
   <data name="Validation.Required.GeneralErrorMessage" xml:space="preserve">
     <value>هذا الحقل مطلوب</value>
+  </data>
+  <data name="Validation.StringLength.150" xml:space="preserve">
+    <value>هذا الحقل يتخطى الحد الأقصى من الأحرف المسموح به (150)</value>
   </data>
   <data name="Validation.StringLength.GeneralErrorMessage" xml:space="preserve">
     <value>هذا الحقل يتخطى الحد الأقصى من الأحرف المسموح به</value>

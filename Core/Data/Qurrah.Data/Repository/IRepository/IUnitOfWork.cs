@@ -4,6 +4,8 @@
     {
         FAQTypeRepository FAQType { get; }
         FAQRepository FAQ { get; }
+        ParentUserRepository ParentUser { get; }
+        CenterUserRepository CenterUser { get; }
         Task SaveAsync();
     }
 }

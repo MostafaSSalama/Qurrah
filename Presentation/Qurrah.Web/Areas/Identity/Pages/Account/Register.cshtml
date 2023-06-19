@@ -1,140 +1,131 @@
 ﻿@page
-@using Qurrah.Business
-@using static Qurrah.Business.Constatnts;
+@using Localization.Services;
+@inject LanguageService _localization
 @model RegisterModel
 @{
-    if (User.IsInRole(Role.Administrator))
-        ViewData["Title"] = "Admin - Register";
-    else
-        ViewData["Title"] = "Register";
+    ViewData["Title"] = @_localization.GetLocalizedString("Identity.Register.Parent.HeaderTitle");
 }
 
 <section class="container mt-5">
-    <div class="border rounded-4 p-3">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>تسجيل مستخدم جديد</h2>
+    <div class="p-3">
+        <form id="registerForm" method="post">
+            <h2>@_localization.GetLocalizedString("Identity.Register.Parent.HeaderTitle")</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
 
                 <div class="col-12">
                     <div class="form-floating my-2">
-                        <input asp-for="Input.Email" class="form-control" aria-required="true" placeholder="Model.Input.Email" />
-                        <label asp-for="Input.Email"></label>
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        <input asp-for="RegistrationRequest.Email" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.Email" />
+                        <label asp-for="RegistrationRequest.Email"></label>
+                        <span asp-validation-for="RegistrationRequest.Email" class="text-danger"></span>
                     </div>
                 </div>
 
-                <!--Customization here  to add more fields-->
-
                 <div class="col-6">
                     <div class="form-floating my-2">
-                        <input asp-for="Input.Name" class="form-control" aria-required="true" placeholder="Model.Input.Name" />
-                        <label asp-for="Input.Name"></label>
-                        <span asp-validation-for="Input.Name" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating my-2">
-                        <input asp-for="Input.City" class="form-control" aria-required="true" placeholder="Model.Input.City" />
-                        <label asp-for="Input.City"></label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating my-2">
-                        <input asp-for="Input.State" class="form-control" aria-required="true" placeholder="Model.Input.State" />
-                        <label asp-for="Input.State"></label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating my-2">
-                        <input asp-for="Input.StreetAddress" class="form-control" aria-required="true" placeholder="Model.Input.StreetAddress" />
-                        <label asp-for="Input.StreetAddress"></label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating my-2">
-                        <input asp-for="Input.PostalCode" class="form-control" aria-required="true" placeholder="Model.Input.PostalCode" />
-                        <label asp-for="Input.PostalCode"></label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating my-2">
-                        <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="Model.Input.PhoneNumber" />
-                        <label asp-for="Input.PhoneNumber"></label>
-                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-                        <small class="text-muted">مثال: 0123456789</small>
-                    </div>
-                </div>
-                <!--End of Customization-->
-
-                <div class="col-6">
-                    <div class="form-floating my-2">
-                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Model.Input.Password" />
-                        <label asp-for="Input.Password"></label>
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating my-2">
-                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Model.Input.ConfirmPassword" />
-                        <label asp-for="Input.ConfirmPassword"></label>
-                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        <input asp-for="RegistrationRequest.UserName" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.UserName" />
+                        <label asp-for="RegistrationRequest.UserName"></label>
+                        <span asp-validation-for="RegistrationRequest.UserName" class="text-danger"></span>
                     </div>
                 </div>
 
-                <!--Customization here  to add role/company fields-->
-                @if (User.IsInRole(Role.Administrator))
-                {
-                    <div class="col-6">
-                        <div class="form-floating my-2">
-                            <select asp-for="Input.Role"
-                                asp-items="Model.Input.Roles"
-                                    id="rolesSelect"
-                                    class="form-select"
-                                    aria-required="true">
-                                <option></option>
-                            </select>
-                            <label asp-for="Input.Role"></label>
-                        </div>
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.IdNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.IdNumber" />
+                        <label asp-for="RegistrationRequest.IdNumber"></label>
+                        <span asp-validation-for="RegistrationRequest.IdNumber" class="text-danger"></span>
                     </div>
-                    //<div class="col-6">
-                    //    <div class="form-floating my-2">
-                    //        <select asp-for="Input.CompanyId"
-                    //            asp-items="Model.Input.Companies"
-                    //                id="companiesSelect"
-                    //                class="form-select"
-                    //                style="display:none"
-                    //                aria-required="true">
-                    //            <option></option>
-                    //        </select>
-                    //        <label asp-for="Input.CompanyId" style="display:none"></label>
-                    //    </div>
-                    //</div>
-                }
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.FirstName" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.FirstName" />
+                        <label asp-for="RegistrationRequest.FirstName"></label>
+                        <span asp-validation-for="RegistrationRequest.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.SecondName" class="form-control" placeholder="Model.RegistrationRequest.SecondName" />
+                        <label asp-for="RegistrationRequest.SecondName"></label>
+                        <span asp-validation-for="RegistrationRequest.SecondName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.ThirdName" class="form-control" placeholder="Model.RegistrationRequest.ThirdName" />
+                        <label asp-for="RegistrationRequest.ThirdName"></label>
+                        <span asp-validation-for="RegistrationRequest.ThirdName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.FourthName" class="form-control" placeholder="Model.RegistrationRequest.FourthName" />
+                        <label asp-for="RegistrationRequest.FourthName"></label>
+                        <span asp-validation-for="RegistrationRequest.FourthName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.MobileNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.MobileNumber" />
+                        <label asp-for="RegistrationRequest.MobileNumber"></label>
+                        <span asp-validation-for="RegistrationRequest.MobileNumber" class="text-danger"></span>
+                        <small class="text-muted">@_localization.GetLocalizedString("Hints.MobileExample")</small>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.PhoneNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.PhoneNumber" />
+                        <label asp-for="RegistrationRequest.PhoneNumber"></label>
+                        <span asp-validation-for="RegistrationRequest.PhoneNumber" class="text-danger"></span>
+                        <small class="text-muted">@_localization.GetLocalizedString("Hints.MobileExample")</small>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Model.RegistrationRequest.Password" />
+                        <label asp-for="RegistrationRequest.Password"></label>
+                        <span asp-validation-for="RegistrationRequest.Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Model.RegistrationRequest.ConfirmPassword" />
+                        <label asp-for="RegistrationRequest.ConfirmPassword"></label>
+                        <span asp-validation-for="RegistrationRequest.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <select asp-for="RegistrationRequest.FKGenderId"
+                                asp-items="Model.Genders"
+                                class="form-select"
+                                aria-required="true">
+                            <option></option>
+                        </select>
+                        <label asp-for="RegistrationRequest.FKGenderId"></label>
+                        <span asp-validation-for="RegistrationRequest.FKGenderId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="mt-4"></div>
-            <!--End of Customization-->
 
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">تسجيل</button>
+            <div class="mt-4"></div>
+
+            <button id="registerSubmit" type="submit" class="btn btn-primary" style="width:24.25%">@_localization.GetLocalizedString("Identity.Register.Buttons.Register")</button>
+            <a class="btn btn-secondary" asp-area="Public" asp-controller="Home" asp-action="Index" style="width:24.25%">@_localization.GetLocalizedString("Button.Cancel.DefaultValue")</a>
         </form>
     </div>
 </section>
 
 @section Scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#rolesSelect').change(function () {
-                if ($(this).val().toLowerCase() == "company") {
-                    $('#companiesSelect').show();
-                    $('#companiesSelect').next('label').show();
-                }
-                else {
-                    $('#companiesSelect').hide();
-                    $('#companiesSelect').next('label').hide();
-                }
-            });
-        });
-    </script>
     <partial name="_ValidationScriptsPartial" />
 }

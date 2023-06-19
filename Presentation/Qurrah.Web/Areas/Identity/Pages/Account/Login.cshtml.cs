@@ -1,139 +1,127 @@
-﻿
-
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using AutoMapper;
+using Localization.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
+using Qurrah.Business.Logging;
 using Qurrah.Entities;
+using Qurrah.Entities.NoMapping;
+using Qurrah.Integration.ServiceWrappers;
+using Qurrah.Integration.ServiceWrappers.DTOs.Authentication;
+using Qurrah.Integration.ServiceWrappers.Services.IServices;
+using System.Net;
 
 namespace Qurrah.Web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
+        #region Fields
+        private readonly LanguageService _localization;
+        private readonly IExceptionLogging _exceptionLogging;
+        private readonly IInfoLogging _infoLogging;
+        private readonly IMapper _mapper;
+        private readonly IUserAuthService _userAuthService;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
+        #endregion
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        #region Ctor
+        public LoginModel(SignInManager<ApplicationUser> signInManager, IExceptionLogging exceptionLogging
+                                                                      , IInfoLogging infoLogging, LanguageService localization
+                                                                      , IMapper mapper, IUserAuthService userAuthService)
         {
             _signInManager = signInManager;
-            _logger = logger;
+            _exceptionLogging = exceptionLogging;
+            _infoLogging = infoLogging;
+            _localization = localization;
+            _mapper = mapper;
+            _userAuthService = userAuthService;
         }
+        #endregion
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+        #region Properties
         [BindProperty]
-        public InputModel Input { get; set; }
+        public LoginRequestDTO LoginRequest { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string ReturnUrl { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string ErrorMessage { get; set; }
+        #endregion
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
-        {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required(ErrorMessage = "الحقل مطلوب")]
-            [EmailAddress(ErrorMessage = "يجب إدخال بريد إلكتروني صحيح")]
-            [DisplayName("البريد الإلكتروني")]
-            public string Email { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required(ErrorMessage = "الحقل مطلوب")]
-            [DataType(DataType.Password)]
-            [DisplayName("كلمة المرور")]
-            public string Password { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Display(Name = "تذكرني")]
-            public bool RememberMe { get; set; }
-        }
-
+        #region Actions
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
-            {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
-            }
 
             returnUrl ??= Url.Content("~/");
 
-            // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
-
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            if (ModelState.IsValid)
+            try
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "البريد الإلكتروني أو كلمة المرور غير صحيحة");
-                    return Page();
+                    var response = await _userAuthService.LoginAsync<APIResponse>(LoginRequest);
+                    if (response?.IsSuccess != true && response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        if (null != response.Errors?.FirstOrDefault()?.FirstOrDefault() && response.Errors.First().First().ToLower().Contains("username"))
+                            ModelState.AddModelError(string.Empty, _localization.GetLocalizedString("Messages.ErrorMessages.CredentialsNotCorrect"));
+                        else
+                            ModelState.AddModelError(string.Empty, _localization.GetLocalizedString("Validation.GeneralErrorMessage"));
+                    }
+                    else if (null == response || null == response.Result || (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError))
+                        HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                    else
+                    {
+                        var loginResult = JsonConvert.DeserializeObject<LoginResponse>(Convert.ToString(response.Result));
+                        var loginResponse = _mapper.Map<LoginResponseDTO>(loginResult);
+                        if (loginResponse.UserExists)
+                        {
+                            if (!string.IsNullOrWhiteSpace(loginResponse.Token))
+                            {
+                                /*
+                                JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+                                var securityToken = jwtSecurityTokenHandler.ReadJwtToken(loginResponse.Token);
+
+                                var identity = new ClaimsIdentity(new Claim[]
+                                                                    {
+                                                                    new Claim(ClaimTypes.Name, securityToken.Claims
+                                                                                                            .FirstOrDefault(t => t.Type == "unique_name").Value),
+                                                                    new Claim(ClaimTypes.Role, securityToken.Claims
+                                                                                                            .FirstOrDefault(t => t.Type == "role").Value)
+                                                                    }
+                                                                  , CookieAuthenticationDefaults.AuthenticationScheme);
+
+                                await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
+                                */
+                                await _signInManager.PasswordSignInAsync(LoginRequest.UserName, LoginRequest.Password, LoginRequest.RememberMe, lockoutOnFailure: false);
+                                HttpContext.Session.SetString(Constants.Session_AuthTokenName, loginResponse.Token);
+
+                                returnUrl ??= Url.Content("~/");
+                                return LocalRedirect(returnUrl);
+                            }
+                            else
+                                HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                        }
+                        else
+                            HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                    }
                 }
             }
-
-            // If we got this far, something failed, redisplay form
+            catch (Exception ex)
+            {
+                _exceptionLogging.Log(ex);
+            }
             return Page();
         }
+        #endregion
     }
 }

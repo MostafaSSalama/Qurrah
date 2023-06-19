@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Qurrah.Integration.ServiceWrappers;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
 using Qurrah.Integration.ServiceWrappers.Services;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
-using Qurrah.Models.Integration;
-using Qurrah.Models.Integration.DTOs.FAQType;
-using static Qurrah.Models.Integration.Constants;
+using static Qurrah.Integration.ServiceWrappers.Constants;
 
 namespace MagicVilla.Web.Services
 {

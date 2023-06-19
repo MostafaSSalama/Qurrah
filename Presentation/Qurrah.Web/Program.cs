@@ -14,6 +14,7 @@ using Qurrah.Data.Repository;
 using Qurrah.Data.Repository.IRepository;
 using Qurrah.Entities;
 using Qurrah.Integration.ServiceWrappers.Mapping;
+using Qurrah.Integration.ServiceWrappers.Services;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using Serilog;
 using System.Globalization;
@@ -108,6 +109,8 @@ var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddHttpClient<IFAQService, FAQService>();
         builder.Services.AddScoped<IFAQService, FAQService>();
+
+        builder.Services.AddScoped<IUserAuthService, UserAuthService>();
         #endregion
 
         builder.Services.AddHttpContextAccessor();

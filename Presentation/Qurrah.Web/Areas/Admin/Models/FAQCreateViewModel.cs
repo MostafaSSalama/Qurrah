@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Qurrah.Models.Integration.DTOs.FAQ;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 
 namespace Qurrah.Web.Areas.Admin.Models
 {

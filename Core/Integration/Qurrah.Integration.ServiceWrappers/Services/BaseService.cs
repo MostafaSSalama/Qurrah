@@ -1,8 +1,7 @@
 ﻿using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using Newtonsoft.Json;
 using System.Text;
-using Qurrah.Models.Integration;
-using static Qurrah.Models.Integration.Constants;
+using static Qurrah.Integration.ServiceWrappers.Constants;
 
 namespace Qurrah.Integration.ServiceWrappers.Services
 {

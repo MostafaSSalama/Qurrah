@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Qurrah.Entities.NotMapped;
+using Qurrah.Entities.NoMapping;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

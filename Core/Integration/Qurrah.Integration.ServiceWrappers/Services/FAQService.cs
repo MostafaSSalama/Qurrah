@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Qurrah.Integration.ServiceWrappers;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 using Qurrah.Integration.ServiceWrappers.Services;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
-using Qurrah.Models.Integration;
-using Qurrah.Models.Integration.DTOs.FAQ;
+using static Qurrah.Integration.ServiceWrappers.Constants;
 
 namespace MagicVilla.Web.Services
 {
@@ -24,7 +25,7 @@ namespace MagicVilla.Web.Services
         {
             return await SendAsync<T>(new APIRequest
             {
-                APIType = Constants.APIType.HTTPPost,
+                APIType = APIType.HTTPPost,
                 Data = faqCreateDTO,
                 URL = serviceURL
             });
@@ -34,7 +35,7 @@ namespace MagicVilla.Web.Services
         {
             return await SendAsync<T>(new APIRequest
             {
-                APIType = Constants.APIType.HTTPDelete,
+                APIType = APIType.HTTPDelete,
                 URL = $"{serviceURL}/{id}"
             });
         }
@@ -43,7 +44,7 @@ namespace MagicVilla.Web.Services
         {
             return await SendAsync<T>(new APIRequest
             {
-                APIType = Constants.APIType.HTTPGet,
+                APIType = APIType.HTTPGet,
                 URL = serviceURL
             });
         }
@@ -52,7 +53,7 @@ namespace MagicVilla.Web.Services
         {
             return await SendAsync<T>(new APIRequest
             {
-                APIType = Constants.APIType.HTTPGet,
+                APIType = APIType.HTTPGet,
                 URL = $"{serviceURL}/GetAllClassifiedByType"
             });
         }
@@ -61,7 +62,7 @@ namespace MagicVilla.Web.Services
         {
             return await SendAsync<T>(new APIRequest
             {
-                APIType = Constants.APIType.HTTPGet,
+                APIType = APIType.HTTPGet,
                 URL = $"{serviceURL}/{id}"
             });
         }
@@ -70,7 +71,7 @@ namespace MagicVilla.Web.Services
         {
             return await SendAsync<T>(new APIRequest
             {
-                APIType = Constants.APIType.HTTPPut,
+                APIType = APIType.HTTPPut,
                 Data = faqUpdateDTO,
                 URL = $"{serviceURL}"
             });

@@ -3,10 +3,9 @@ using Localization.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Qurrah.Business.Logging;
-using Qurrah.Business.Logging.Logger;
+using Qurrah.Integration.ServiceWrappers;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
-using Qurrah.Models.Integration;
-using Qurrah.Models.Integration.DTOs.FAQ;
 using System.Net;
 
 namespace Qurrah.Web.Areas.Public.Controllers

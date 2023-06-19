@@ -1,4 +1,7 @@
-﻿using Qurrah.Data.Repository.IRepository;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Qurrah.Data.Repository.IRepository;
+using Qurrah.Entities;
 
 namespace Qurrah.Data.Repository
 {
@@ -11,14 +14,18 @@ namespace Qurrah.Data.Repository
         #region Properties
         public FAQTypeRepository FAQType { get; private set; }
         public FAQRepository FAQ { get; private set; }
+        public ParentUserRepository ParentUser { get; private set; }
+        public CenterUserRepository CenterUser { get; private set; }
         #endregion
 
         #region Constructors
-        public UnitOfWork(QurrahDbContext dbContext)
+        public UnitOfWork(QurrahDbContext dbContext, UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _dbContext = dbContext;
             FAQType = new FAQTypeRepository(dbContext);
             FAQ = new FAQRepository(dbContext);
+            ParentUser = new ParentUserRepository(dbContext, userManager, configuration);
+            CenterUser = new CenterUserRepository(dbContext, userManager, configuration);
         }
         #endregion
 

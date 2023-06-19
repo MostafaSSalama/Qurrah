@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Qurrah.Entities;
-using Qurrah.Entities.NotMapped;
-using Qurrah.Models.Integration.DTOs.FAQ;
-using Qurrah.Models.Integration.DTOs.FAQType;
+using Qurrah.Entities.NoMapping;
+using Qurrah.Integration.ServiceWrappers.DTOs.Authentication;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
 
 namespace Qurrah.Integration.ServiceWrappers.Mapping
 {
@@ -21,6 +22,12 @@ namespace Qurrah.Integration.ServiceWrappers.Mapping
                 CreateMap<FAQ, FAQUpdateDTO>().ReverseMap();
 
                 CreateMap<FAQClassified, FAQClassifiedDTO>().ReverseMap();
+
+                CreateMap<LoginRequest, LoginRequestDTO>().ReverseMap();
+                CreateMap<LoginResponse, LoginResponseDTO>().ReverseMap();
+
+                CreateMap<ParentUserRegistrationRequest, ParentUserRegistrationRequestDTO>().ReverseMap();
+                CreateMap<RegistrationResponse, RegistrationResponseDTO>().ReverseMap();
             }
         }
     }

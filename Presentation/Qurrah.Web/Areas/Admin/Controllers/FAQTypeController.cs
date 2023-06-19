@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using Localization.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Qurrah.Business.Logging;
-using Qurrah.Business.Logging.Logger;
+using Qurrah.Integration.ServiceWrappers;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
-using Qurrah.Models.Integration;
-using Qurrah.Models.Integration.DTOs.FAQType;
 using System.Net;
 
 namespace Qurrah.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class FAQTypeController : Controller
     {
         #region Fields

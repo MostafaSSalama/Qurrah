@@ -6,15 +6,17 @@ using Newtonsoft.Json;
 using Qurrah.Business.Logging;
 using Qurrah.Business.Logging.Logger;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
-using Qurrah.Models.Integration;
-using Qurrah.Models.Integration.DTOs.FAQ;
-using Qurrah.Models.Integration.DTOs.FAQType;
 using Qurrah.Web.Areas.Admin.Models;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+using Qurrah.Integration.ServiceWrappers;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
 
 namespace Qurrah.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class FAQController : Controller
     {
         #region Fields

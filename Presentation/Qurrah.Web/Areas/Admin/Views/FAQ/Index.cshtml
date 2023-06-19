@@ -1,6 +1,6 @@
 ﻿@using Localization.Services;
+@using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 @inject LanguageService _localization
-@using Qurrah.Models.Integration.DTOs.FAQ;
 @model IEnumerable<FAQDTO>
 @{
     ViewData["Title"] = @_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQ");
