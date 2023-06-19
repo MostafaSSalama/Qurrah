@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Text;
 using static Qurrah.Integration.ServiceWrappers.Constants;
+using System.Net.Http.Headers;
 
 namespace Qurrah.Integration.ServiceWrappers.Services
 {
@@ -33,10 +34,13 @@ namespace Qurrah.Integration.ServiceWrappers.Services
 
                 //URL
                 requestMessage.RequestUri = new Uri(apiRequest.URL);
-                
+
                 //Headers
                 requestMessage.Headers.Add("Accept", "application/json");
-                
+
+                if (!string.IsNullOrWhiteSpace(apiRequest.AuthToken))
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.AuthToken);
+
                 //Data
                 if (null != apiRequest.Data)
                 {
@@ -49,11 +53,11 @@ namespace Qurrah.Integration.ServiceWrappers.Services
 
                 //2-Response
                 HttpResponseMessage responseMessage = await httpClient.SendAsync(requestMessage);
-                
+
                 //Deserialize response content
                 string responseContent = await responseMessage.Content.ReadAsStringAsync();
                 var responseContentDeserialized = JsonConvert.DeserializeObject<T>(responseContent);
-                
+
                 return responseContentDeserialized;
             }
             catch
@@ -69,7 +73,7 @@ namespace Qurrah.Integration.ServiceWrappers.Services
             switch (apiType)
             {
                 case APIType.HTTPPost:
-                     return HttpMethod.Post;
+                    return HttpMethod.Post;
                 case APIType.HTTPPut:
                     return HttpMethod.Put;
                 case APIType.HTTPDelete:
