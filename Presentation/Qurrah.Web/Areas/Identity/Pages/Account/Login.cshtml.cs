@@ -78,7 +78,7 @@ namespace Qurrah.Web.Areas.Identity.Pages.Account
                             ModelState.AddModelError(string.Empty, _localization.GetLocalizedString("Validation.GeneralErrorMessage"));
                     }
                     else if (null == response || null == response.Result || (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError))
-                        HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                        HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                     else
                     {
                         var loginResult = JsonConvert.DeserializeObject<LoginResponse>(Convert.ToString(response.Result));
@@ -109,10 +109,10 @@ namespace Qurrah.Web.Areas.Identity.Pages.Account
                                 return LocalRedirect(returnUrl);
                             }
                             else
-                                HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                                HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                         }
                         else
-                            HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                            HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                     }
                 }
             }

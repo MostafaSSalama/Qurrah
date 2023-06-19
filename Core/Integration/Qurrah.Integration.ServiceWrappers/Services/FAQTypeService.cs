@@ -21,50 +21,55 @@ namespace MagicVilla.Web.Services
         #endregion
 
         #region Methods
-        public async Task<T> CreateAsync<T>(FAQTypeCreateDTO faqTypeCreateDTO)
+        public async Task<T> CreateAsync<T>(FAQTypeCreateDTO faqTypeCreateDTO, string authToken)
         {
             return await SendAsync<T>(new APIRequest
             {
                 APIType = APIType.HTTPPost,
                 Data = faqTypeCreateDTO,
-                URL = serviceURL
+                URL = serviceURL,
+                AuthToken = authToken
             });
         }
 
-        public async Task<T> DeleteAsync<T>(int id)
+        public async Task<T> DeleteAsync<T>(int id, string authToken)
         {
             return await SendAsync<T>(new APIRequest
             {
                 APIType = APIType.HTTPDelete,
-                URL = $"{serviceURL}/{id}"
+                URL = $"{serviceURL}/{id}",
+                AuthToken = authToken
             });
         }
 
-        public async Task<T> GetAllAsync<T>()
+        public async Task<T> GetAllAsync<T>(string authToken)
         {
             return await SendAsync<T>(new APIRequest
             {
                 APIType = APIType.HTTPGet,
-                URL = serviceURL
+                URL = serviceURL,
+                AuthToken = authToken
             });
         }
 
-        public async Task<T> GetAsync<T>(int id)
+        public async Task<T> GetAsync<T>(int id, string authToken)
         {
             return await SendAsync<T>(new APIRequest
             {
                 APIType = APIType.HTTPGet,
-                URL = $"{serviceURL}/{id}"
+                URL = $"{serviceURL}/{id}",
+                AuthToken = authToken
             });
         }
 
-        public async Task<T> UpdateAsync<T>(FAQTypeUpdateDTO faqTypeUpdateDTO)
+        public async Task<T> UpdateAsync<T>(FAQTypeUpdateDTO faqTypeUpdateDTO, string authToken)
         {
             return await SendAsync<T>(new APIRequest
             {
                 APIType = APIType.HTTPPut,
                 Data = faqTypeUpdateDTO,
-                URL = $"{serviceURL}"
+                URL = $"{serviceURL}",
+                AuthToken = authToken
             });
         }
         #endregion

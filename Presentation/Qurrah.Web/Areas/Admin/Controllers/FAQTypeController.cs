@@ -22,6 +22,10 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         private readonly IMapper _mapper;
         #endregion
 
+        #region Properties
+        public string AuthTokenValue => HttpContext.Session.GetString(Constants.Session_AuthTokenName);
+        #endregion
+
         #region Ctor
         public FAQTypeController(IFAQTypeService faqTypeService, IMapper mapper, LanguageService localization, IExceptionLogging exceptionLogging)
         {
@@ -39,13 +43,13 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             IEnumerable<FAQTypeDTO> faqTypes = null;
             try
             {
-                var response = await _faqTypeService.GetAllAsync<APIResponse>();
+                var response = await _faqTypeService.GetAllAsync<APIResponse>(AuthTokenValue);
                 if (response?.IsSuccess == true && null != response.Result && response.StatusCode == HttpStatusCode.OK)
                     faqTypes = JsonConvert.DeserializeObject<IEnumerable<FAQTypeDTO>>(Convert.ToString(response.Result));
             }
             catch (Exception ex)
             {
-                HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                 _exceptionLogging.Log(ex);
             }
             return View(faqTypes ?? new List<FAQTypeDTO>());
@@ -56,7 +60,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         {
             try
             {
-                var response = await _faqTypeService.GetAsync<APIResponse>(id);
+                var response = await _faqTypeService.GetAsync<APIResponse>(id, AuthTokenValue);
                 if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.OK && null != response.Result)
                 {
                     var faqType = JsonConvert.DeserializeObject<FAQTypeDTO>(Convert.ToString(response.Result));
@@ -84,12 +88,12 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var response = await _faqTypeService.CreateAsync<APIResponse>(faqTypeCreateDTO);
+                    var response = await _faqTypeService.CreateAsync<APIResponse>(faqTypeCreateDTO, AuthTokenValue);
                     if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.Created)
                     {
                         var faqType = JsonConvert.DeserializeObject<FAQTypeDTO>(Convert.ToString(response.Result));
 
-                        HttpContext.Session.SetString("Success", _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
+                        HttpContext.Session.SetString(Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
                         return RedirectToAction("Index", new { id = faqType.Id });
                     }
                 }
@@ -106,7 +110,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         {
             try
             {
-                var response = await _faqTypeService.GetAsync<APIResponse>(id);
+                var response = await _faqTypeService.GetAsync<APIResponse>(id, AuthTokenValue);
                 if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.OK && null != response.Result)
                 {
                     var faqType = JsonConvert.DeserializeObject<FAQTypeUpdateDTO>(Convert.ToString(response.Result));
@@ -128,10 +132,10 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var response = await _faqTypeService.UpdateAsync<APIResponse>(faqTypeUpdateDTO);
+                    var response = await _faqTypeService.UpdateAsync<APIResponse>(faqTypeUpdateDTO, AuthTokenValue);
                     if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.NoContent)
                     {
-                        HttpContext.Session.SetString("Success", _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
+                        HttpContext.Session.SetString(Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
                         return RedirectToAction("View", new { id = faqTypeUpdateDTO.Id });
                     }
                 }
@@ -148,10 +152,10 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         {
             try
             {
-                var response = await _faqTypeService.DeleteAsync<APIResponse>(id);
+                var response = await _faqTypeService.DeleteAsync<APIResponse>(id, AuthTokenValue);
                 if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.NoContent)
                 {
-                    HttpContext.Session.SetString("Success", _localization.GetLocalizedString("Messages.SuccessMessages.DeleteGeneralSuccess"));
+                    HttpContext.Session.SetString(Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.DeleteGeneralSuccess"));
                     return Json(new { success = true });
                 }
             }
@@ -160,7 +164,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
                 _exceptionLogging.Log(ex);
             }
 
-            HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+            HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
             return Json(new { success = false });
         }
         #endregion

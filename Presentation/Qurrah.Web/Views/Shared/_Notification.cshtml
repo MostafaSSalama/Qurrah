@@ -1,7 +1,8 @@
-﻿@inject IHttpContextAccessor ctxAccessor
+﻿@using Qurrah.Integration.ServiceWrappers;
+@inject IHttpContextAccessor ctxAccessor
 @{
-    string successMessage = ctxAccessor.HttpContext.Session.GetString("Success");
-    string errorMessage = ctxAccessor.HttpContext.Session.GetString("Error");
+    string successMessage = ctxAccessor.HttpContext.Session.GetString(Constants.Session_Success);
+    string errorMessage = ctxAccessor.HttpContext.Session.GetString(Constants.Session_Error);
 
     @if (!string.IsNullOrWhiteSpace(successMessage) || !string.IsNullOrWhiteSpace(errorMessage))
     {
@@ -21,5 +22,6 @@
 
     }
     //Empty the session
-    ctxAccessor.HttpContext.Session.SetString("Success", string.Empty);
+    ctxAccessor.HttpContext.Session.SetString(Constants.Session_Success, string.Empty);
+    ctxAccessor.HttpContext.Session.SetString(Constants.Session_Error, string.Empty);
 }

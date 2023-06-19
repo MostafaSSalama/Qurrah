@@ -42,7 +42,7 @@ namespace Qurrah.Web.Areas.Public.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                 _exceptionLogging.Log(ex);
             }
             return View(faqsClassified ?? new List<FAQClassifiedDTO>());

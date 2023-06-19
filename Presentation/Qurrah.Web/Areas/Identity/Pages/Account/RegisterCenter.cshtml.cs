@@ -74,7 +74,7 @@ namespace Qurrah.Web.Areas.Identity.Pages.Account
                     }
                     else if (null == response || null == response.Result || (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError))
                     {
-                        HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                        HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                         return Page();
                     }
                     else
@@ -100,12 +100,12 @@ namespace Qurrah.Web.Areas.Identity.Pages.Account
                                 }
                             }
 
-                            HttpContext.Session.SetString("Success", _localization.GetLocalizedString("Messages.SuccessMessages.RegisterUserSuccess"));
+                            HttpContext.Session.SetString(Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.RegisterUserSuccess"));
 
                             return RedirectToAction("Index", "Home", new { area = "Public" });
                         }
                         else
-                            HttpContext.Session.SetString("Error", _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                            HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                     }
                 }
             }

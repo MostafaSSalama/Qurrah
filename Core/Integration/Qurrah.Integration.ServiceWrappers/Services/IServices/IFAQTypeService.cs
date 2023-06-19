@@ -5,10 +5,10 @@ namespace Qurrah.Integration.ServiceWrappers.Services.IServices
 {
     public interface IFAQTypeService
     {
-        Task<T> GetAllAsync<T>();
-        Task<T> GetAsync<T>(int id);
-        Task<T> CreateAsync<T>(FAQTypeCreateDTO faqTypeCreateDTO);
-        Task<T> UpdateAsync<T>(FAQTypeUpdateDTO faqTypeUpdateDTO);
-        Task<T> DeleteAsync<T>(int id);
+        Task<T> GetAllAsync<T>(string authToken);
+        Task<T> GetAsync<T>(int id, string authToken);
+        Task<T> CreateAsync<T>(FAQTypeCreateDTO faqTypeCreateDTO, string authToken);
+        Task<T> UpdateAsync<T>(FAQTypeUpdateDTO faqTypeUpdateDTO, string authToken);
+        Task<T> DeleteAsync<T>(int id, string authToken);
     }
 }
