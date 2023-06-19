@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.Bcak.DefaultValue" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Button.Cancel.DefaultValue" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Button.Create.DefaultValue" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Button.Delete.DefaultValue" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Button.Edit.DefaultValue" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Button.Login.DefaultValue" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Button.Submit.DefaultValue" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="FAQ.Create.AnswerAr" xml:space="preserve">
+    <value>Answer in Arabic</value>
+  </data>
+  <data name="FAQ.Create.AnswerEn" xml:space="preserve">
+    <value>Answer in English</value>
+  </data>
+  <data name="FAQ.Create.DisplayOrder" xml:space="preserve">
+    <value>Display Order</value>
+  </data>
+  <data name="FAQ.Create.FKTypeId" xml:space="preserve">
+    <value>FAQ Type</value>
+  </data>
+  <data name="FAQ.Create.HeaderTitle" xml:space="preserve">
+    <value>Add New FAQ</value>
+  </data>
+  <data name="FAQ.Create.QuestionAr" xml:space="preserve">
+    <value>Question in Arabic</value>
+  </data>
+  <data name="FAQ.Create.QuestionEn" xml:space="preserve">
+    <value>Question in English</value>
+  </data>
+  <data name="FAQ.Index.HeaderTitle" xml:space="preserve">
+    <value>FAQs</value>
+  </data>
+  <data name="FAQ.Index.Table.FAQTypeAr" xml:space="preserve">
+    <value>Type in Arabic</value>
+  </data>
+  <data name="FAQ.Index.Table.FAQTypeEn" xml:space="preserve">
+    <value>Type in English</value>
+  </data>
+  <data name="FAQ.Index.Table.QuestionAr" xml:space="preserve">
+    <value>Question in Arabic</value>
+  </data>
+  <data name="FAQ.Index.Table.QuestionEn" xml:space="preserve">
+    <value>Question in English</value>
+  </data>
+  <data name="FAQ.Update.HeaderTitle" xml:space="preserve">
+    <value>Edit FAQ</value>
+  </data>
+  <data name="FAQ.View.HeaderTitle" xml:space="preserve">
+    <value>Display FAQ</value>
+  </data>
+  <data name="FAQType.Create.DescriptionAr" xml:space="preserve">
+    <value>Description in Arabic</value>
+  </data>
+  <data name="FAQType.Create.DescriptionEn" xml:space="preserve">
+    <value>Description in English</value>
+  </data>
+  <data name="FAQType.Create.DisplayOrder" xml:space="preserve">
+    <value>Display Order</value>
+  </data>
+  <data name="FAQType.Create.HeaderTitle" xml:space="preserve">
+    <value>Add New FAQ Type</value>
+  </data>
+  <data name="FAQType.Create.NameAr" xml:space="preserve">
+    <value>Type in Arabic</value>
+  </data>
+  <data name="FAQType.Create.NameEn" xml:space="preserve">
+    <value>Type in English</value>
+  </data>
+  <data name="FAQType.Index.AddNewType" xml:space="preserve">
+    <value>Add New Type</value>
+  </data>
+  <data name="FAQType.Index.HeaderTitle" xml:space="preserve">
+    <value>FAQ Types</value>
+  </data>
+  <data name="FAQType.Index.Table.FAQTypeAr" xml:space="preserve">
+    <value>Type in Arabic</value>
+  </data>
+  <data name="FAQType.Index.Table.FAQTypeEn" xml:space="preserve">
+    <value>Type in English</value>
+  </data>
+  <data name="FAQType.Update.HeaderTitle" xml:space="preserve">
+    <value>Edit FAQ Type</value>
+    <comment>~~</comment>
+  </data>
+  <data name="FAQType.View.HeaderTitle" xml:space="preserve">
+    <value>Display FAQ Type</value>
+  </data>
+  <data name="Hints.MobileExample" xml:space="preserve">
+    <value>Example: 0123456789</value>
+  </data>
+  <data name="Identity.Buttons.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Identity.Buttons.Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Identity.Buttons.Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Identity.Buttons.RegisterCenter" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Identity.Buttons.RegisterParent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="Identity.Login.HeaderTitle" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Identity.Register.Buttons.Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Identity.Register.Center.HeaderTitle" xml:space="preserve">
+    <value>Register (Center)</value>
+  </data>
+  <data name="Identity.Register.Parent.HeaderTitle" xml:space="preserve">
+    <value>Register (Parent)</value>
+  </data>
+  <data name="Menu.TopMenu.Admin.FAQ" xml:space="preserve">
+    <value>FAQs</value>
+  </data>
+  <data name="Menu.TopMenu.Admin.FAQType" xml:space="preserve">
+    <value>FAQ Types</value>
+  </data>
+  <data name="Menu.TopMenu.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Menu.TopMenu.Public.FAQ" xml:space="preserve">
+    <value>FAQs</value>
+  </data>
+  <data name="Messages.ErrorMessages.CredentialsNotCorrect" xml:space="preserve">
+    <value>Username or Password is incorrect</value>
+  </data>
+  <data name="Messages.ErrorMessages.DeleteGeneralError" xml:space="preserve">
+    <value>An error occured while deleting!</value>
+  </data>
+  <data name="Messages.ErrorMessages.GeneralError" xml:space="preserve">
+    <value>Sorry, an error has occured</value>
+  </data>
+  <data name="Messages.ErrorMessages.LoadGeneralError" xml:space="preserve">
+    <value>An error occured while loading FAQ Types</value>
+  </data>
+  <data name="Messages.ErrorMessages.UserAlreadyExists" xml:space="preserve">
+    <value>Username or Email already exists</value>
+  </data>
+  <data name="Messages.SuccessMessages.DeleteGeneralSuccess" xml:space="preserve">
+    <value>Deleted successfully</value>
+  </data>
+  <data name="Messages.SuccessMessages.RegisterUserSuccess" xml:space="preserve">
+    <value>User has been registered successfully</value>
+  </data>
+  <data name="Messages.SuccessMessages.SaveGeneralSuccess" xml:space="preserve">
+    <value>Data has been saved successfully</value>
+  </data>
+  <data name="Messages.Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Page.Title.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Public.FAQ.Index.HeaderTitle" xml:space="preserve">
+    <value>FAQs</value>
+  </data>
+  <data name="Qurrah" xml:space="preserve">
+    <value>Qurrah</value>
+  </data>
+  <data name="Registration.CenterUser.CenterName" xml:space="preserve">
+    <value>Center Name</value>
+  </data>
+  <data name="Registration.Login.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Registration.Login.RememberMe" xml:space="preserve">
+    <value>Remember Me</value>
+  </data>
+  <data name="Registration.Login.UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Registration.Login.UserNameOrEmail" xml:space="preserve">
+    <value>Username or Email</value>
+  </data>
+  <data name="Registration.ParentUser.ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Registration.ParentUser.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Registration.ParentUser.FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Registration.ParentUser.FourthName" xml:space="preserve">
+    <value>Family Name</value>
+  </data>
+  <data name="Registration.ParentUser.Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Registration.ParentUser.IdNumber" xml:space="preserve">
+    <value>Id Number</value>
+  </data>
+  <data name="Registration.ParentUser.MobileNumber" xml:space="preserve">
+    <value>Mobile Number</value>
+  </data>
+  <data name="Registration.ParentUser.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Registration.ParentUser.PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="Registration.ParentUser.SecondName" xml:space="preserve">
+    <value>Second Name</value>
+  </data>
+  <data name="Registration.ParentUser.ThirdName" xml:space="preserve">
+    <value>Third Name</value>
+  </data>
+  <data name="Registration.ParentUser.UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="SweetAlert.CancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SweetAlert.ConfirmButtonText" xml:space="preserve">
+    <value>Yes, delete it!</value>
+  </data>
+  <data name="SweetAlert.Description" xml:space="preserve">
+    <value>You won't be able to revert this!</value>
+  </data>
+  <data name="SweetAlert.Question" xml:space="preserve">
+    <value>Are you sure you want to delete?</value>
+  </data>
+  <data name="Validation.Compare.NotMatchedPassword" xml:space="preserve">
+    <value>Password is not matching </value>
+  </data>
+  <data name="Validation.GeneralErrorMessage" xml:space="preserve">
+    <value>Please review your inputs</value>
+  </data>
+  <data name="Validation.Range.OneToThousandErrorMessage" xml:space="preserve">
+    <value>Field value must be between 1 and 1000</value>
+  </data>
+  <data name="Validation.RegularExpression.10Digits" xml:space="preserve">
+    <value>Please enter 10 digits only </value>
+  </data>
+  <data name="Validation.Required.GeneralErrorMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="Validation.StringLength.150" xml:space="preserve">
+    <value>This field exceeds the maximum length allowed (150)</value>
+  </data>
+  <data name="Validation.StringLength.GeneralErrorMessage" xml:space="preserve">
+    <value>This field exceeds the maximum length allowed</value>
+  </data>
+</root>

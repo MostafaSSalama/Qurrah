@@ -1,0 +1,68 @@
+﻿@using Localization.Services;
+@using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+@inject LanguageService _localization
+@model IEnumerable<FAQDTO>
+@{
+    ViewData["Title"] = @_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQ");
+}
+
+<div class="container p-3 p-4 mt-4">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>
+                @_localization.GetLocalizedString("FAQ.Index.HeaderTitle")
+            </h1>
+        </div>
+
+        <div class="col-6 @(_localization.CurrentLanguage == SupportedLanguage.Arabic ? "text-start" : "text-end")">
+            <a asp-controller="FAQ" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> @_localization.GetLocalizedString("Button.Create.DefaultValue")
+            </a>
+        </div>
+        <hr />
+    </div>
+
+    <div class="row pt-4"></div>
+    <table id="tblData" class="table table-striped align-middle pt-5 w-100">
+        <thead>
+            <tr>
+                <th>@_localization.GetLocalizedString("FAQ.Index.Table.QuestionAr")</th>
+                <th>@_localization.GetLocalizedString("FAQ.Index.Table.QuestionEn")</th>
+                <th>@_localization.GetLocalizedString("FAQ.Index.Table.FAQTypeAr")</th>
+                <th>@_localization.GetLocalizedString("FAQ.Index.Table.FAQTypeEn")</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var faq in Model)
+            {
+                <tr>
+                    <td>@faq.QuestionAr</td>
+                    <td>@faq.QuestionEn</td>
+                    <td>@faq.FAQType.NameAr</td>
+                    <td>@faq.FAQType.NameEn</td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a asp-action="View" asp-route-id="@faq.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-zoom-in"></i>
+                            </a>
+                            <a asp-action="Update" asp-route-id="@faq.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a class="btn btn-danger mx-2" onclick='return deleteType(@faq.Id, `@_localization.GetLocalizedString("SweetAlert.Question")`
+                                                                                             , `@_localization.GetLocalizedString("SweetAlert.Description")`
+                                                                                             , `@_localization.GetLocalizedString("SweetAlert.ConfirmButtonText")`
+                                                                                             , `@_localization.GetLocalizedString("SweetAlert.CancelButtonText")` )'>
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/admin/faq/index.js"></script>
+}

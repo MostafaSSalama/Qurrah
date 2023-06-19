@@ -3,19 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Web", "Qurrah.Web\Qurrah.Web.csproj", "{38EE5026-9884-41C9-8179-1A09FE41DE0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Web", "Presentation\Qurrah.Web\Qurrah.Web.csproj", "{38EE5026-9884-41C9-8179-1A09FE41DE0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Entities", "Qurrah.Entities\Qurrah.Entities.csproj", "{A47DD2A4-3405-4F28-B16D-48B3EA15C68F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Entities", "Core\Data\Qurrah.Entities\Qurrah.Entities.csproj", "{A47DD2A4-3405-4F28-B16D-48B3EA15C68F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Data", "Qurrah.Data\Qurrah.Data.csproj", "{A12CC969-7F86-4AD7-950E-E12622DBBB27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Data", "Core\Data\Qurrah.Data\Qurrah.Data.csproj", "{A12CC969-7F86-4AD7-950E-E12622DBBB27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Web.APIs", "Qurrah.Web.APIs\Qurrah.Web.APIs.csproj", "{1648C83F-6543-4A93-89E9-165E42035EC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Web.APIs", "APIs\Qurrah.Web.APIs\Qurrah.Web.APIs.csproj", "{1648C83F-6543-4A93-89E9-165E42035EC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Business", "Qurrah.Business\Qurrah.Business.csproj", "{4891A969-410C-40E0-B7BE-BECBC39A8A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Business", "Core\Business\Qurrah.Business\Qurrah.Business.csproj", "{4891A969-410C-40E0-B7BE-BECBC39A8A85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qurrah.Integration.ServiceWrappers", "Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj", "{823B866D-9830-4D87-B3E6-309A7874B8E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Integration.ServiceWrappers", "Core\Integration\Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj", "{823B866D-9830-4D87-B3E6-309A7874B8E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qurrah.Models", "Qurrah.Models\Qurrah.Models.csproj", "{27F1D038-A88A-4359-AEAA-0F8B9DD7AE35}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{3FE40196-F587-4F59-8B6C-450D676E4CCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{969D0052-E06D-4DA1-A918-F0F7473AE443}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{D619EBA3-1F22-41A6-BE7D-2F3D170C3E3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4BD63A88-F4D6-4EC8-9E63-10A840019334}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{FD3D99CA-B7D2-44E5-858E-649114963777}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8ABEE06B-EF44-4736-BDC5-7925B81BB7A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qurrah.Utilities", "Qurrah.Utilities\Qurrah.Utilities.csproj", "{7FE82D79-62DF-4B7B-B7E4-D303D9B56D29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,13 +59,25 @@ Global
 		{823B866D-9830-4D87-B3E6-309A7874B8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{823B866D-9830-4D87-B3E6-309A7874B8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{823B866D-9830-4D87-B3E6-309A7874B8E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27F1D038-A88A-4359-AEAA-0F8B9DD7AE35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27F1D038-A88A-4359-AEAA-0F8B9DD7AE35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27F1D038-A88A-4359-AEAA-0F8B9DD7AE35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27F1D038-A88A-4359-AEAA-0F8B9DD7AE35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FE82D79-62DF-4B7B-B7E4-D303D9B56D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FE82D79-62DF-4B7B-B7E4-D303D9B56D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FE82D79-62DF-4B7B-B7E4-D303D9B56D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FE82D79-62DF-4B7B-B7E4-D303D9B56D29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{38EE5026-9884-41C9-8179-1A09FE41DE0F} = {8ABEE06B-EF44-4736-BDC5-7925B81BB7A9}
+		{A47DD2A4-3405-4F28-B16D-48B3EA15C68F} = {4BD63A88-F4D6-4EC8-9E63-10A840019334}
+		{A12CC969-7F86-4AD7-950E-E12622DBBB27} = {4BD63A88-F4D6-4EC8-9E63-10A840019334}
+		{1648C83F-6543-4A93-89E9-165E42035EC3} = {3FE40196-F587-4F59-8B6C-450D676E4CCC}
+		{4891A969-410C-40E0-B7BE-BECBC39A8A85} = {D619EBA3-1F22-41A6-BE7D-2F3D170C3E3C}
+		{823B866D-9830-4D87-B3E6-309A7874B8E1} = {FD3D99CA-B7D2-44E5-858E-649114963777}
+		{D619EBA3-1F22-41A6-BE7D-2F3D170C3E3C} = {969D0052-E06D-4DA1-A918-F0F7473AE443}
+		{4BD63A88-F4D6-4EC8-9E63-10A840019334} = {969D0052-E06D-4DA1-A918-F0F7473AE443}
+		{FD3D99CA-B7D2-44E5-858E-649114963777} = {969D0052-E06D-4DA1-A918-F0F7473AE443}
+		{7FE82D79-62DF-4B7B-B7E4-D303D9B56D29} = {D619EBA3-1F22-41A6-BE7D-2F3D170C3E3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89F7A115-CEDF-4A5D-860F-609FB5B5EB67}

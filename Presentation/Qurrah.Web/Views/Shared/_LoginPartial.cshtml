@@ -1,0 +1,34 @@
+﻿@using Localization.Services;
+@using Microsoft.AspNetCore.Identity
+@using Qurrah.Entities;
+
+@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager
+@inject LanguageService _localization
+
+
+@if (_signInManager.IsSignedIn(User))
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold px-2 text-body" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@_localization.GetLocalizedString("Messages.Welcome") @_userManager.GetUserName(User)</a>
+        <div class="dropdown-menu">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link px-2 text-body">@_localization.GetLocalizedString("Identity.Buttons.Logout")</button>
+            </form>
+        </div>
+    </li>
+}
+else
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold px-2 text-body" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@_localization.GetLocalizedString("Identity.Buttons.Register")</a>
+        <div class="dropdown-menu">
+            <a asp-area="Identity" asp-page="/Account/Register" class="nav-link px-2 text-body" id="register">@_localization.GetLocalizedString("Identity.Buttons.RegisterParent")</a>
+            <div class="dropdown-divider"></div>
+            <a asp-area="Identity" asp-page="/Account/RegisterCenter" class="nav-link px-2 text-body" id="registerCenter">@_localization.GetLocalizedString("Identity.Buttons.RegisterCenter")</a>
+        </div>
+    </li>
+    <li class="nav-item fw-bold">
+        <a class="nav-link px-2 text-body" id="login" asp-area="Identity" asp-page="/Account/Login">@_localization.GetLocalizedString("Identity.Buttons.Login")</a>
+    </li>
+}

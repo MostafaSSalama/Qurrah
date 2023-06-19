@@ -1,0 +1,71 @@
+﻿@using Localization.Services;
+@using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
+@inject LanguageService _localization
+@model FAQTypeDTO
+
+@{
+    ViewData["Title"] = @_localization.GetLocalizedString("FAQType.View.HeaderTitle");
+}
+
+<form method="post" asp-action="UpdatePost">
+    <div class="container p-3 p-4 mt-4">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h1>
+                    @_localization.GetLocalizedString("FAQType.View.HeaderTitle")
+                </h1>
+            </div>
+
+            <div class="col-6 @(_localization.CurrentLanguage == SupportedLanguage.Arabic ? "text-start" : "text-end")">
+                <a asp-controller="FAQType" asp-action="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> @_localization.GetLocalizedString("Button.Create.DefaultValue")
+                </a>
+            </div>
+            <hr />
+        </div>
+        <div class="row pt-4"></div>
+
+        <div class="row mb-3">
+            <strong class="mb-2"><label asp-for="NameAr"></label></strong>
+            <input asp-for="NameAr" class="form-control" disabled />
+        </div>
+
+        <div class="row mb-3">
+            <strong class="mb-2"><label asp-for="DescriptionAr"></label></strong>
+            <textarea asp-for="DescriptionAr" class="form-control" rows="5" disabled></textarea>
+        </div>
+
+        <div class="row mb-3">
+            <strong class="mb-2"><label asp-for="NameEn"></label></strong>
+            <input asp-for="NameEn" class="form-control" disabled />
+        </div>
+
+        <div class="row mb-3">
+            <strong class="mb-2"><label asp-for="DescriptionEn"></label></strong>
+            <textarea asp-for="DescriptionEn" class="form-control" rows="5" disabled></textarea>
+        </div>
+
+        <div class="row mb-3">
+            <strong class="mb-2"><label asp-for="DisplayOrder"></label></strong>
+            <input asp-for="DisplayOrder" class="form-control" disabled />
+        </div>
+
+        <div class="">
+            <a class="btn btn-primary" asp-action="Index" style="width:150px">
+                @_localization.GetLocalizedString("Button.Bcak.DefaultValue")
+            </a>
+            <a class="btn btn-primary" asp-action="Update" asp-route-id="@Model.Id" style="width:150px">
+                @_localization.GetLocalizedString("Button.Edit.DefaultValue")
+            </a>
+            <a class="btn btn-danger" style="width:150px" onclick='return deleteType(@Model.Id, `@_localization.GetLocalizedString("SweetAlert.Question")`
+                                                                                              , `@_localization.GetLocalizedString("SweetAlert.Description")`
+                                                                                              , `@_localization.GetLocalizedString("SweetAlert.ConfirmButtonText")`
+                                                                                              , `@_localization.GetLocalizedString("SweetAlert.CancelButtonText")` )'>
+                @_localization.GetLocalizedString("Button.Delete.DefaultValue")
+            </a>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/js/admin/faqtype/index.js"></script>
+}

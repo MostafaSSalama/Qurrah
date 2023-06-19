@@ -1,0 +1,139 @@
+﻿@page
+@using Localization.Services;
+@inject LanguageService _localization
+@model RegisterCenter
+@{
+    ViewData["Title"] = @_localization.GetLocalizedString("Identity.Register.Center.HeaderTitle");
+}
+
+<section class="container mt-5">
+    <div class="p-3">
+        <form id="registerForm" method="post">
+            <h2>@ViewData["Title"]</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterName" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.CenterName" />
+                        <label asp-for="RegistrationRequest.CenterName"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.Email" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.Email" />
+                        <label asp-for="RegistrationRequest.CenterOwner.Email"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.UserName" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.UserName" />
+                        <label asp-for="RegistrationRequest.CenterOwner.UserName"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.UserName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.IdNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.IdNumber" />
+                        <label asp-for="RegistrationRequest.CenterOwner.IdNumber"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.IdNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.FirstName" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.FirstName" />
+                        <label asp-for="RegistrationRequest.CenterOwner.FirstName"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.SecondName" class="form-control" placeholder="Model.RegistrationRequest.SecondName" />
+                        <label asp-for="RegistrationRequest.CenterOwner.SecondName"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.SecondName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.ThirdName" class="form-control" placeholder="Model.RegistrationRequest.ThirdName" />
+                        <label asp-for="RegistrationRequest.CenterOwner.ThirdName"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.ThirdName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.FourthName" class="form-control" placeholder="Model.RegistrationRequest.FourthName" />
+                        <label asp-for="RegistrationRequest.CenterOwner.FourthName"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.FourthName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.MobileNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.MobileNumber" />
+                        <label asp-for="RegistrationRequest.CenterOwner.MobileNumber"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.MobileNumber" class="text-danger"></span>
+                        <small class="text-muted">@_localization.GetLocalizedString("Hints.MobileExample")</small>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.PhoneNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.PhoneNumber" />
+                        <label asp-for="RegistrationRequest.CenterOwner.PhoneNumber"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.PhoneNumber" class="text-danger"></span>
+                        <small class="text-muted">@_localization.GetLocalizedString("Hints.MobileExample")</small>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Model.RegistrationRequest.Password" />
+                        <label asp-for="RegistrationRequest.CenterOwner.Password"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.CenterOwner.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Model.RegistrationRequest.ConfirmPassword" />
+                        <label asp-for="RegistrationRequest.CenterOwner.ConfirmPassword"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <select asp-for="RegistrationRequest.CenterOwner.FKGenderId"
+                                asp-items="Model.Genders"
+                                class="form-select"
+                                aria-required="true">
+                            <option></option>
+                        </select>
+                        <label asp-for="RegistrationRequest.CenterOwner.FKGenderId"></label>
+                        <span asp-validation-for="RegistrationRequest.CenterOwner.FKGenderId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4"></div>
+
+            <button id="registerSubmit" type="submit" class="btn btn-primary" style="width:24.25%">@_localization.GetLocalizedString("Identity.Register.Buttons.Register")</button>
+            <a class="btn btn-secondary" asp-area="Public" asp-controller="Home" asp-action="Index" style="width:24.25%">@_localization.GetLocalizedString("Button.Cancel.DefaultValue")</a>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
