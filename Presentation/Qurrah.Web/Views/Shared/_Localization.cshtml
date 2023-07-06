@@ -1,14 +1,19 @@
-﻿<div class="dropdown text-end">
-    @if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "ar-sa")
-    {
-        <a class="nav-link px-2" asp-area="Public" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">
-            English
+﻿@using Qurrah.Integration.ServiceWrappers.DTOs.Localization;
+@model List<LocaleInfo>
+<li class="nav-item dropdown">
+    @{
+        string currentCulture = Thread.CurrentThread.CurrentUICulture.Name.ToLower();
+        var localesWithoutCurrent = Model.Where(l => l.LanguageCulture.ToLower().Trim() != currentCulture);
+        string currentLocalesName = Model.SingleOrDefault(l => l.LanguageCulture.ToLower().Trim() == currentCulture)?.Description;
+
+        <a class="nav-link dropdown-toggle fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            @currentLocalesName
         </a>
+        <div class="dropdown-menu">
+            @foreach (var locale in localesWithoutCurrent)
+            {
+                <a asp-area="Public" asp-controller="Home" asp-action="ChangeLanguage" class="nav-link px-2 text-body" asp-route-culture="@locale.LanguageCulture">@locale.Description</a>
+            }
+        </div>
     }
-    else
-    {
-        <a class="nav-link px-2" asp-area="Public" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="ar-SA">
-            العربية
-        </a>
-    }
-</div>
+</li>

@@ -1,7 +1,7 @@
-﻿@using Localization.Services;
+﻿@using Qurrah.Business.Localization;
 @using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 @inject LanguageService _localization
-@model IEnumerable<FAQDTO>
+@model IEnumerable<FAQ>
 @{
     ViewData["Title"] = @_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQ");
 }
@@ -26,10 +26,8 @@
     <table id="tblData" class="table table-striped align-middle pt-5 w-100">
         <thead>
             <tr>
-                <th>@_localization.GetLocalizedString("FAQ.Index.Table.QuestionAr")</th>
-                <th>@_localization.GetLocalizedString("FAQ.Index.Table.QuestionEn")</th>
-                <th>@_localization.GetLocalizedString("FAQ.Index.Table.FAQTypeAr")</th>
-                <th>@_localization.GetLocalizedString("FAQ.Index.Table.FAQTypeEn")</th>
+                <th>@_localization.GetLocalizedString("FAQ.Index.Table.Question")</th>
+                <th>@_localization.GetLocalizedString("FAQ.Index.Table.FAQType")</th>
                 <th></th>
             </tr>
         </thead>
@@ -37,10 +35,8 @@
             @foreach (var faq in Model)
             {
                 <tr>
-                    <td>@faq.QuestionAr</td>
-                    <td>@faq.QuestionEn</td>
-                    <td>@faq.FAQType.NameAr</td>
-                    <td>@faq.FAQType.NameEn</td>
+                    <td>@faq.Question</td>
+                    <td>@faq.FAQType.Name</td>
                     <td>
                         <div class="d-flex justify-content-center">
                             <a asp-action="View" asp-route-id="@faq.Id" class="btn btn-primary mx-2">

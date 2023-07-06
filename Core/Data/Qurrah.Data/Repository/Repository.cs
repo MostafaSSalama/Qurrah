@@ -45,7 +45,7 @@ namespace Qurrah.Data.Repository
             var entity = await query.FirstOrDefaultAsync(filter);
             return entity;
         }
-        public async Task<IEnumerable<T>> GetAllAsync(string includedProperties = null)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(string includedProperties = null)
         {
             var query = IncludeProperties(includedProperties);
             var entities = await query.ToListAsync();
@@ -59,7 +59,7 @@ namespace Qurrah.Data.Repository
         }
         public async Task AddAsync(T entity)
         {
-            _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity);
         }
         public virtual void Update(T entity)
         {
@@ -75,7 +75,7 @@ namespace Qurrah.Data.Repository
             _dbSet.RemoveRange(entities);
         }
 
-        private IQueryable<T> IncludeProperties(string includedProperties)
+        protected IQueryable<T> IncludeProperties(string includedProperties)
         {
             IQueryable<T> query = _dbSet;
             if (!string.IsNullOrWhiteSpace(includedProperties))

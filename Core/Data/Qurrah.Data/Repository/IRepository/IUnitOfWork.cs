@@ -6,6 +6,7 @@
         FAQRepository FAQ { get; }
         ParentUserRepository ParentUser { get; }
         CenterUserRepository CenterUser { get; }
+        LanguageDescriptionRepository LanguageDescription { get; }
         Task SaveAsync();
     }
 }

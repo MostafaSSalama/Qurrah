@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel;
 
-namespace Qurrah.Entities.NoMapping
+namespace Qurrah.Entities
 {
-    public enum GenderId : byte
+    public enum GenderId : int
     {
-        [Description("ذكر")]
         Male = 1,
-        [Description("أنثى")]
         Female = 2
     }
 }

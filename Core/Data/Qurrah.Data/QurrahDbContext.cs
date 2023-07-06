@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Qurrah.Entities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using Qurrah.Entities.NoMapping;
 
 namespace Qurrah.Data
 {
@@ -18,29 +16,211 @@ namespace Qurrah.Data
 
         #region DbSets
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<UserType> UserType { get; set; }
-        public DbSet<ParentUser> ParentUser { get; set; }
-        public DbSet<CenterOwnerUser> CenterOwnerUser { get; set; }
         public DbSet<Center> Center { get; set; }
-        public DbSet<Gender> Gender { get; set; }
+        public DbSet<CenterOwnerUser> CenterOwnerUser { get; set; }
         public DbSet<FAQ> FAQ { get; set; }
         public DbSet<FAQType> FAQType { get; set; }
+        public DbSet<Gender> Gender { get; set; }
+        public DbSet<GenderDescription> GenderDescription { get; set; }
+        public DbSet<Language> Language { get; set; }
+        public DbSet<LanguageDescription> LanguageDescription { get; set; }
+        public DbSet<LocalizedProperty> LocalizedProperty { get; set; }
+        public DbSet<ParentUser> ParentUser { get; set; }
+        public DbSet<UserType> UserType { get; set; }
         #endregion
 
         #region OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region FAQ
+            #region Language/Gender
+            modelBuilder.Entity<Gender>()
+                       .HasIndex(l => l.Name)
+                       .IsUnique();
+
+            modelBuilder.Entity<Gender>()
+                        .HasData(Enum.GetValues(typeof(GenderId))
+                                     .Cast<GenderId>()
+                                     .Select(e => new Gender()
+                                     {
+                                         Id = e,
+                                         Name = e.ToString()
+                                     }));
+
+            modelBuilder.Entity<Language>()
+                        .HasIndex(l => l.LanguageCulture)
+                        .IsUnique();
+
+            modelBuilder.Entity<Language>()
+                        .HasData(new List<Language>{
+                                     new Language()
+                                     {
+                                         Id = LanguageId.Arabic,
+                                         Name = LanguageId.Arabic.ToString(),
+                                         DisplayOrder = 1,
+                                         LanguageCulture = "ar-SA",
+                                         Published = true,
+                                         RTL = true
+                                     },
+                                     new Language()
+                                     {
+                                         Id = LanguageId.English,
+                                         Name = LanguageId.English.ToString(),
+                                         DisplayOrder = 2,
+                                         LanguageCulture = "en-US",
+                                         Published = true,
+                                         RTL = false
+                                     }
+                              });
+            #endregion
+
+            #region GenderDescription
+            modelBuilder.Entity<GenderDescription>()
+                        .Property(e => e.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<GenderDescription>()
+                        .Property(e => e.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<GenderDescription>()
+                        .HasOne(g => g.Gender)
+                        .WithMany(gd => gd.GenderDescriptions)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GenderDescription>()
+                        .HasOne(g => g.Language)
+                        .WithMany(l => l.GenderDescriptions)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GenderDescription>()
+                        .HasIndex(l => new
+                        {
+                            l.FKLanguageId,
+                            l.FKGenderId
+                        })
+                        .IsUnique();
+
+            modelBuilder.Entity<GenderDescription>().HasData(new List<GenderDescription>
+            {
+                new GenderDescription
+                {
+                    Id = 1,
+                    FKGenderId = GenderId.Male,
+                    FKLanguageId = LanguageId.Arabic,
+                    Description = "ذكر"
+                },
+                new GenderDescription
+                {
+                    Id = 2,
+                    FKGenderId = GenderId.Male,
+                    FKLanguageId = LanguageId.English,
+                    Description = "Male"
+                },
+                new GenderDescription
+                {
+                    Id = 3,
+                    FKGenderId = GenderId.Female,
+                    FKLanguageId = LanguageId.Arabic,
+                    Description = "أنثى"
+                },
+                new GenderDescription
+                {
+                    Id = 4,
+                    FKGenderId = GenderId.Female,
+                    FKLanguageId = LanguageId.English,
+                    Description = "Female"
+                }
+            });
+            #endregion
+
+            #region LanguageDescription
+            modelBuilder.Entity<LanguageDescription>()
+                        .Property(e => e.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<LanguageDescription>()
+                        .HasOne(ld => ld.Language)
+                        .WithMany(l => l.LanguageDescriptions)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<LanguageDescription>()
+                        .HasIndex(l => new
+                        {
+                            l.FKLanguageId,
+                            l.FKInLanguageId
+                        })
+                        .IsUnique();
+
+            modelBuilder.Entity<LanguageDescription>()
+                        .HasData(new List<LanguageDescription>
+                        {
+                            new LanguageDescription
+                            {
+                                Id = 1,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKInLanguageId = LanguageId.Arabic,
+                                Description = "العربية"
+                            },
+                            new LanguageDescription
+                            {
+                                Id = 2,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKInLanguageId = LanguageId.English,
+                                Description = "Arabic"
+                            },
+                            new LanguageDescription
+                            {
+                                Id = 3,
+                                FKLanguageId = LanguageId.English,
+                                FKInLanguageId = LanguageId.Arabic,
+                                Description = "الإنجليزية"
+                            },
+                            new LanguageDescription
+                            {
+                                Id = 4,
+                                FKLanguageId = LanguageId.English,
+                                FKInLanguageId = LanguageId.English,
+                                Description = "English"
+                            }
+                        });
+            #endregion
+
+            #region LocalizedProperty
+            modelBuilder.Entity<LocalizedProperty>()
+                        .Property(e => e.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<LocalizedProperty>()
+                        .HasOne(l => l.Language)
+                        .WithMany(l => l.LocalizedProperties)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<LocalizedProperty>()
+                        .HasIndex(l => l.LocaleKeyGroup);
+
+            modelBuilder.Entity<LocalizedProperty>()
+                        .HasIndex(l => new
+                        {
+                            l.LocaleKeyGroup,
+                            l.LocaleKey,
+                            l.LocaleValue,
+                            l.FKLanguageId,
+                            l.EntityId
+                        })
+                        .IsUnique();
+            #endregion
+
+            #region FAQ/FAQType
             modelBuilder.Entity<FAQ>()
                         .HasOne(u => u.FAQType)
                         .WithMany(t => t.FAQs)
                         .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
-            #region ApplicationUser
+            #region ApplicationUser/UserType
             modelBuilder.Entity<ApplicationUser>()
                         .Property(e => e.FKUserTypeId)
-                        .HasConversion<byte>();
+                        .HasConversion<int>();
 
             modelBuilder.Entity<UserType>().HasData(Enum.GetValues(typeof(UserTypeId))
                                                         .Cast<UserTypeId>()
@@ -60,15 +240,7 @@ namespace Qurrah.Data
             #region ParentUser
             modelBuilder.Entity<ParentUser>()
                         .Property(e => e.FKGenderId)
-                        .HasConversion<byte>();
-
-            modelBuilder.Entity<Gender>().HasData(Enum.GetValues(typeof(GenderId))
-                                                      .Cast<GenderId>()
-                                                      .Select(e => new Gender()
-                                                      {
-                                                          Id = e,
-                                                          Name = e.ToString()
-                                                      }));
+                        .HasConversion<int>();
 
             modelBuilder.Entity<ParentUser>()
                         .HasOne(u => u.Gender)
@@ -76,23 +248,16 @@ namespace Qurrah.Data
                         .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ParentUser>()
-                        .HasIndex(u => u.FKUserId)
-                        .IsUnique();
-
-            modelBuilder.Entity<ParentUser>()
-                        .HasOne("ApplicationUser")
+                        .HasOne(d => d.ApplicationUser)
                         .WithMany()
                         .OnDelete(DeleteBehavior.Restrict);
-            #endregion
 
-            #region CenterOwnerUser
-            modelBuilder.Entity<CenterOwnerUser>()
+            modelBuilder.Entity<ParentUser>()
                         .HasIndex(u => u.FKUserId)
                         .IsUnique();
-            modelBuilder.Entity<Center>()
-                        .HasIndex(u => u.Name)
-                        .IsUnique();
+            #endregion
 
+            #region Center/CenterOwnerUser
             modelBuilder.Entity<CenterOwnerUser>()
                         .HasOne("Center")
                         .WithMany()
@@ -102,13 +267,21 @@ namespace Qurrah.Data
                         .HasOne("ApplicationUser")
                         .WithMany()
                         .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CenterOwnerUser>()
+                        .HasIndex(u => u.FKUserId)
+                        .IsUnique();
+
+            modelBuilder.Entity<Center>()
+                        .HasIndex(u => u.Name)
+                        .IsUnique();
             #endregion
 
             #region Roles/Users
             //Add roles except Admin/Center role
             modelBuilder.Entity<IdentityRole>().HasData(Enum.GetValues(typeof(Role))
                                                             .Cast<Role>()
-                                                            .Where(r => r != Role.Administrator && r!=Role.CenterApprover)
+                                                            .Where(r => r != Role.Administrator && r != Role.CenterApprover)
                                                             .Select(e => new IdentityRole
                                                             {
                                                                 Name = e.ToString(),
@@ -176,8 +349,6 @@ namespace Qurrah.Data
                     UserId = centerReviewerId
                 });
             #endregion
-
-
 
             base.OnModelCreating(modelBuilder);
         }

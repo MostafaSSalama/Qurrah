@@ -1,17 +1,21 @@
-﻿using AutoMapper;
-using Localization.Services;
+﻿using Qurrah.Business.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Qurrah.Business.Logging;
-using Qurrah.Business.Logging.Logger;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using Qurrah.Web.Areas.Admin.Models;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
-using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 using Qurrah.Integration.ServiceWrappers;
-using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
+using FAQDTOs = Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+using LocalizationDTOs = Qurrah.Integration.ServiceWrappers.DTOs.Localization;
+using Qurrah.Business.FAQ;
+using Qurrah.Business.Extensions;
+using Qurrah.Web.Utilities;
+using Qurrah.Business.Localization.Entities;
+using AutoMapper;
+using Qurrah.Business.UserAuth;
 
 namespace Qurrah.Web.Areas.Admin.Controllers
 {
@@ -20,24 +24,34 @@ namespace Qurrah.Web.Areas.Admin.Controllers
     public class FAQController : Controller
     {
         #region Fields
-        private readonly IFAQService _faqService;
-        IFAQTypeService _faqTypeService;
+        private readonly IFAQManager _faqManager;
+        private readonly IFAQTypeManager _faqTypeManager;
+        private readonly ILocalizatonManager _localizatonManager;
+        private readonly ILocalizationUtility _localizationUtility;
+        private readonly IMapper _mapper;
         private LanguageService _localization;
         IExceptionLogging _exceptionLogging;
-        private readonly IMapper _mapper;
         #endregion
 
         #region Properties
-        public string AuthTokenValue => HttpContext.Session.GetString(Constants.Session_AuthTokenName);
+        public string AuthTokenValue
+        {
+            get
+            {
+                return UserManager.JWTTokenValue;
+            }
+        }
         #endregion
 
         #region Ctor
-        public FAQController(IFAQService faqService, IFAQTypeService faqTypeService, IMapper mapper, LanguageService localization, IExceptionLogging exceptionLogging)
+        public FAQController(IMapper mapper, ILocalizatonManager localizatonManager, IFAQManager faqManager, IFAQTypeManager faqTypeManager, LanguageService localization, IExceptionLogging exceptionLogging, ILocalizationUtility localizationUtility)
         {
-            _faqService = faqService;
-            _faqTypeService = faqTypeService;
+            _localizatonManager = localizatonManager;
+            _faqManager = faqManager;
+            _faqTypeManager = faqTypeManager;
             _localization = localization;
             _exceptionLogging = exceptionLogging;
+            _localizationUtility = localizationUtility;
             _mapper = mapper;
         }
         #endregion
@@ -46,19 +60,28 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            IEnumerable<FAQDTO> faqs = null;
+            IEnumerable<FAQDTOs.FAQ> faqTypes = null;
             try
             {
-                var response = await _faqService.GetAllAsync<APIResponse>(AuthTokenValue);
-                if (response?.IsSuccess == true && null != response.Result && response.StatusCode == HttpStatusCode.OK)
-                    faqs = JsonConvert.DeserializeObject<IEnumerable<FAQDTO>>(Convert.ToString(response.Result));
+                var result = await _faqManager.GetAllAsync(AuthTokenValue);
+                if (result.ActionResult == Business.ActionResult.Success)
+                    faqTypes = result.Result as List<FAQDTOs.FAQ>;
+                else
+                {
+                    HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+
+                    if (result?.ActionResult == Business.ActionResult.InternalServerError && result.ErrorMessages?.Any() == true)
+                        _exceptionLogging.Log(result.ErrorMessages.Concatenate());
+                    else
+                        _exceptionLogging.Log("An error occured while loading FAQs!");
+                }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                 _exceptionLogging.Log(ex);
             }
-            return View(faqs ?? new List<FAQDTO>());
+            return View(faqTypes ?? new List<FAQDTOs.FAQ>());
         }
 
         [HttpGet]
@@ -66,59 +89,112 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         {
             try
             {
-                var response = await _faqService.GetAsync<APIResponse>(id, AuthTokenValue);
-                if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.OK && null != response.Result)
+                var result = await _faqManager.GetAsync(id, AuthTokenValue);
+                if (result.ActionResult == Business.ActionResult.Success)
                 {
-                    var faq = JsonConvert.DeserializeObject<FAQDTO>(Convert.ToString(response.Result));
-                    return View(faq);
+                    var faqWithLocalizedProps = result.Result as FAQDTOs.FAQWithLocalizedProperties;
+
+                    FAQVM faqVM = new();
+                    faqVM.Locales = await _localizationUtility.GetLocales();
+                    faqVM.FAQ = faqWithLocalizedProps.FAQ;
+
+                    var locGroupsResult = _faqManager.PopulateLocalizedPropertyGroups(faqWithLocalizedProps.LocalizedProperties, faqVM.Locales, true);
+                    var localizedPropertyGroups = locGroupsResult.Result as List<LocalizedPropertyGroup>;
+
+                    faqVM.LocalizedPropertyGroups = _mapper.Map<List<LocalizedPropertyGroupVM>>(localizedPropertyGroups);
+
+                    return View(faqVM);
+                }
+                else if (result.ActionResult == Business.ActionResult.ResourceNotFound)
+                    return NotFound();
+                else
+                {
+                    HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+
+                    if (result?.ActionResult == Business.ActionResult.InternalServerError && result.ErrorMessages?.Any() == true)
+                        _exceptionLogging.Log(result.ErrorMessages.Concatenate());
+                    else
+                        _exceptionLogging.Log("An error occured while loading FAQs!");
                 }
             }
             catch (Exception ex)
             {
                 _exceptionLogging.Log(ex);
+                HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
             }
-            return NotFound();
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            FAQCreateViewModel faqCreateViewModel = new FAQCreateViewModel();
+            FAQVM faqViewModel = new FAQVM();
             try
             {
-                faqCreateViewModel.FAQTypes = await GetFAQTypes();
+                faqViewModel.Locales = await _localizationUtility.GetLocales();
+                
+                var result = _faqManager.PopulateDefaultLocalizedPropertyGroups(faqViewModel.Locales);
+                if (result.ActionResult == Business.ActionResult.Success)
+                {
+                    var localizedProps = result.Result as List<LocalizedPropertyGroup>;
+                    faqViewModel.LocalizedPropertyGroups = _mapper.Map<List<LocalizedPropertyGroupVM>>(localizedProps);
+                }
+
+                faqViewModel.FAQTypes = await GetFAQTypes();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogging.Log(ex);
             }
-            return View(faqCreateViewModel);
+            return View(faqViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(FAQCreateViewModel faqCreateViewModel)
+        public async Task<ActionResult> Create(FAQVM faqViewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var response = await _faqService.CreateAsync<APIResponse>(faqCreateViewModel.FAQ, AuthTokenValue);
-                    if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.Created)
+                    List<LocalizationDTOs.LocalizedProperty> localizedProperties = new();
+                    faqViewModel.LocalizedPropertyGroups
+                                          ?.ForEach(group => localizedProperties.AddRange(group.LocalizedProperties
+                                                                                .Where(lp => !string.IsNullOrWhiteSpace(lp.LocaleValue?.Trim()))));
+                    FAQDTOs.FAQWithLocalizedProperties faqTypeWithLocalizedProps = new FAQDTOs.FAQWithLocalizedProperties
                     {
-                        var faq = JsonConvert.DeserializeObject<FAQDTO>(Convert.ToString(response.Result));
+                        FAQ = faqViewModel.FAQ,
+                        LocalizedProperties = localizedProperties
+                    };
 
-                        HttpContext.Session.SetString(Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
-                        return RedirectToAction("Index", new { id = faq.Id });
+                    var apiResult = await _faqManager.CreateAsync(faqTypeWithLocalizedProps, AuthTokenValue);
+
+                    if (apiResult?.ActionResult == Business.ActionResult.Success)
+                    {
+                        HttpContext.Session.SetString(Business.Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+
+                        if (apiResult?.ActionResult == Business.ActionResult.InternalServerError && apiResult.ErrorMessages?.Any() == true)
+                            _exceptionLogging.Log(apiResult.ErrorMessages.Concatenate());
+                        else
+                            _exceptionLogging.Log("An error occured while saving faq!");
                     }
                 }
+
+                faqViewModel.Locales = await _localizationUtility.GetLocales();
+                faqViewModel.FAQTypes = await GetFAQTypes();
             }
             catch (Exception ex)
             {
-                faqCreateViewModel.FAQTypes = await GetFAQTypes();
                 _exceptionLogging.Log(ex);
+                HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
             }
-            return View(faqCreateViewModel);
+            return View(faqViewModel);
         }
 
         [HttpGet]
@@ -126,46 +202,89 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         {
             try
             {
-                FAQUpdateViewModel faqUpdateViewModel = new();
-
-                var response = await _faqService.GetAsync<APIResponse>(id, AuthTokenValue);
-                if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.OK && null != response.Result)
+                var result = await _faqManager.GetAsync(id, AuthTokenValue);
+                if (result.ActionResult == Business.ActionResult.Success)
                 {
-                    faqUpdateViewModel.FAQ = JsonConvert.DeserializeObject<FAQUpdateDTO>(Convert.ToString(response.Result));
-                    faqUpdateViewModel.FAQTypes = await GetFAQTypes();
+                    var faqWithLocalizedProps = result.Result as FAQDTOs.FAQWithLocalizedProperties;
 
-                    return View(faqUpdateViewModel);
+                    FAQVM faqVM = new();
+                    faqVM.Locales = await _localizationUtility.GetLocales();
+                    faqVM.FAQ = faqWithLocalizedProps.FAQ;
+
+                    var locGroupsResult = _faqManager.PopulateLocalizedPropertyGroups(faqWithLocalizedProps.LocalizedProperties, faqVM.Locales, false);
+                    var localizedPropertyGroups = locGroupsResult.Result as List<LocalizedPropertyGroup>;
+                    
+                    faqVM.LocalizedPropertyGroups = _mapper.Map<List<LocalizedPropertyGroupVM>>(localizedPropertyGroups);
+                    faqVM.FAQTypes = await GetFAQTypes();
+
+                    return View(faqVM);
+                }
+                else if (result.ActionResult == Business.ActionResult.ResourceNotFound)
+                    return NotFound();
+                else
+                {
+                    HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+
+                    if (result?.ActionResult == Business.ActionResult.InternalServerError && result.ErrorMessages?.Any() == true)
+                        _exceptionLogging.Log(result.ErrorMessages.Concatenate());
+                    else
+                        _exceptionLogging.Log("An error occured while loading FAQ Type!");
                 }
             }
             catch (Exception ex)
             {
                 _exceptionLogging.Log(ex);
+                HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
             }
-            return NotFound();
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost(Name = "Update")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(FAQUpdateViewModel faqUpdateViewModel)
+        public async Task<ActionResult> Update(FAQVM faqViewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var response = await _faqService.UpdateAsync<APIResponse>(faqUpdateViewModel.FAQ, AuthTokenValue);
-                    if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.NoContent)
+                    List<LocalizationDTOs.LocalizedProperty> localizedProperties = new();
+                    faqViewModel.LocalizedPropertyGroups
+                                          ?.ForEach(group => localizedProperties.AddRange(group.LocalizedProperties));
+                    FAQDTOs.FAQWithLocalizedProperties faqWithLocalizedProps = new FAQDTOs.FAQWithLocalizedProperties
                     {
-                        HttpContext.Session.SetString(Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
-                        return RedirectToAction("View", new { id = faqUpdateViewModel.FAQ.Id });
+                        FAQ = faqViewModel.FAQ,
+                        LocalizedProperties = localizedProperties
+                    };
+
+                    var apiResult = await _faqManager.UpdateAsync(faqWithLocalizedProps, AuthTokenValue);
+
+                    if (apiResult?.ActionResult == Business.ActionResult.Success)
+                    {
+                        HttpContext.Session.SetString(Business.Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.SaveGeneralSuccess"));
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+
+                        if (apiResult?.ActionResult == Business.ActionResult.InternalServerError && apiResult.ErrorMessages?.Any() == true)
+                            _exceptionLogging.Log(apiResult.ErrorMessages.Concatenate());
+                        else
+                            _exceptionLogging.Log("An error occured while saving faq!");
                     }
                 }
+
+                faqViewModel.Locales = await _localizationUtility.GetLocales();
+                faqViewModel.FAQTypes = await GetFAQTypes();
             }
             catch (Exception ex)
             {
-                faqUpdateViewModel.FAQTypes = await GetFAQTypes();
                 _exceptionLogging.Log(ex);
+                HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
             }
-            return View(faqUpdateViewModel);
+
+            return View(faqViewModel);
         }
 
         [HttpGet]
@@ -173,11 +292,22 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         {
             try
             {
-                var response = await _faqService.DeleteAsync<APIResponse>(id, AuthTokenValue);
-                if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.NoContent)
+                var result = await _faqManager.DeleteAsync(id, AuthTokenValue);
+                if (result.ActionResult == Business.ActionResult.Success)
                 {
-                    HttpContext.Session.SetString(Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.DeleteGeneralSuccess"));
+                    HttpContext.Session.SetString(Business.Constants.Session_Success, _localization.GetLocalizedString("Messages.SuccessMessages.DeleteGeneralSuccess"));
                     return Json(new { success = true });
+                }
+                else if (result.ActionResult == Business.ActionResult.ResourceNotFound)
+                    return NotFound();
+                else
+                {
+                    HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+
+                    if (result?.ActionResult == Business.ActionResult.InternalServerError && result.ErrorMessages?.Any() == true)
+                        _exceptionLogging.Log(result.ErrorMessages.Concatenate());
+                    else
+                        _exceptionLogging.Log("An error occured while deleting FAQ Type!");
                 }
             }
             catch (Exception ex)
@@ -185,7 +315,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
                 _exceptionLogging.Log(ex);
             }
 
-            HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+            HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
             return Json(new { success = false });
         }
         #endregion
@@ -193,13 +323,25 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         #region Utilities
         public async Task<IEnumerable<SelectListItem>> GetFAQTypes()
         {
-            IEnumerable<FAQTypeDTO> faqTypes = null;
-
-            var response = await _faqTypeService.GetAllAsync<APIResponse>(AuthTokenValue);
-            if (response?.IsSuccess == true && null != response.Result && response.StatusCode == HttpStatusCode.OK)
-                faqTypes = JsonConvert.DeserializeObject<IEnumerable<FAQTypeDTO>>(Convert.ToString(response.Result));
-
-            return (faqTypes ?? new List<FAQTypeDTO>()).Select(t => new SelectListItem(_localization.CurrentLanguage == SupportedLanguage.Arabic ? t.NameAr : t.NameEn, t.Id.ToString())).ToList();
+            IEnumerable<FAQDTOs.FAQType> faqTypes = null;
+            try
+            {
+                var result = await _faqTypeManager.GetAllAsync(AuthTokenValue);
+                if (result?.ActionResult == Business.ActionResult.Success)
+                    faqTypes = result.Result as List<FAQDTOs.FAQType>;
+                else
+                {
+                    if (result?.ActionResult == Business.ActionResult.InternalServerError && result.ErrorMessages?.Any() == true)
+                        _exceptionLogging.Log(result.ErrorMessages.Concatenate());
+                    else
+                        _exceptionLogging.Log("An error occured while loading FAQ Types!");
+                }
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogging.Log(ex);
+            }
+            return (faqTypes ?? new List<FAQDTOs.FAQType>()).Select(t => new SelectListItem(t.Name, t.Id.ToString())).ToList();
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿@using Qurrah.Integration.ServiceWrappers;
+﻿@using Qurrah.Business;
 @inject IHttpContextAccessor ctxAccessor
 @{
     string successMessage = ctxAccessor.HttpContext.Session.GetString(Constants.Session_Success);

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Localization.Services;
+﻿using Qurrah.Business.Localization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +6,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using Qurrah.Business.Logging;
 using Qurrah.Entities;
-using Qurrah.Entities.NoMapping;
 using Qurrah.Integration.ServiceWrappers;
-using Qurrah.Integration.ServiceWrappers.DTOs.Authentication;
+using DTOs = Qurrah.Integration.ServiceWrappers.DTOs.Authentication;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using System.Net;
 
@@ -21,28 +19,29 @@ namespace Qurrah.Web.Areas.Identity.Pages.Account
         private readonly LanguageService _localization;
         private readonly IExceptionLogging _exceptionLogging;
         private readonly IInfoLogging _infoLogging;
-        private readonly IMapper _mapper;
         private readonly IUserAuthService _userAuthService;
+        private readonly IConfiguration _configuration;
         private readonly SignInManager<ApplicationUser> _signInManager;
         #endregion
 
         #region Ctor
         public LoginModel(SignInManager<ApplicationUser> signInManager, IExceptionLogging exceptionLogging
                                                                       , IInfoLogging infoLogging, LanguageService localization
-                                                                      , IMapper mapper, IUserAuthService userAuthService)
+                                                                      , IUserAuthService userAuthService
+                                                                      , IConfiguration configuration)
         {
             _signInManager = signInManager;
             _exceptionLogging = exceptionLogging;
             _infoLogging = infoLogging;
             _localization = localization;
-            _mapper = mapper;
             _userAuthService = userAuthService;
+            _configuration = configuration;
         }
         #endregion
 
         #region Properties
         [BindProperty]
-        public LoginRequestDTO LoginRequest { get; set; }
+        public DTOs.LoginRequest LoginRequest { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -78,41 +77,32 @@ namespace Qurrah.Web.Areas.Identity.Pages.Account
                             ModelState.AddModelError(string.Empty, _localization.GetLocalizedString("Validation.GeneralErrorMessage"));
                     }
                     else if (null == response || null == response.Result || (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError))
-                        HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                        HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                     else
                     {
-                        var loginResult = JsonConvert.DeserializeObject<LoginResponse>(Convert.ToString(response.Result));
-                        var loginResponse = _mapper.Map<LoginResponseDTO>(loginResult);
-                        if (loginResponse.UserExists)
+                        var loginResult = JsonConvert.DeserializeObject<DTOs.LoginResponse>(Convert.ToString(response.Result));
+                        if (loginResult.UserExists)
                         {
-                            if (!string.IsNullOrWhiteSpace(loginResponse.Token))
+                            if (!string.IsNullOrWhiteSpace(loginResult.Token))
                             {
-                                /*
-                                JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-                                var securityToken = jwtSecurityTokenHandler.ReadJwtToken(loginResponse.Token);
-
-                                var identity = new ClaimsIdentity(new Claim[]
-                                                                    {
-                                                                    new Claim(ClaimTypes.Name, securityToken.Claims
-                                                                                                            .FirstOrDefault(t => t.Type == "unique_name").Value),
-                                                                    new Claim(ClaimTypes.Role, securityToken.Claims
-                                                                                                            .FirstOrDefault(t => t.Type == "role").Value)
-                                                                    }
-                                                                  , CookieAuthenticationDefaults.AuthenticationScheme);
-
-                                await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
-                                */
                                 await _signInManager.PasswordSignInAsync(LoginRequest.UserName, LoginRequest.Password, LoginRequest.RememberMe, lockoutOnFailure: false);
-                                HttpContext.Session.SetString(Constants.Session_AuthTokenName, loginResponse.Token);
+
+                                HttpContext.Response.Cookies.Append(Business.Constants.JWTTokenName
+                                    , loginResult.Token
+                                    , new CookieOptions
+                                    {
+                                        Expires = LoginRequest.RememberMe ? DateTime.Now.AddDays(int.Parse(_configuration.GetValue<string>("Authentication:JWTLifetimeInDays")))
+                                                                          : DateTime.Now.AddMinutes(int.Parse(_configuration.GetValue<string>("Authentication:JWTLifetimeInMinutes")))
+                                    });
 
                                 returnUrl ??= Url.Content("~/");
                                 return LocalRedirect(returnUrl);
                             }
                             else
-                                HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                                HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                         }
                         else
-                            HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                            HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                     }
                 }
             }

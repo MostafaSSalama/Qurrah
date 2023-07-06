@@ -1,6 +1,6 @@
-﻿namespace Qurrah.Entities.NoMapping
+﻿namespace Qurrah.Entities
 {
-    public enum UserTypeId : byte
+    public enum UserTypeId : int
     {
         Administrator = 1,
         CenterApprover = 2,

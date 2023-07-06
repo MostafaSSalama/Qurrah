@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Qurrah.Data.Repository.IRepository;
 using Qurrah.Entities;
-using Qurrah.Entities.NoMapping;
 
 namespace Qurrah.Data.Repository
 {

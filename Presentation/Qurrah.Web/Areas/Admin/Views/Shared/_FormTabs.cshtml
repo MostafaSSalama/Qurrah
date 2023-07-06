@@ -1,0 +1,26 @@
+﻿@using Qurrah.Business.Localization;
+@using Qurrah.Integration.ServiceWrappers.DTOs.Localization
+
+@inject LanguageService _localization
+@model IEnumerable<LocaleInfo>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" data-bs-toggle="tab" role="tab" aria-selected="true"
+           href="#home">
+            @_localization.GetLocalizedString("Tabs.Title.Standard")
+        </a>
+    </li>
+    @if (Model?.Any() == true)
+    {
+        @foreach (var lang in Model)
+        {
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false"
+                   href='@string.Concat("#lang", lang.LanguageId)'>
+                    @lang.Description
+                </a>
+            </li>
+        }
+    }
+</ul>

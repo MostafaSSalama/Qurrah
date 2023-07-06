@@ -1,0 +1,6 @@
+2023-07-05 15:33:39.023 +02:00 [ERR] - An error occurred while saving the entity changes. See the inner exception for details.
+
+2023-07-05 15:40:33.354 +02:00 [ERR] An error occured System.NullReferenceException: Object reference not set to an instance of an object.
+   at Qurrah.Web.Areas.Admin.Controllers.FAQTypeController.Update(Int32 id) in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Admin\Controllers\FAQTypeController.cs:line 206
+2023-07-05 15:41:10.579 +02:00 [ERR] An error occured System.NullReferenceException: Object reference not set to an instance of an object.
+   at Qurrah.Web.Areas.Admin.Controllers.FAQTypeController.Update(Int32 id) in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Admin\Controllers\FAQTypeController.cs:line 206

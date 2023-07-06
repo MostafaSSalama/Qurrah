@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
-using Localization.Services;
+using Qurrah.Business.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Qurrah.Business.Logging;
 using Qurrah.Integration.ServiceWrappers;
-using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using System.Net;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+using Qurrah.Business.FAQ;
+using Qurrah.Business.Extensions;
 
 namespace Qurrah.Web.Areas.Public.Controllers
 {
@@ -14,16 +16,16 @@ namespace Qurrah.Web.Areas.Public.Controllers
     public class FAQController : Controller
     {
         #region Fields
-        IFAQService _faqService;
-        private LanguageService _localization;
-        IExceptionLogging _exceptionLogging;
-        IMapper _mapper;
+        private readonly IFAQManager _faqManager;
+        private readonly LanguageService _localization;
+        private readonly IExceptionLogging _exceptionLogging;
+        private readonly IMapper _mapper;
         #endregion
 
         #region Ctor
-        public FAQController(IFAQService faqService, IMapper mapper, LanguageService localization, IExceptionLogging exceptionLogging)
+        public FAQController(IFAQManager faqManager, IMapper mapper, LanguageService localization, IExceptionLogging exceptionLogging)
         {
-            _faqService = faqService;
+            _faqManager = faqManager;
             _localization = localization;
             _exceptionLogging = exceptionLogging;
             _mapper = mapper;
@@ -33,19 +35,29 @@ namespace Qurrah.Web.Areas.Public.Controllers
         #region Actions
         public async Task<ActionResult> Index()
         {
-            IEnumerable<FAQClassifiedDTO> faqsClassified = null;
+            IEnumerable<FAQClassified> faqsClassified = null;
             try
             {
-                var response = await _faqService.GetAllClassifiedByTypeAsync<APIResponse>();
-                if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.OK && null != response.Result)
-                    faqsClassified = JsonConvert.DeserializeObject<IEnumerable<FAQClassifiedDTO>>(Convert.ToString(response.Result.ToString())).OrderBy(q => q.Type.DisplayOrder);
+                var result = await _faqManager.GetAllClassifiedByTypeAsync(Thread.CurrentThread.CurrentCulture.Name);
+                if (result.ActionResult == Business.ActionResult.Success)
+                    faqsClassified = result.Result as List<FAQClassified>;
+                else
+                {
+                    HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+
+                    if (result?.ActionResult == Business.ActionResult.InternalServerError && result.ErrorMessages?.Any() == true)
+                        _exceptionLogging.Log(result.ErrorMessages.Concatenate());
+                    else
+                        _exceptionLogging.Log("An error occured while loading classified FAQs!");
+                }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.SetString(Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
+                HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
                 _exceptionLogging.Log(ex);
             }
-            return View(faqsClassified ?? new List<FAQClassifiedDTO>());
+
+            return View(faqsClassified ?? new List<FAQClassified>());
         }
         #endregion
     }

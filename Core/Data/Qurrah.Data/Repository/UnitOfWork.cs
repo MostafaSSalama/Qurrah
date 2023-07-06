@@ -16,6 +16,7 @@ namespace Qurrah.Data.Repository
         public FAQRepository FAQ { get; private set; }
         public ParentUserRepository ParentUser { get; private set; }
         public CenterUserRepository CenterUser { get; private set; }
+        public LanguageDescriptionRepository LanguageDescription { get; private set; }
         #endregion
 
         #region Constructors
@@ -26,6 +27,7 @@ namespace Qurrah.Data.Repository
             FAQ = new FAQRepository(dbContext);
             ParentUser = new ParentUserRepository(dbContext, userManager, configuration);
             CenterUser = new CenterUserRepository(dbContext, userManager, configuration);
+            LanguageDescription = new LanguageDescriptionRepository(dbContext);
         }
         #endregion
 

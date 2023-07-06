@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Qurrah.Entities.NoMapping;
 
 namespace Qurrah.Entities
 {
