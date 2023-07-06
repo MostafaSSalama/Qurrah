@@ -2,9 +2,9 @@
 
 namespace Qurrah.Web.APIs.Models.DTOs.FAQ
 {
-    public class FAQClassifiedDTO
+    public class FAQClassifiedWithLocalizedPropertiesDTO
     {
-        public FAQTypeDTO Type { get; set; }
-        public IEnumerable<FAQDTO> FAQs { get; set; }
+        public FAQTypeWithLocalizedPropertiesDTO Type { get; set; }
+        public IEnumerable<FAQWithLocalizedPropertiesDTO> FAQs { get; set; }
     }
 }

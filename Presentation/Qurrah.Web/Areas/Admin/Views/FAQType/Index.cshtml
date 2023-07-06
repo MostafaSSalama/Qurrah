@@ -1,7 +1,7 @@
-﻿@using Localization.Services;
-@using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
+﻿@using Qurrah.Business.Localization;
+@using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 @inject LanguageService _localization
-@model IEnumerable<FAQTypeDTO>
+@model IEnumerable<FAQType>
 @{
     ViewData["Title"] = @_localization.GetLocalizedString("FAQType.Index.HeaderTitle");
 }
@@ -26,8 +26,7 @@
     <table id="tblData" class="table table-striped align-middle pt-5 w-100">
         <thead>
             <tr>
-                <th>@_localization.GetLocalizedString("FAQType.Index.Table.FAQTypeAr")</th>
-                <th>@_localization.GetLocalizedString("FAQType.Index.Table.FAQTypeEn")</th>
+                <th>@_localization.GetLocalizedString("FAQType.Index.Table.FAQType")</th>
                 <th></th>
             </tr>
         </thead>
@@ -35,8 +34,7 @@
             @foreach (var faqType in Model)
             {
                 <tr>
-                    <td>@faqType.NameAr</td>
-                    <td>@faqType.NameEn</td>
+                    <td>@faqType.Name</td>
                     <td>
                         <div class="d-flex justify-content-center">
                             <a asp-action="View" asp-route-id="@faqType.Id" class="btn btn-primary mx-2">

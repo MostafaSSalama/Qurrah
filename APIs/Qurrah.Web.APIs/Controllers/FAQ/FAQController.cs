@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Qurrah.Data.Repository.IRepository;
+using Qurrah.Entities;
 using Qurrah.Web.APIs.Models;
 using Qurrah.Web.APIs.Models.DTOs.FAQ;
 using Qurrah.Web.APIs.Utilities;
@@ -55,7 +56,7 @@ namespace Qurrah.Web.APIs.Controllers.FAQ
             try
             {
                 var faqsClassified = await _unitOfWork.FAQ.GetAllClassifiedByTypeAsync();
-                var faqsClassifiedDTO = _mapper.Map<IEnumerable<FAQClassifiedDTO>>(faqsClassified);
+                var faqsClassifiedDTO = _mapper.Map<IEnumerable<FAQClassifiedWithLocalizedPropertiesDTO>>(faqsClassified);
                 return Ok(new APIResponse(true, HttpStatusCode.OK, faqsClassifiedDTO));
             }
             catch (Exception ex)
@@ -80,11 +81,11 @@ namespace Qurrah.Web.APIs.Controllers.FAQ
                 if (id <= 0)
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null));
 
-                var faq = await _unitOfWork.FAQ.SingleOrDefaultAsync(f => f.Id == id, includedProperties: "FAQType", tracked: false);
-                if (null == faq)
+                var faqWithLocalizedProps = await _unitOfWork.FAQ.SingleOrDefaultWithLocalizedProperties(f => f.Id == id, "FAQType", tracked: false);
+                if (null == faqWithLocalizedProps)
                     return NotFound(new APIResponse(false, HttpStatusCode.NotFound, false));
 
-                var faqDTO = _mapper.Map<FAQDTO>(faq);
+                var faqDTO = _mapper.Map<FAQWithLocalizedPropertiesDTO>(faqWithLocalizedProps);
                 return Ok(new APIResponse(true, HttpStatusCode.OK, faqDTO));
             }
             catch (Exception ex)
@@ -100,13 +101,14 @@ namespace Qurrah.Web.APIs.Controllers.FAQ
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<APIResponse>> Create([FromBody] FAQCreateDTO faqCreateDTO)
+        public async Task<ActionResult<APIResponse>> Create([FromBody] FAQCreateRequest faqCreateRequest)
         {
             try
             {
-                var faq = _mapper.Map<Qurrah.Entities.FAQ>(faqCreateDTO);
-                await _unitOfWork.FAQ.AddAsync(faq);
-                await _unitOfWork.SaveAsync();
+                var faq = _mapper.Map<Entities.FAQ>(faqCreateRequest.FAQ);
+                var localizedProperties = _mapper.Map<List<LocalizedProperty>>(faqCreateRequest.LocalizedProperties);
+
+                await _unitOfWork.FAQ.AddWithLocaliedPropertiesWithSaveAsync(faq, localizedProperties);
 
                 var faqDTO = _mapper.Map<FAQDTO>(faq);
                 APIResponse apiResponse = new APIResponse(true, HttpStatusCode.Created, faqDTO);
@@ -126,20 +128,19 @@ namespace Qurrah.Web.APIs.Controllers.FAQ
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<APIResponse>> Update([FromBody] FAQUpdateDTO faqUpdateDTO)
+        public async Task<ActionResult<APIResponse>> Update([FromBody] FAQUpdateRequest faqUpdateRequest)
         {
             try
             {
-                if (faqUpdateDTO.Id <= 0)
+                if (faqUpdateRequest.FAQ.Id <= 0 || faqUpdateRequest.LocalizedProperties?.Any(lp => lp.EntityId > 0 && lp.EntityId != faqUpdateRequest.FAQ.Id) == true)
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null));
 
-                var faq = await _unitOfWork.FAQ.SingleOrDefaultAsync(f => f.Id == faqUpdateDTO.Id, tracked: false);
-                if (null == faq)
-                    return NotFound(new APIResponse(false, HttpStatusCode.NotFound, null));
+                var faq = _mapper.Map<Entities.FAQ>(faqUpdateRequest.FAQ);
+                var localizedProperties = _mapper.Map<List<LocalizedProperty>>(faqUpdateRequest.LocalizedProperties);
 
-                faq = _mapper.Map<Qurrah.Entities.FAQ>(faqUpdateDTO);
-                _unitOfWork.FAQ.Update(faq);
-                await _unitOfWork.SaveAsync();
+                Entities.ActionResult actionResult = await _unitOfWork.FAQ.UpdateWithLocalizedPropertiesWithSaveAsync(faq, localizedProperties);
+                if (actionResult == Entities.ActionResult.ItemNotFound)
+                    return NotFound(new APIResponse(false, HttpStatusCode.NotFound, null));
 
                 return Ok(new APIResponse(true, HttpStatusCode.NoContent, null));
             }
@@ -164,12 +165,9 @@ namespace Qurrah.Web.APIs.Controllers.FAQ
                 if (id <= 0)
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null));
 
-                var faq = await _unitOfWork.FAQ.SingleOrDefaultAsync(f => f.Id == id);
-                if (null == faq)
+                Entities.ActionResult actionResult = await _unitOfWork.FAQ.RemoveWithLocalizedPropertiesWithSaveAsync(id);
+                if (actionResult == Entities.ActionResult.ItemNotFound)
                     return NotFound(new APIResponse(false, HttpStatusCode.NotFound, null));
-
-                _unitOfWork.FAQ.Remove(faq);
-                await _unitOfWork.SaveAsync();
 
                 return Ok(new APIResponse(true, HttpStatusCode.NoContent, null));
             }

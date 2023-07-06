@@ -1,10 +1,8 @@
-﻿using Qurrah.Entities;
-
-namespace Qurrah.Entities.NoMapping
+﻿namespace Qurrah.Entities
 {
     public class FAQClassified
     {
         public FAQType Type { get; set; }
-        public IEnumerable<FAQ> FAQs { get; set; }
+        public IEnumerable<FAQWithLocalizedProperties> FAQs { get; set; }
     }
 }

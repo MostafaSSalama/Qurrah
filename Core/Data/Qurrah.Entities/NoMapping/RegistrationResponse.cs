@@ -1,4 +1,4 @@
-﻿namespace Qurrah.Entities.NoMapping
+﻿namespace Qurrah.Entities
 {
     public class RegistrationResponse
     {

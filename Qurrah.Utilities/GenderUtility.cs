@@ -1,4 +1,4 @@
-﻿using Qurrah.Entities.NoMapping;
+﻿using Qurrah.Entities;
 
 namespace Qurrah.Utilities
 {

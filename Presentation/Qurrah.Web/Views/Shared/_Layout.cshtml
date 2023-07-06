@@ -1,8 +1,11 @@
-﻿@using Localization.Services;
+﻿@using Qurrah.Business.Localization;
 @using Microsoft.AspNetCore.Identity;
-@using static Qurrah.Business.Constatnts;
+@using Qurrah.Business.UserAuth;
+@using Qurrah.Web.Utilities;
+@using static Qurrah.Business.Constants;
 
 @inject LanguageService _localization
+@inject ILocalizationUtility _localizationUtility
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
 
 </head>
@@ -39,7 +42,7 @@
                     <li class="nav-item fw-bold"><a asp-area="Public" asp-controller="Home" asp-action="Index" class="nav-link px-2 text-light">@_localization.GetLocalizedString("Menu.TopMenu.Home")</a></li>
                     <partial name="_LoginPartial" />
 
-                    @if (User.IsInRole(Role.Administrator))
+                    @if (UserManager.IsJWTTokenValid(out string token) && User.IsInRole(Role.Administrator))
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@_localization.GetLocalizedString("Menu.TopMenu.Admin.FAQ")</a>
@@ -50,10 +53,10 @@
                             </div>
                         </li>
                     }
+                    <partial name="_Localization" for="@_localizationUtility.Locales" />
+
                 </ul>
-
-                <partial name="_Localization" />
-
+                
             </div>
         </div>
     </header>

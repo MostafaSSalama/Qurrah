@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Qurrah.Entities.NoMapping
+﻿namespace Qurrah.Entities
 {
     public class LoginResponse
     {

@@ -21,17 +21,52 @@ namespace MagicVilla.Web.Services
         #endregion
 
         #region Methods
-        public async Task<T> CreateAsync<T>(FAQCreateDTO faqCreateDTO, string authToken)
+        public async Task<T> GetAllAsync<T>(string authToken)
         {
             return await SendAsync<T>(new APIRequest
             {
-                APIType = APIType.HTTPPost,
-                Data = faqCreateDTO,
+                APIType = APIType.HTTPGet,
                 URL = serviceURL,
                 AuthToken = authToken
             });
         }
-
+        public async Task<T> GetAsync<T>(int id, string authToken)
+        {
+            return await SendAsync<T>(new APIRequest
+            {
+                APIType = APIType.HTTPGet,
+                URL = $"{serviceURL}/{id}",
+                AuthToken = authToken
+            });
+        }
+        public async Task<T> GetAllClassifiedByTypeAsync<T>()
+        {
+            return await SendAsync<T>(new APIRequest
+            {
+                APIType = APIType.HTTPGet,
+                URL = $"{serviceURL}/GetAllClassifiedByType"
+            });
+        }
+        public async Task<T> CreateAsync<T>(FAQWithLocalizedProperties faqWithLocalizedProperties, string authToken)
+        {
+            return await SendAsync<T>(new APIRequest
+            {
+                APIType = APIType.HTTPPost,
+                Data = faqWithLocalizedProperties,
+                URL = serviceURL,
+                AuthToken = authToken
+            });
+        }
+        public async Task<T> UpdateAsync<T>(FAQWithLocalizedProperties faqWithLocalizedProperties, string authToken)
+        {
+            return await SendAsync<T>(new APIRequest
+            {
+                APIType = APIType.HTTPPut,
+                Data = faqWithLocalizedProperties,
+                URL = $"{serviceURL}",
+                AuthToken = authToken
+            });
+        }
         public async Task<T> DeleteAsync<T>(int id, string authToken)
         {
             return await SendAsync<T>(new APIRequest
@@ -42,45 +77,6 @@ namespace MagicVilla.Web.Services
             });
         }
 
-        public async Task<T> GetAllAsync<T>(string authToken)
-        {
-            return await SendAsync<T>(new APIRequest
-            {
-                APIType = APIType.HTTPGet,
-                URL = serviceURL,
-                AuthToken = authToken
-            });
-        }
-
-        public async Task<T> GetAllClassifiedByTypeAsync<T>()
-        {
-            return await SendAsync<T>(new APIRequest
-            {
-                APIType = APIType.HTTPGet,
-                URL = $"{serviceURL}/GetAllClassifiedByType"
-            });
-        }
-
-        public async Task<T> GetAsync<T>(int id, string authToken)
-        {
-            return await SendAsync<T>(new APIRequest
-            {
-                APIType = APIType.HTTPGet,
-                URL = $"{serviceURL}/{id}",
-                AuthToken = authToken
-            });
-        }
-
-        public async Task<T> UpdateAsync<T>(FAQUpdateDTO faqUpdateDTO, string authToken)
-        {
-            return await SendAsync<T>(new APIRequest
-            {
-                APIType = APIType.HTTPPut,
-                Data = faqUpdateDTO,
-                URL = $"{serviceURL}",
-                AuthToken = authToken
-            });
-        }
         #endregion
     }
 }

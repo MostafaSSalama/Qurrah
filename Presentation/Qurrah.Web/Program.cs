@@ -1,4 +1,3 @@
-using Localization.Services;
 using MagicVilla.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -6,6 +5,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Qurrah.Business.EmailService;
+using Qurrah.Business.FAQ;
+using Qurrah.Business.Localization;
 using Qurrah.Business.Logging;
 using Qurrah.Business.Logging.ILogger;
 using Qurrah.Business.Logging.Logger;
@@ -13,9 +14,11 @@ using Qurrah.Data;
 using Qurrah.Data.Repository;
 using Qurrah.Data.Repository.IRepository;
 using Qurrah.Entities;
-using Qurrah.Integration.ServiceWrappers.Mapping;
 using Qurrah.Integration.ServiceWrappers.Services;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
+using Qurrah.Web;
+using Qurrah.Web.Mapping;
+using Qurrah.Web.Utilities;
 using Serilog;
 using System.Globalization;
 using System.Reflection;
@@ -38,7 +41,10 @@ var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddScoped<IInfoLogger, SeriLogger>();
         builder.Services.AddScoped<IExceptionLogging, ExceptionLogging>();
         builder.Services.AddScoped<IInfoLogging, InfoLogging>();
+        #endregion
 
+        #region AutoMapper
+        builder.Services.AddAutoMapper(typeof(MappingConfiguration));
         #endregion
 
         #region Localization
@@ -99,10 +105,6 @@ var builder = WebApplication.CreateBuilder(args);
         });
         #endregion
 
-        #region AutoMapper
-        builder.Services.AddAutoMapper(typeof(MappingConfig));
-        #endregion
-
         #region APIs
         builder.Services.AddHttpClient<IFAQTypeService, FAQTypeService>();
         builder.Services.AddScoped<IFAQTypeService, FAQTypeService>();
@@ -110,10 +112,23 @@ var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddHttpClient<IFAQService, FAQService>();
         builder.Services.AddScoped<IFAQService, FAQService>();
 
+        builder.Services.AddHttpClient<IUserAuthService, UserAuthService>();
         builder.Services.AddScoped<IUserAuthService, UserAuthService>();
+
+        builder.Services.AddHttpClient<ILocalizationService, LocalizationService>();
+        builder.Services.AddScoped<ILocalizationService, LocalizationService>();
         #endregion
 
+        #region Managers
+        builder.Services.AddScoped<IFAQTypeManager, FAQTypeManager>();
+        builder.Services.AddScoped<IFAQManager, FAQManager>();
+        builder.Services.AddScoped<ILocalizatonManager, LocalizatonManager>();
+        #endregion
+
+        #region Misc
+        builder.Services.AddScoped<ILocalizationUtility, LocalizationUtility>();
         builder.Services.AddHttpContextAccessor();
+        #endregion
     }
 }
 #endregion

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Qurrah.Entities.NoMapping;
 
 namespace Qurrah.Entities
 {
@@ -14,5 +13,7 @@ namespace Qurrah.Entities
         public string Name { get; set; }
 
         public List<ParentUser> ParentUsers { get; set; }
+        public List<CenterOwnerUser> CenterOwnerUsers { get; set; }
+        public List<GenderDescription> GenderDescriptions { get; set; }
     }
 }

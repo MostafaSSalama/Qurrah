@@ -1,10 +1,12 @@
-﻿@using Localization.Services;
-@using Qurrah.Integration.ServiceWrappers.DTOs.FAQType;
+﻿@using Qurrah.Business.Localization;
+@using Qurrah.Web.Areas.Admin.Models;
+
 @inject LanguageService _localization
-@model FAQTypeCreateDTO
+@model FAQTypeVM
 
 @{
     ViewData["Title"] = @_localization.GetLocalizedString("FAQ.Create.HeaderTitle");
+    bool isLocalized = Model.Locales?.Any() == true && Model.LocalizedPropertyGroups?.Any() == true;
 }
 
 <form method="post" asp-action="Create">
@@ -24,44 +26,55 @@
             <hr />
         </div>
 
-        <div class="row pt-4"></div>
+        @if (isLocalized)
+        {
+            <div class="row pt-4"></div>
+            <partial name="_FormTabs" model="@Model.Locales" />
+        }
 
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="NameAr"></label></strong>
-            <input asp-for="NameAr" class="form-control" />
-            <span asp-validation-for="NameAr" class="text-danger"></span>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel">
+                <div class='row px-3 @(isLocalized ? "pt-4" : string.Empty)'>
+                    <strong class="mb-2"><label asp-for="FAQType.Name"></label></strong>
+                    <input asp-for="FAQType.Name" class="form-control" />
+                    <span asp-validation-for="FAQType.Name" class="text-danger"></span>
+                </div>
+
+                <div class="row px-3 pt-4">
+                    <strong class="mb-2"><label asp-for="FAQType.Description"></label></strong>
+                    <textarea asp-for="FAQType.Description" class="form-control" rows="5"></textarea>
+                </div>
+            </div>
+
+            @if (isLocalized)
+            {
+                <partial name="_LocalizedProperties" for="@Model.LocalizedPropertyGroups" />
+            }
         </div>
 
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="DescriptionAr"></label></strong>
-            <textarea asp-for="DescriptionAr" class="form-control" rows="5"></textarea>
+        @if (isLocalized)
+        {
+            <hr>
+        }
+
+        <div class="row px-3">
+            <strong class="mb-2"><label asp-for="FAQType.DisplayOrder"></label></strong>
+            <input asp-for="FAQType.DisplayOrder" class="form-control" />
+            <span asp-validation-for="FAQType.DisplayOrder" class="text-danger"></span>
         </div>
 
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="NameEn"></label></strong>
-            <input asp-for="NameEn" class="form-control" />
-            <span asp-validation-for="NameEn" class="text-danger"></span>
+        <div class="row px-3 pt-4">
+            <button type="submit" class="btn btn-primary mx-1" style="width:150px">
+                @_localization.GetLocalizedString("Button.Submit.DefaultValue")
+            </button>
+            <a class="btn btn-secondary" asp-action="Index" style="width:150px">
+                @_localization.GetLocalizedString("Button.Cancel.DefaultValue")
+            </a>
         </div>
-
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="DescriptionEn"></label></strong>
-            <textarea asp-for="DescriptionEn" class="form-control" rows="5"></textarea>
-        </div>
-
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="DisplayOrder"></label></strong>
-            <input asp-for="DisplayOrder" class="form-control" />
-            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="width:150px">
-            @_localization.GetLocalizedString("Button.Submit.DefaultValue")
-        </button>
-        <a class="btn btn-secondary" asp-action="Index" style="width:150px">
-            @_localization.GetLocalizedString("Button.Cancel.DefaultValue")
-        </a>
     </div>
 </form>
+
+
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }

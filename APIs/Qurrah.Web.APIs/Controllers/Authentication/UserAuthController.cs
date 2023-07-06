@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Qurrah.Data.Repository.IRepository;
-using Qurrah.Entities.NoMapping;
+using Qurrah.Entities;
 using Qurrah.Web.APIs.Models;
 using Qurrah.Web.APIs.Models.DTOs.Authentication;
 using Qurrah.Web.APIs.Utilities;

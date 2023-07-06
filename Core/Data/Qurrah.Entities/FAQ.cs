@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Qurrah.Entities
@@ -11,24 +12,17 @@ namespace Qurrah.Entities
 
         [Required(AllowEmptyStrings =false)]
         [StringLength(1000)]
-        public string QuestionEn { get; set; }
+        public string Question { get; set; }
         
         [Required(AllowEmptyStrings = false)]
-        public string AnswerEn { get; set; }
-        
-        [StringLength(1000)]
-        [Required(AllowEmptyStrings = false)]
-        public string QuestionAr { get; set; }
-        
-        [Required(AllowEmptyStrings = false)]
-        public string AnswerAr { get; set; }
+        public string Answer { get; set; }
         
         [Required]
         [ForeignKey("FAQType")]
         public int FKTypeId { get; set; }
-        
-        public FAQType FAQType { get; set; }
 
+        [ValidateNever]
+        public FAQType FAQType { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [Range(1, 1000)]

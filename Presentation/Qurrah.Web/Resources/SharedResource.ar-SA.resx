@@ -138,11 +138,8 @@
   <data name="Button.Submit.DefaultValue" xml:space="preserve">
     <value>حفظ</value>
   </data>
-  <data name="FAQ.Create.AnswerAr" xml:space="preserve">
-    <value>الجواب بالعربية</value>
-  </data>
-  <data name="FAQ.Create.AnswerEn" xml:space="preserve">
-    <value>الجواب بالإنجليزية</value>
+  <data name="FAQ.Create.Answer" xml:space="preserve">
+    <value>الجواب</value>
   </data>
   <data name="FAQ.Create.DisplayOrder" xml:space="preserve">
     <value>الترتيب في العرض</value>
@@ -153,26 +150,17 @@
   <data name="FAQ.Create.HeaderTitle" xml:space="preserve">
     <value>إضافة سؤال متكرر</value>
   </data>
-  <data name="FAQ.Create.QuestionAr" xml:space="preserve">
-    <value>السؤال بالعربية</value>
-  </data>
-  <data name="FAQ.Create.QuestionEn" xml:space="preserve">
-    <value>السؤال بالإنجليزية</value>
+  <data name="FAQ.Create.Question" xml:space="preserve">
+    <value>السؤال</value>
   </data>
   <data name="FAQ.Index.HeaderTitle" xml:space="preserve">
     <value>الأسئلة المتكررة</value>
   </data>
-  <data name="FAQ.Index.Table.FAQTypeAr" xml:space="preserve">
-    <value>النوع بالعربية</value>
+  <data name="FAQ.Index.Table.FAQType" xml:space="preserve">
+    <value>النوع</value>
   </data>
-  <data name="FAQ.Index.Table.FAQTypeEn" xml:space="preserve">
-    <value>النوع بالإنجليزية</value>
-  </data>
-  <data name="FAQ.Index.Table.QuestionAr" xml:space="preserve">
-    <value>السؤال بالعربية</value>
-  </data>
-  <data name="FAQ.Index.Table.QuestionEn" xml:space="preserve">
-    <value>السؤال بالإنجليزية</value>
+  <data name="FAQ.Index.Table.Question" xml:space="preserve">
+    <value>السؤال</value>
   </data>
   <data name="FAQ.Update.HeaderTitle" xml:space="preserve">
     <value>تعديل سؤال متكرر</value>
@@ -180,11 +168,8 @@
   <data name="FAQ.View.HeaderTitle" xml:space="preserve">
     <value>استعراض سؤال متكرر</value>
   </data>
-  <data name="FAQType.Create.DescriptionAr" xml:space="preserve">
-    <value>الوصف بالعربية</value>
-  </data>
-  <data name="FAQType.Create.DescriptionEn" xml:space="preserve">
-    <value>الوصف بالإنجليزية</value>
+  <data name="FAQType.Create.Description" xml:space="preserve">
+    <value>الوصف</value>
   </data>
   <data name="FAQType.Create.DisplayOrder" xml:space="preserve">
     <value>الترتيب في العرض</value>
@@ -192,20 +177,14 @@
   <data name="FAQType.Create.HeaderTitle" xml:space="preserve">
     <value>إضافة نوع أسئلة متكررة</value>
   </data>
-  <data name="FAQType.Create.NameAr" xml:space="preserve">
-    <value>النوع بالعربية</value>
-  </data>
-  <data name="FAQType.Create.NameEn" xml:space="preserve">
-    <value>النوع بالإنجليزية</value>
+  <data name="FAQType.Create.Name" xml:space="preserve">
+    <value>النوع</value>
   </data>
   <data name="FAQType.Index.HeaderTitle" xml:space="preserve">
     <value>أنواع الأسئلة المتكررة</value>
   </data>
-  <data name="FAQType.Index.Table.FAQTypeAr" xml:space="preserve">
-    <value>النوع بالعربية</value>
-  </data>
-  <data name="FAQType.Index.Table.FAQTypeEn" xml:space="preserve">
-    <value>النوع بالإنجليزية</value>
+  <data name="FAQType.Index.Table.FAQType" xml:space="preserve">
+    <value>النوع</value>
   </data>
   <data name="FAQType.Update.HeaderTitle" xml:space="preserve">
     <value>تعديل نوع أسئلة متكررة</value>
@@ -353,6 +332,9 @@
   </data>
   <data name="SweetAlert.Question" xml:space="preserve">
     <value>هل حقاً ترغب في إتمام الحذف؟</value>
+  </data>
+  <data name="Tabs.Title.Standard" xml:space="preserve">
+    <value>أساسي</value>
   </data>
   <data name="Validation.Compare.NotMatchedPassword" xml:space="preserve">
     <value>كلمة المرور غير متطابقة</value>

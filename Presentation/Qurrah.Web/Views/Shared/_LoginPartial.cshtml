@@ -1,5 +1,6 @@
-﻿@using Localization.Services;
+﻿@using Qurrah.Business.Localization;
 @using Microsoft.AspNetCore.Identity
+@using Qurrah.Business.UserAuth;
 @using Qurrah.Entities;
 
 @inject SignInManager<ApplicationUser> _signInManager
@@ -7,7 +8,7 @@
 @inject LanguageService _localization
 
 
-@if (_signInManager.IsSignedIn(User))
+@if (UserManager.IsJWTTokenValid(out string token) && _signInManager.IsSignedIn(User))
 {
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle fw-bold px-2 text-body" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@_localization.GetLocalizedString("Messages.Welcome") @_userManager.GetUserName(User)</a>

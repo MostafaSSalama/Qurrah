@@ -1,5 +1,4 @@
-﻿
-using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+﻿using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 
 namespace Qurrah.Integration.ServiceWrappers.Services.IServices
 {
@@ -8,8 +7,8 @@ namespace Qurrah.Integration.ServiceWrappers.Services.IServices
         Task<T> GetAllAsync<T>(string authToken);
         Task<T> GetAllClassifiedByTypeAsync<T>();
         Task<T> GetAsync<T>(int id, string authToken);
-        Task<T> CreateAsync<T>(FAQCreateDTO faqCreateDTO, string authToken);
-        Task<T> UpdateAsync<T>(FAQUpdateDTO faqUpdateDTO, string authToken);
+        Task<T> CreateAsync<T>(FAQWithLocalizedProperties faqWithLocalizedProperties, string authToken);
+        Task<T> UpdateAsync<T>(FAQWithLocalizedProperties faqWithLocalizedProperties, string authToken);
         Task<T> DeleteAsync<T>(int id, string authToken);
     }
 }

@@ -138,11 +138,8 @@
   <data name="Button.Submit.DefaultValue" xml:space="preserve">
     <value>Submit</value>
   </data>
-  <data name="FAQ.Create.AnswerAr" xml:space="preserve">
-    <value>Answer in Arabic</value>
-  </data>
-  <data name="FAQ.Create.AnswerEn" xml:space="preserve">
-    <value>Answer in English</value>
+  <data name="FAQ.Create.Answer" xml:space="preserve">
+    <value>Answer</value>
   </data>
   <data name="FAQ.Create.DisplayOrder" xml:space="preserve">
     <value>Display Order</value>
@@ -153,26 +150,17 @@
   <data name="FAQ.Create.HeaderTitle" xml:space="preserve">
     <value>Add New FAQ</value>
   </data>
-  <data name="FAQ.Create.QuestionAr" xml:space="preserve">
-    <value>Question in Arabic</value>
-  </data>
-  <data name="FAQ.Create.QuestionEn" xml:space="preserve">
-    <value>Question in English</value>
+  <data name="FAQ.Create.Question" xml:space="preserve">
+    <value>Question</value>
   </data>
   <data name="FAQ.Index.HeaderTitle" xml:space="preserve">
     <value>FAQs</value>
   </data>
-  <data name="FAQ.Index.Table.FAQTypeAr" xml:space="preserve">
-    <value>Type in Arabic</value>
+  <data name="FAQ.Index.Table.FAQType" xml:space="preserve">
+    <value>Type</value>
   </data>
-  <data name="FAQ.Index.Table.FAQTypeEn" xml:space="preserve">
-    <value>Type in English</value>
-  </data>
-  <data name="FAQ.Index.Table.QuestionAr" xml:space="preserve">
-    <value>Question in Arabic</value>
-  </data>
-  <data name="FAQ.Index.Table.QuestionEn" xml:space="preserve">
-    <value>Question in English</value>
+  <data name="FAQ.Index.Table.Question" xml:space="preserve">
+    <value>Question</value>
   </data>
   <data name="FAQ.Update.HeaderTitle" xml:space="preserve">
     <value>Edit FAQ</value>
@@ -180,11 +168,8 @@
   <data name="FAQ.View.HeaderTitle" xml:space="preserve">
     <value>Display FAQ</value>
   </data>
-  <data name="FAQType.Create.DescriptionAr" xml:space="preserve">
-    <value>Description in Arabic</value>
-  </data>
-  <data name="FAQType.Create.DescriptionEn" xml:space="preserve">
-    <value>Description in English</value>
+  <data name="FAQType.Create.Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="FAQType.Create.DisplayOrder" xml:space="preserve">
     <value>Display Order</value>
@@ -192,11 +177,8 @@
   <data name="FAQType.Create.HeaderTitle" xml:space="preserve">
     <value>Add New FAQ Type</value>
   </data>
-  <data name="FAQType.Create.NameAr" xml:space="preserve">
-    <value>Type in Arabic</value>
-  </data>
-  <data name="FAQType.Create.NameEn" xml:space="preserve">
-    <value>Type in English</value>
+  <data name="FAQType.Create.Name" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="FAQType.Index.AddNewType" xml:space="preserve">
     <value>Add New Type</value>
@@ -204,11 +186,8 @@
   <data name="FAQType.Index.HeaderTitle" xml:space="preserve">
     <value>FAQ Types</value>
   </data>
-  <data name="FAQType.Index.Table.FAQTypeAr" xml:space="preserve">
-    <value>Type in Arabic</value>
-  </data>
-  <data name="FAQType.Index.Table.FAQTypeEn" xml:space="preserve">
-    <value>Type in English</value>
+  <data name="FAQType.Index.Table.FAQType" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="FAQType.Update.HeaderTitle" xml:space="preserve">
     <value>Edit FAQ Type</value>
@@ -357,6 +336,9 @@
   </data>
   <data name="SweetAlert.Question" xml:space="preserve">
     <value>Are you sure you want to delete?</value>
+  </data>
+  <data name="Tabs.Title.Standard" xml:space="preserve">
+    <value>Standard</value>
   </data>
   <data name="Validation.Compare.NotMatchedPassword" xml:space="preserve">
     <value>Password is not matching </value>

@@ -11,15 +11,9 @@ namespace Qurrah.Entities
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(1000)]
-        public string NameAr { get; set; }
+        public string Name { get; set; }
 
-        public string DescriptionAr { get; set; }
-
-        [Required(AllowEmptyStrings = false)]
-        [StringLength(1000)]
-        public string NameEn { get; set; }
-
-        public string DescriptionEn { get; set; }
+        public string Description { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [Range(1, 1000)]

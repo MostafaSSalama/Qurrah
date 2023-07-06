@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Qurrah.Entities.NoMapping;
 using Qurrah.Integration.ServiceWrappers.DTOs.Authentication;
 using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using static Qurrah.Integration.ServiceWrappers.Constants;
@@ -20,7 +19,7 @@ namespace Qurrah.Integration.ServiceWrappers.Services
         #endregion
 
         #region Methods
-        public async Task<T> LoginAsync<T>(LoginRequestDTO loginRequest)
+        public async Task<T> LoginAsync<T>(LoginRequest loginRequest)
         {
             return await SendAsync<T>(new APIRequest
             {
@@ -29,7 +28,7 @@ namespace Qurrah.Integration.ServiceWrappers.Services
                 URL = $"{serviceURL}/Login"
             });
         }
-        public async Task<T> RegisterAsync<T>(ParentUserRegistrationRequestDTO parentRegistrationRequest)
+        public async Task<T> RegisterAsync<T>(ParentUserRegistrationRequest parentRegistrationRequest)
         {
             return await SendAsync<T>(new APIRequest
             {
@@ -38,7 +37,7 @@ namespace Qurrah.Integration.ServiceWrappers.Services
                 URL = $"{serviceURL}/RegisterParentUser"
             });
         }
-        public async Task<T> RegisterAsync<T>(CenterUserRegistrationRequestDTO centerRegistrationRequest)
+        public async Task<T> RegisterAsync<T>(CenterUserRegistrationRequest centerRegistrationRequest)
         {
             return await SendAsync<T>(new APIRequest
             {

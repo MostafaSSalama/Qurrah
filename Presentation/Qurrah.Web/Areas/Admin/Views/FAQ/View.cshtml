@@ -1,10 +1,12 @@
-﻿@using Localization.Services;
-@using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+﻿@using Qurrah.Business.Localization;
+@using Qurrah.Web.Areas.Admin.Models;
+
 @inject LanguageService _localization
-@model FAQDTO
+@model FAQVM
 
 @{
     ViewData["Title"] = @_localization.GetLocalizedString("FAQ.View.HeaderTitle");
+    bool isLocalized = Model.Locales?.Any() == true && Model.LocalizedPropertyGroups?.Any() == true;
 }
 
 <form method="post" asp-action="UpdatePost">
@@ -23,51 +25,54 @@
             </div>
             <hr />
         </div>
-        <div class="row pt-4"></div>
 
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="QuestionAr"></label></strong>
-            <input asp-for="QuestionAr" class="form-control" disabled />
+        @if (isLocalized)
+        {
+            <div class="row pt-4"></div>
+            <partial name="_FormTabs" model="@Model.Locales" />
+        }
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel">
+                <div class="row px-3 pt-4">
+                    <strong class="mb-2"><label asp-for="FAQ.Question"></label></strong>
+                    <input asp-for="FAQ.Question" class="form-control" disabled />
+                </div>
+
+                <div class="row px-3 pt-4">
+                    <strong class="mb-2"><label asp-for="FAQ.Answer"></label></strong>
+                    <textarea asp-for="FAQ.Answer" class="form-control" rows="5" disabled></textarea>
+                </div>
+            </div>
+            @if (isLocalized)
+            {
+                <partial name="_LocalizedProperties" for="@Model.LocalizedPropertyGroups" />
+            }
         </div>
 
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="AnswerAr"></label></strong>
-            <textarea asp-for="AnswerAr" class="form-control" rows="5" disabled></textarea>
+        @if (isLocalized)
+        {
+            <hr>
+        }
+
+        <div class="row px-3">
+            <strong class="mb-2"><label asp-for="FAQ.FAQType.Name"></label></strong>
+            <input asp-for="FAQ.FAQType.Name" class="form-control" disabled />
         </div>
 
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="QuestionEn"></label></strong>
-            <input asp-for="QuestionEn" class="form-control" disabled />
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="FAQ.DisplayOrder"></label></strong>
+            <input asp-for="FAQ.DisplayOrder" class="form-control" disabled />
         </div>
 
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="AnswerEn"></label></strong>
-            <textarea asp-for="AnswerEn" class="form-control" rows="5" disabled></textarea>
-        </div>
-
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="FAQType.NameAr"></label></strong>
-            <input asp-for="FAQType.NameAr" class="form-control" disabled />
-        </div>
-
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="FAQType.NameEn"></label></strong>
-            <input asp-for="FAQType.NameEn" class="form-control" disabled />
-        </div>
-
-        <div class="row mb-3">
-            <strong class="mb-2"><label asp-for="DisplayOrder"></label></strong>
-            <input asp-for="DisplayOrder" class="form-control" disabled />
-        </div>
-
-        <div class="">
-            <a class="btn btn-primary" asp-action="Index" style="width:150px">
+        <div class="row px-3 pt-4">
+            <a class="btn btn-primary mx-1" asp-action="Index" style="width:150px">
                 @_localization.GetLocalizedString("Button.Bcak.DefaultValue")
             </a>
-            <a class="btn btn-primary" asp-action="Update" asp-route-id="@Model.Id" style="width:150px">
+            <a class="btn btn-primary mx-1" asp-action="Update" asp-route-id="@Model.FAQ.Id" style="width:150px">
                 @_localization.GetLocalizedString("Button.Edit.DefaultValue")
             </a>
-            <a class="btn btn-danger" style="width:150px" onclick='return deleteType(@Model.Id, `@_localization.GetLocalizedString("SweetAlert.Question")`
+            <a class="btn btn-danger mx-1" style="width:150px" onclick='return deleteType(@Model.FAQ.Id, `@_localization.GetLocalizedString("SweetAlert.Question")`
                                                                                               , `@_localization.GetLocalizedString("SweetAlert.Description")`
                                                                                               , `@_localization.GetLocalizedString("SweetAlert.ConfirmButtonText")`
                                                                                               , `@_localization.GetLocalizedString("SweetAlert.CancelButtonText")` )'>
