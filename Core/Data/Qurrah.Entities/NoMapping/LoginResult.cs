@@ -1,8 +1,8 @@
 ﻿namespace Qurrah.Entities
 {
-    public class LoginResponse
+    public class LoginResult
     {
-        public LoginResponse(string token, bool userExists)
+        public LoginResult(string token, bool userExists)
         {
             Token = token;
             UserExists = userExists;

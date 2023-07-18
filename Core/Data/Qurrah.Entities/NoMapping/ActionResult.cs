@@ -3,6 +3,7 @@
     public enum ActionResult
     {
         Success,
-        ItemNotFound
+        ItemNotFound,
+        AllOrSomeItemsNotFound
     }
 }

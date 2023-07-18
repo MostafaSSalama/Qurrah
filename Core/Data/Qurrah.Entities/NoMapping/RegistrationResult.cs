@@ -1,8 +1,8 @@
 ﻿namespace Qurrah.Entities
 {
-    public class RegistrationResponse
+    public class RegistrationResult
     {
-        public RegistrationResponse(bool succeeded)
+        public RegistrationResult(bool succeeded)
         {
             Succeeded = succeeded;
         }

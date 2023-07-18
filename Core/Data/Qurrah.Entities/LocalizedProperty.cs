@@ -18,6 +18,7 @@ namespace Qurrah.Entities
         public string LocaleKey { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [StringLength (int.MaxValue)]
         public string LocaleValue { get; set; }
 
         [Required(AllowEmptyStrings = false)]

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Qurrah.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddFAQandUserEntities : Migration
+    public partial class AddEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,6 +41,18 @@ namespace Qurrah.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CenterLicenseStatus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CenterLicenseStatus", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FAQType",
                 columns: table => new
                 {
@@ -53,6 +65,18 @@ namespace Qurrah.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FAQType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,7 +137,7 @@ namespace Qurrah.Data.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,6 +158,53 @@ namespace Qurrah.Data.Migrations
                         name: "FK_FAQ_FAQType_FKTypeId",
                         column: x => x.FKTypeId,
                         principalTable: "FAQType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    FKFileTypeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FileDetails_FileType_FKFileTypeId",
+                        column: x => x.FKFileTypeId,
+                        principalTable: "FileType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CenterLicenseStatusDescription",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FKStatusId = table.Column<int>(type: "int", nullable: false),
+                    FKLanguageId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CenterLicenseStatusDescription", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CenterLicenseStatusDescription_CenterLicenseStatus_FKStatusId",
+                        column: x => x.FKStatusId,
+                        principalTable: "CenterLicenseStatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CenterLicenseStatusDescription_Language_FKLanguageId",
+                        column: x => x.FKLanguageId,
+                        principalTable: "Language",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -183,7 +254,7 @@ namespace Qurrah.Data.Migrations
                         column: x => x.FKInLanguageId,
                         principalTable: "Language",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_LanguageDescription_Language_FKLanguageId",
                         column: x => x.FKLanguageId,
@@ -200,9 +271,10 @@ namespace Qurrah.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LocaleKeyGroup = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     LocaleKey = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    LocaleValue = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LocaleValue = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     FKLanguageId = table.Column<int>(type: "int", nullable: false),
-                    EntityId = table.Column<long>(type: "bigint", nullable: false)
+                    EntityId = table.Column<long>(type: "bigint", nullable: false),
+                    IsMultiLine = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -246,7 +318,8 @@ namespace Qurrah.Data.Migrations
                         name: "FK_AspNetUsers_AspNetUsers_FKCreatedByUserId",
                         column: x => x.FKCreatedByUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_UserType_FKUserTypeId",
                         column: x => x.FKUserTypeId,
@@ -273,7 +346,7 @@ namespace Qurrah.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -293,7 +366,7 @@ namespace Qurrah.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -311,13 +384,13 @@ namespace Qurrah.Data.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -337,7 +410,46 @@ namespace Qurrah.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CenterLicense",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LicenseNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FKFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FKStatusId = table.Column<int>(type: "int", nullable: false),
+                    RejectionReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StatusDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FKStatusUpdatedByUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CenterLicense", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CenterLicense_AspNetUsers_FKStatusUpdatedByUserId",
+                        column: x => x.FKStatusUpdatedByUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CenterLicense_CenterLicenseStatus_FKStatusId",
+                        column: x => x.FKStatusId,
+                        principalTable: "CenterLicenseStatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CenterLicense_FileDetails_FKFileId",
+                        column: x => x.FKFileId,
+                        principalTable: "FileDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -376,7 +488,7 @@ namespace Qurrah.Data.Migrations
                         column: x => x.FKGenderId,
                         principalTable: "Gender",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -416,10 +528,29 @@ namespace Qurrah.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1c1fad40-cd3b-426f-b4c0-6205236df447", null, "Administrator", "Administrator" },
-                    { "71773683-0f94-4e25-9d97-ffe70827fbb6", null, "Center", "Center" },
-                    { "a4196a4c-6713-4214-b3a2-0ef0159ba7e3", null, "Parent", "Parent" },
-                    { "abd66b75-dd65-4809-8db5-874c0f8ce275", null, "CenterApprover", "CenterApprover" }
+                    { "063140b5-5846-4d2a-8b06-31a28f74874a", null, "Administrator", "Administrator" },
+                    { "13ea01e6-d4f2-4057-834c-56a0d86e1eb2", null, "Parent", "Parent" },
+                    { "8bc3d7e1-616c-4453-b585-40027787b18c", null, "Center", "Center" },
+                    { "8c184d43-b12b-4c81-b15a-15e0b91a5d71", null, "CenterApprover", "CenterApprover" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CenterLicenseStatus",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "UnderConsideration" },
+                    { 2, "Approved" },
+                    { 3, "Rejected" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FileType",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "PDF" },
+                    { 2, "DOCX" }
                 });
 
             migrationBuilder.InsertData(
@@ -456,8 +587,21 @@ namespace Qurrah.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "Email", "EmailConfirmed", "FKCreatedByUserId", "FKUserTypeId", "LastModifiedOn", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "ad856c8c-eebb-4984-b0ec-5ce7f3efa22c", 0, "e643d9a2-d478-4e5c-8ccf-f9bf32142061", new DateTime(2023, 6, 25, 22, 1, 55, 342, DateTimeKind.Local).AddTicks(7471), "Admin@Qurrah.com", false, null, 1, null, false, null, "Admin@Qurrah.com", "Admin", "AQAAAAIAAYagAAAAEJTE5PrIrSrBthlhc7n16og3Xnir72Sc+ZRYWHO50eRqXjQOt2nbGZK+KpRey196KA==", "0543700744", false, "c2a4accb-0aa3-4cde-af0e-fcc63ca75a45", false, "Admin" },
-                    { "b6578ba7-8b09-41c1-83b5-331186006e14", 0, "3a869b20-05ee-4d0b-a25f-b2caf6391cea", new DateTime(2023, 6, 25, 22, 1, 55, 474, DateTimeKind.Local).AddTicks(4718), "CenterReviewer@Qurrah.com", false, null, 2, null, false, null, "CenterReviewer@Qurrah.com", "CenterReviewer", "AQAAAAIAAYagAAAAEOrEm4/zLg7B487c0Wx+WZQH1SK+JiEmA9HgPsg9Z+PuE99fu+OuvMZDs8pv3of0Dw==", "0543700745", false, "544dead9-996c-481a-a720-e1b46bd93844", false, "CenterReviewer" }
+                    { "4393593c-7587-4823-a694-43bcc28fc443", 0, "422b58f4-4e79-42a8-8674-8698f90c7a31", new DateTime(2023, 7, 17, 0, 13, 13, 13, DateTimeKind.Local).AddTicks(2618), "Admin@Qurrah.com", false, null, 1, null, false, null, "Admin@Qurrah.com", "Admin", "AQAAAAIAAYagAAAAEIrSIczHjnSCwjsGi2Baixxodc0I2k+YiDnT/ix/46dJryLzpcvoLUaR5obmUxl3Lw==", "0543700744", false, "86f84dd5-6945-47a3-a947-e891933aad77", false, "Admin" },
+                    { "b48073ae-515e-4735-bffa-e238f4b52bf4", 0, "5a9536e0-52c9-4599-9bf6-b572e5119ad0", new DateTime(2023, 7, 17, 0, 13, 13, 133, DateTimeKind.Local).AddTicks(6556), "CenterReviewer@Qurrah.com", false, null, 2, null, false, null, "CenterReviewer@Qurrah.com", "CenterReviewer", "AQAAAAIAAYagAAAAEGPsG7Kl4i4sfvrED8936ytTfLHeBNKWOeUGa0STMOkuBRuyUtGZRXX8ezVYSlCdAA==", "0543700745", false, "2183bb9e-595c-4591-8c6b-0dae53f8ecc7", false, "CenterReviewer" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CenterLicenseStatusDescription",
+                columns: new[] { "Id", "Description", "FKLanguageId", "FKStatusId" },
+                values: new object[,]
+                {
+                    { 1, "Under Consideration", 2, 1 },
+                    { 2, "قيد الدراسة", 1, 1 },
+                    { 3, "Approved", 2, 2 },
+                    { 4, "مقبول", 1, 2 },
+                    { 5, "Rejected", 2, 3 },
+                    { 6, "مرفوض", 1, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -487,8 +631,8 @@ namespace Qurrah.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "1c1fad40-cd3b-426f-b4c0-6205236df447", "ad856c8c-eebb-4984-b0ec-5ce7f3efa22c" },
-                    { "abd66b75-dd65-4809-8db5-874c0f8ce275", "b6578ba7-8b09-41c1-83b5-331186006e14" }
+                    { "063140b5-5846-4d2a-8b06-31a28f74874a", "4393593c-7587-4823-a694-43bcc28fc443" },
+                    { "8c184d43-b12b-4c81-b15a-15e0b91a5d71", "b48073ae-515e-4735-bffa-e238f4b52bf4" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -547,6 +691,38 @@ namespace Qurrah.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CenterLicense_FKFileId",
+                table: "CenterLicense",
+                column: "FKFileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CenterLicense_FKStatusId",
+                table: "CenterLicense",
+                column: "FKStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CenterLicense_FKStatusUpdatedByUserId",
+                table: "CenterLicense",
+                column: "FKStatusUpdatedByUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CenterLicenseStatus_Name",
+                table: "CenterLicenseStatus",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CenterLicenseStatusDescription_FKLanguageId_FKStatusId",
+                table: "CenterLicenseStatusDescription",
+                columns: new[] { "FKLanguageId", "FKStatusId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CenterLicenseStatusDescription_FKStatusId",
+                table: "CenterLicenseStatusDescription",
+                column: "FKStatusId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CenterOwnerUser_FKCenterId",
                 table: "CenterOwnerUser",
                 column: "FKCenterId");
@@ -568,6 +744,23 @@ namespace Qurrah.Data.Migrations
                 column: "FKTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FileDetails_FKFileTypeId",
+                table: "FileDetails",
+                column: "FKFileTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileType_Name",
+                table: "FileType",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Gender_Name",
+                table: "Gender",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GenderDescription_FKGenderId",
                 table: "GenderDescription",
                 column: "FKGenderId");
@@ -576,6 +769,12 @@ namespace Qurrah.Data.Migrations
                 name: "IX_GenderDescription_FKLanguageId_FKGenderId",
                 table: "GenderDescription",
                 columns: new[] { "FKLanguageId", "FKGenderId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Language_LanguageCulture",
+                table: "Language",
+                column: "LanguageCulture",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -600,9 +799,9 @@ namespace Qurrah.Data.Migrations
                 column: "LocaleKeyGroup");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LocalizedProperty_LocaleKeyGroup_LocaleKey_LocaleValue_FKLanguageId_EntityId",
+                name: "IX_LocalizedProperty_LocaleKeyGroup_LocaleKey_FKLanguageId_EntityId",
                 table: "LocalizedProperty",
-                columns: new[] { "LocaleKeyGroup", "LocaleKey", "LocaleValue", "FKLanguageId", "EntityId" },
+                columns: new[] { "LocaleKeyGroup", "LocaleKey", "FKLanguageId", "EntityId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -636,6 +835,12 @@ namespace Qurrah.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CenterLicense");
+
+            migrationBuilder.DropTable(
+                name: "CenterLicenseStatusDescription");
+
+            migrationBuilder.DropTable(
                 name: "CenterOwnerUser");
 
             migrationBuilder.DropTable(
@@ -657,6 +862,12 @@ namespace Qurrah.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "FileDetails");
+
+            migrationBuilder.DropTable(
+                name: "CenterLicenseStatus");
+
+            migrationBuilder.DropTable(
                 name: "Center");
 
             migrationBuilder.DropTable(
@@ -670,6 +881,9 @@ namespace Qurrah.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Gender");
+
+            migrationBuilder.DropTable(
+                name: "FileType");
 
             migrationBuilder.DropTable(
                 name: "UserType");

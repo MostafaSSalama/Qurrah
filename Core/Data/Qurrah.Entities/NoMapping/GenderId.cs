@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Qurrah.Entities
+﻿namespace Qurrah.Entities
 {
     public enum GenderId : int
     {

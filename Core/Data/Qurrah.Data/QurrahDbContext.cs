@@ -27,12 +27,18 @@ namespace Qurrah.Data
         public DbSet<LocalizedProperty> LocalizedProperty { get; set; }
         public DbSet<ParentUser> ParentUser { get; set; }
         public DbSet<UserType> UserType { get; set; }
+
+        public DbSet<CenterLicense> CenterLicense { get; set; }
+        public DbSet<CenterLicenseStatus> CenterLicenseStatus { get; set; }
+        public DbSet<CenterLicenseStatusDescription> CenterLicenseStatusDescription { get; set; }
+        public DbSet<FileDetails> FileDetails { get; set; }
+        public DbSet<FileType> FileType { get; set; }
         #endregion
 
         #region OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region Language/Gender
+            #region Enums
             modelBuilder.Entity<Gender>()
                        .HasIndex(l => l.Name)
                        .IsUnique();
@@ -71,6 +77,33 @@ namespace Qurrah.Data
                                          RTL = false
                                      }
                               });
+
+
+            modelBuilder.Entity<FileType>()
+                        .HasIndex(l => l.Name)
+                        .IsUnique();
+
+            modelBuilder.Entity<FileType>()
+                        .HasData(Enum.GetValues(typeof(FileTypeId))
+                                     .Cast<FileTypeId>()
+                                     .Select(e => new FileType()
+                                     {
+                                         Id = e,
+                                         Name = e.ToString()
+                                     }));
+
+            modelBuilder.Entity<CenterLicenseStatus>()
+                        .HasIndex(l => l.Name)
+                        .IsUnique();
+
+            modelBuilder.Entity<CenterLicenseStatus>()
+                        .HasData(Enum.GetValues(typeof(CenterLicenseStatusId))
+                                     .Cast<CenterLicenseStatusId>()
+                                     .Select(e => new CenterLicenseStatus()
+                                     {
+                                         Id = e,
+                                         Name = e.ToString()
+                                     }));
             #endregion
 
             #region GenderDescription
@@ -81,16 +114,6 @@ namespace Qurrah.Data
             modelBuilder.Entity<GenderDescription>()
                         .Property(e => e.FKLanguageId)
                         .HasConversion<int>();
-
-            modelBuilder.Entity<GenderDescription>()
-                        .HasOne(g => g.Gender)
-                        .WithMany(gd => gd.GenderDescriptions)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<GenderDescription>()
-                        .HasOne(g => g.Language)
-                        .WithMany(l => l.GenderDescriptions)
-                        .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<GenderDescription>()
                         .HasIndex(l => new
@@ -144,6 +167,11 @@ namespace Qurrah.Data
                         .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<LanguageDescription>()
+                        .HasOne(ld => ld.InLanguage)
+                        .WithMany(l => l.InLanguageDescriptions)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<LanguageDescription>()
                         .HasIndex(l => new
                         {
                             l.FKLanguageId,
@@ -185,15 +213,75 @@ namespace Qurrah.Data
                         });
             #endregion
 
+            #region CenterLicenseStatusDescription
+            modelBuilder.Entity<CenterLicenseStatusDescription>()
+                        .Property(cld => cld.FKStatusId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<CenterLicenseStatusDescription>()
+                        .Property(cld => cld.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<CenterLicenseStatusDescription>()
+                        .HasIndex(l => new
+                        {
+                            l.FKLanguageId,
+                            l.FKStatusId
+                        })
+                        .IsUnique();
+
+            modelBuilder.Entity<CenterLicenseStatusDescription>()
+                        .HasData(new List<CenterLicenseStatusDescription>
+                        {
+                            new CenterLicenseStatusDescription
+                            {
+                                Id = 1,
+                                FKLanguageId = LanguageId.English,
+                                FKStatusId = CenterLicenseStatusId.UnderConsideration,
+                                Description = "Under Consideration"
+                            },
+                            new CenterLicenseStatusDescription
+                            {
+                                Id = 2,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKStatusId = CenterLicenseStatusId.UnderConsideration,
+                                Description = "قيد الدراسة"
+                            },
+                            new CenterLicenseStatusDescription
+                            {
+                                Id = 3,
+                                FKLanguageId = LanguageId.English,
+                                FKStatusId = CenterLicenseStatusId.Approved,
+                                Description = "Approved"
+                            },
+                            new CenterLicenseStatusDescription
+                            {
+                                Id = 4,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKStatusId = CenterLicenseStatusId.Approved,
+                                Description = "مقبول"
+                            },
+                            new CenterLicenseStatusDescription
+                            {
+                                Id = 5,
+                                FKLanguageId = LanguageId.English,
+                                FKStatusId = CenterLicenseStatusId.Rejected,
+                                Description = "Rejected"
+                            },
+                            new CenterLicenseStatusDescription
+                            {
+                                Id = 6,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKStatusId = CenterLicenseStatusId.Rejected,
+                                Description = "مرفوض"
+                            }
+                        });
+            #endregion
+
             #region LocalizedProperty
             modelBuilder.Entity<LocalizedProperty>()
                         .Property(e => e.FKLanguageId)
                         .HasConversion<int>();
-
-            modelBuilder.Entity<LocalizedProperty>()
-                        .HasOne(l => l.Language)
-                        .WithMany(l => l.LocalizedProperties)
-                        .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<LocalizedProperty>()
                         .HasIndex(l => l.LocaleKeyGroup);
@@ -203,18 +291,10 @@ namespace Qurrah.Data
                         {
                             l.LocaleKeyGroup,
                             l.LocaleKey,
-                            l.LocaleValue,
                             l.FKLanguageId,
                             l.EntityId
                         })
                         .IsUnique();
-            #endregion
-
-            #region FAQ/FAQType
-            modelBuilder.Entity<FAQ>()
-                        .HasOne(u => u.FAQType)
-                        .WithMany(t => t.FAQs)
-                        .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             #region ApplicationUser/UserType
@@ -230,11 +310,6 @@ namespace Qurrah.Data
                                                             Name = e.ToString()
                                                         }));
 
-            modelBuilder.Entity<ApplicationUser>()
-                        .HasOne(u => u.UserType)
-                        .WithMany(t => t.ApplicationUsers)
-                        .OnDelete(DeleteBehavior.Restrict);
-
             #endregion
 
             #region ParentUser
@@ -243,31 +318,11 @@ namespace Qurrah.Data
                         .HasConversion<int>();
 
             modelBuilder.Entity<ParentUser>()
-                        .HasOne(u => u.Gender)
-                        .WithMany(t => t.ParentUsers)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<ParentUser>()
-                        .HasOne(d => d.ApplicationUser)
-                        .WithMany()
-                        .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<ParentUser>()
                         .HasIndex(u => u.FKUserId)
                         .IsUnique();
             #endregion
 
             #region Center/CenterOwnerUser
-            modelBuilder.Entity<CenterOwnerUser>()
-                        .HasOne("Center")
-                        .WithMany()
-                        .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<CenterOwnerUser>()
-                        .HasOne("ApplicationUser")
-                        .WithMany()
-                        .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<CenterOwnerUser>()
                         .HasIndex(u => u.FKUserId)
                         .IsUnique();
@@ -351,6 +406,9 @@ namespace Qurrah.Data
             #endregion
 
             base.OnModelCreating(modelBuilder);
+
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
         }
         #endregion
     }

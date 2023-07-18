@@ -7,6 +7,7 @@
         ParentUserRepository ParentUser { get; }
         CenterUserRepository CenterUser { get; }
         LanguageDescriptionRepository LanguageDescription { get; }
+        FileRepository File { get; }
         Task SaveAsync();
     }
 }
