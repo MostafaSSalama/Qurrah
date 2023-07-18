@@ -11,6 +11,7 @@ namespace Qurrah.Data.Repository.IRepository
         Task<IEnumerable<T>> GetAllAsync(string includedProperties = null);
         Task<IEnumerable<T>> WhereAsync(Expression<Func<T, bool>> filter, string includedProperties = null);
         Task AddAsync(T entity);
+        Task AddRangeAsync(IEnumerable<T> entities);
         void Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);

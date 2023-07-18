@@ -61,6 +61,10 @@ namespace Qurrah.Data.Repository
         {
             await _dbSet.AddAsync(entity);
         }
+        public async Task AddRangeAsync(IEnumerable<T> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
+        }
         public virtual void Update(T entity)
         {
             DbContext.Entry(entity).State = EntityState.Modified;

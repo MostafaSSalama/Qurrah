@@ -22,5 +22,7 @@ namespace Qurrah.Entities
         public ApplicationUser CreatedBy { get; set; }
 
         public DateTime? LastModifiedOn { get; set; }
+
+        public List<CenterLicense> CenterLicenses { get; set; }
     }
 }

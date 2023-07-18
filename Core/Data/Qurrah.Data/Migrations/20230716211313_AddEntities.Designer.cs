@@ -12,8 +12,8 @@ using Qurrah.Data;
 namespace Qurrah.Data.Migrations
 {
     [DbContext(typeof(QurrahDbContext))]
-    [Migration("20230625190155_AddFAQandUserEntities")]
-    partial class AddFAQandUserEntities
+    [Migration("20230716211313_AddEntities")]
+    partial class AddEntities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,25 +54,25 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a4196a4c-6713-4214-b3a2-0ef0159ba7e3",
+                            Id = "13ea01e6-d4f2-4057-834c-56a0d86e1eb2",
                             Name = "Parent",
                             NormalizedName = "Parent"
                         },
                         new
                         {
-                            Id = "71773683-0f94-4e25-9d97-ffe70827fbb6",
+                            Id = "8bc3d7e1-616c-4453-b585-40027787b18c",
                             Name = "Center",
                             NormalizedName = "Center"
                         },
                         new
                         {
-                            Id = "1c1fad40-cd3b-426f-b4c0-6205236df447",
+                            Id = "063140b5-5846-4d2a-8b06-31a28f74874a",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
-                            Id = "abd66b75-dd65-4809-8db5-874c0f8ce275",
+                            Id = "8c184d43-b12b-4c81-b15a-15e0b91a5d71",
                             Name = "CenterApprover",
                             NormalizedName = "CenterApprover"
                         });
@@ -167,13 +167,13 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "ad856c8c-eebb-4984-b0ec-5ce7f3efa22c",
-                            RoleId = "1c1fad40-cd3b-426f-b4c0-6205236df447"
+                            UserId = "4393593c-7587-4823-a694-43bcc28fc443",
+                            RoleId = "063140b5-5846-4d2a-8b06-31a28f74874a"
                         },
                         new
                         {
-                            UserId = "b6578ba7-8b09-41c1-83b5-331186006e14",
-                            RoleId = "abd66b75-dd65-4809-8db5-874c0f8ce275"
+                            UserId = "b48073ae-515e-4735-bffa-e238f4b52bf4",
+                            RoleId = "8c184d43-b12b-4c81-b15a-15e0b91a5d71"
                         });
                 });
 
@@ -279,39 +279,39 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ad856c8c-eebb-4984-b0ec-5ce7f3efa22c",
+                            Id = "4393593c-7587-4823-a694-43bcc28fc443",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e643d9a2-d478-4e5c-8ccf-f9bf32142061",
-                            CreatedOn = new DateTime(2023, 6, 25, 22, 1, 55, 342, DateTimeKind.Local).AddTicks(7471),
+                            ConcurrencyStamp = "422b58f4-4e79-42a8-8674-8698f90c7a31",
+                            CreatedOn = new DateTime(2023, 7, 17, 0, 13, 13, 13, DateTimeKind.Local).AddTicks(2618),
                             Email = "Admin@Qurrah.com",
                             EmailConfirmed = false,
                             FKUserTypeId = 1,
                             LockoutEnabled = false,
                             NormalizedEmail = "Admin@Qurrah.com",
                             NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJTE5PrIrSrBthlhc7n16og3Xnir72Sc+ZRYWHO50eRqXjQOt2nbGZK+KpRey196KA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIrSIczHjnSCwjsGi2Baixxodc0I2k+YiDnT/ix/46dJryLzpcvoLUaR5obmUxl3Lw==",
                             PhoneNumber = "0543700744",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c2a4accb-0aa3-4cde-af0e-fcc63ca75a45",
+                            SecurityStamp = "86f84dd5-6945-47a3-a947-e891933aad77",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
                         new
                         {
-                            Id = "b6578ba7-8b09-41c1-83b5-331186006e14",
+                            Id = "b48073ae-515e-4735-bffa-e238f4b52bf4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3a869b20-05ee-4d0b-a25f-b2caf6391cea",
-                            CreatedOn = new DateTime(2023, 6, 25, 22, 1, 55, 474, DateTimeKind.Local).AddTicks(4718),
+                            ConcurrencyStamp = "5a9536e0-52c9-4599-9bf6-b572e5119ad0",
+                            CreatedOn = new DateTime(2023, 7, 17, 0, 13, 13, 133, DateTimeKind.Local).AddTicks(6556),
                             Email = "CenterReviewer@Qurrah.com",
                             EmailConfirmed = false,
                             FKUserTypeId = 2,
                             LockoutEnabled = false,
                             NormalizedEmail = "CenterReviewer@Qurrah.com",
                             NormalizedUserName = "CenterReviewer",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOrEm4/zLg7B487c0Wx+WZQH1SK+JiEmA9HgPsg9Z+PuE99fu+OuvMZDs8pv3of0Dw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGPsG7Kl4i4sfvrED8936ytTfLHeBNKWOeUGa0STMOkuBRuyUtGZRXX8ezVYSlCdAA==",
                             PhoneNumber = "0543700745",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "544dead9-996c-481a-a720-e1b46bd93844",
+                            SecurityStamp = "2183bb9e-595c-4591-8c6b-0dae53f8ecc7",
                             TwoFactorEnabled = false,
                             UserName = "CenterReviewer"
                         });
@@ -335,6 +335,161 @@ namespace Qurrah.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Center");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.CenterLicense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FKFileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("FKStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FKStatusUpdatedByUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LicenseNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RejectionReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("StatusDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FKFileId");
+
+                    b.HasIndex("FKStatusId");
+
+                    b.HasIndex("FKStatusUpdatedByUserId");
+
+                    b.ToTable("CenterLicense");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.CenterLicenseStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("CenterLicenseStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "UnderConsideration"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Approved"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Rejected"
+                        });
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.CenterLicenseStatusDescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FKLanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FKStatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FKStatusId");
+
+                    b.HasIndex("FKLanguageId", "FKStatusId")
+                        .IsUnique();
+
+                    b.ToTable("CenterLicenseStatusDescription");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Under Consideration",
+                            FKLanguageId = 2,
+                            FKStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "قيد الدراسة",
+                            FKLanguageId = 1,
+                            FKStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Approved",
+                            FKLanguageId = 2,
+                            FKStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "مقبول",
+                            FKLanguageId = 1,
+                            FKStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Rejected",
+                            FKLanguageId = 2,
+                            FKStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "مرفوض",
+                            FKLanguageId = 1,
+                            FKStatusId = 3
+                        });
                 });
 
             modelBuilder.Entity("Qurrah.Entities.CenterOwnerUser", b =>
@@ -449,6 +604,60 @@ namespace Qurrah.Data.Migrations
                     b.ToTable("FAQType");
                 });
 
+            modelBuilder.Entity("Qurrah.Entities.FileDetails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("FKFileTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("FileData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FKFileTypeId");
+
+                    b.ToTable("FileDetails");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.FileType", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("FileType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "PDF"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "DOCX"
+                        });
+                });
+
             modelBuilder.Entity("Qurrah.Entities.Gender", b =>
                 {
                     b.Property<int>("Id")
@@ -460,6 +669,9 @@ namespace Qurrah.Data.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Gender");
 
@@ -560,6 +772,9 @@ namespace Qurrah.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LanguageCulture")
+                        .IsUnique();
+
                     b.ToTable("Language");
 
                     b.HasData(
@@ -655,6 +870,9 @@ namespace Qurrah.Data.Migrations
                     b.Property<int>("FKLanguageId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsMultiLine")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LocaleKey")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -667,7 +885,8 @@ namespace Qurrah.Data.Migrations
 
                     b.Property<string>("LocaleValue")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -675,7 +894,7 @@ namespace Qurrah.Data.Migrations
 
                     b.HasIndex("LocaleKeyGroup");
 
-                    b.HasIndex("LocaleKeyGroup", "LocaleKey", "LocaleValue", "FKLanguageId", "EntityId")
+                    b.HasIndex("LocaleKeyGroup", "LocaleKey", "FKLanguageId", "EntityId")
                         .IsUnique();
 
                     b.ToTable("LocalizedProperty");
@@ -776,7 +995,7 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -785,7 +1004,7 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Qurrah.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -794,7 +1013,7 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Qurrah.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -803,13 +1022,13 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Qurrah.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -818,7 +1037,7 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Qurrah.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -826,7 +1045,8 @@ namespace Qurrah.Data.Migrations
                 {
                     b.HasOne("Qurrah.Entities.ApplicationUser", "CreatedBy")
                         .WithMany()
-                        .HasForeignKey("FKCreatedByUserId");
+                        .HasForeignKey("FKCreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Qurrah.Entities.UserType", "UserType")
                         .WithMany("ApplicationUsers")
@@ -837,6 +1057,51 @@ namespace Qurrah.Data.Migrations
                     b.Navigation("CreatedBy");
 
                     b.Navigation("UserType");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.CenterLicense", b =>
+                {
+                    b.HasOne("Qurrah.Entities.FileDetails", "FileDetails")
+                        .WithMany("CenterLicenses")
+                        .HasForeignKey("FKFileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Qurrah.Entities.CenterLicenseStatus", "Status")
+                        .WithMany()
+                        .HasForeignKey("FKStatusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Qurrah.Entities.ApplicationUser", "StatusUpdatedByUser")
+                        .WithMany("CenterLicenses")
+                        .HasForeignKey("FKStatusUpdatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("FileDetails");
+
+                    b.Navigation("Status");
+
+                    b.Navigation("StatusUpdatedByUser");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.CenterLicenseStatusDescription", b =>
+                {
+                    b.HasOne("Qurrah.Entities.Language", "Language")
+                        .WithMany("CenterLicenseStatusDescriptions")
+                        .HasForeignKey("FKLanguageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Qurrah.Entities.CenterLicenseStatus", "CenterLicenseStatus")
+                        .WithMany("CenterLicenseStatusDescriptions")
+                        .HasForeignKey("FKStatusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CenterLicenseStatus");
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("Qurrah.Entities.CenterOwnerUser", b =>
@@ -850,7 +1115,7 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Qurrah.Entities.Gender", "Gender")
                         .WithMany("CenterOwnerUsers")
                         .HasForeignKey("FKGenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Qurrah.Entities.ApplicationUser", "ApplicationUser")
@@ -877,6 +1142,17 @@ namespace Qurrah.Data.Migrations
                     b.Navigation("FAQType");
                 });
 
+            modelBuilder.Entity("Qurrah.Entities.FileDetails", b =>
+                {
+                    b.HasOne("Qurrah.Entities.FileType", "FileType")
+                        .WithMany("FileDetails")
+                        .HasForeignKey("FKFileTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FileType");
+                });
+
             modelBuilder.Entity("Qurrah.Entities.GenderDescription", b =>
                 {
                     b.HasOne("Qurrah.Entities.Gender", "Gender")
@@ -899,9 +1175,9 @@ namespace Qurrah.Data.Migrations
             modelBuilder.Entity("Qurrah.Entities.LanguageDescription", b =>
                 {
                     b.HasOne("Qurrah.Entities.Language", "InLanguage")
-                        .WithMany()
+                        .WithMany("InLanguageDescriptions")
                         .HasForeignKey("FKInLanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Qurrah.Entities.Language", "Language")
@@ -945,9 +1221,29 @@ namespace Qurrah.Data.Migrations
                     b.Navigation("Gender");
                 });
 
+            modelBuilder.Entity("Qurrah.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("CenterLicenses");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.CenterLicenseStatus", b =>
+                {
+                    b.Navigation("CenterLicenseStatusDescriptions");
+                });
+
             modelBuilder.Entity("Qurrah.Entities.FAQType", b =>
                 {
                     b.Navigation("FAQs");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.FileDetails", b =>
+                {
+                    b.Navigation("CenterLicenses");
+                });
+
+            modelBuilder.Entity("Qurrah.Entities.FileType", b =>
+                {
+                    b.Navigation("FileDetails");
                 });
 
             modelBuilder.Entity("Qurrah.Entities.Gender", b =>
@@ -961,7 +1257,11 @@ namespace Qurrah.Data.Migrations
 
             modelBuilder.Entity("Qurrah.Entities.Language", b =>
                 {
+                    b.Navigation("CenterLicenseStatusDescriptions");
+
                     b.Navigation("GenderDescriptions");
+
+                    b.Navigation("InLanguageDescriptions");
 
                     b.Navigation("LanguageDescriptions");
 

@@ -26,7 +26,9 @@ namespace Qurrah.Entities
         public bool Published { get; set; }
 
         public List<LanguageDescription> LanguageDescriptions { get; set; }
+        public List<LanguageDescription> InLanguageDescriptions { get; set; }
         public List<GenderDescription> GenderDescriptions { get; set; }
         public List<LocalizedProperty> LocalizedProperties { get; set; }
+        public List<CenterLicenseStatusDescription> CenterLicenseStatusDescriptions { get; set; }
     }
 }

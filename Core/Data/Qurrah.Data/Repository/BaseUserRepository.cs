@@ -35,7 +35,7 @@ namespace Qurrah.Data.Repository
             return !userExists;
         }
 
-        public async Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
+        public async Task<LoginResult> LoginAsync(LoginRequest loginRequest)
         {
             var user = await _dbContext.ApplicationUser.FirstOrDefaultAsync(u => u.UserName.Trim().ToLower().Equals(loginRequest.UserName.Trim().ToLower())
                                                                                             || u.Email.Trim().ToLower().Equals(loginRequest.UserName.Trim().ToLower()));
@@ -44,12 +44,12 @@ namespace Qurrah.Data.Repository
                 isPasswordValid = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
 
             if (!isPasswordValid || null == user)
-                return new LoginResponse(string.Empty, false);
+                return new LoginResult(string.Empty, false);
 
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
             string token = WriteToken(user.UserName, role);
 
-            return new LoginResponse(token, true);
+            return new LoginResult(token, true);
         }
         #endregion
 

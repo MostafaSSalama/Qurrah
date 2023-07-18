@@ -3,6 +3,7 @@ using Qurrah.Entities;
 using Qurrah.Web.APIs.Models.DTOs.Authentication;
 using Qurrah.Web.APIs.Models.DTOs.FAQ;
 using Qurrah.Web.APIs.Models.DTOs.FAQType;
+using Qurrah.Web.APIs.Models.DTOs.File;
 using Qurrah.Web.APIs.Models.DTOs.Localization;
 
 namespace Qurrah.Web.APIs.Mapping
@@ -27,9 +28,9 @@ namespace Qurrah.Web.APIs.Mapping
             CreateMap<CenterUserRegistrationRequestDTO, CenterUserRegistrationRequest>()
                     .ForMember(dto => dto.CenterOwner, c => c.MapFrom(r => r.CenterOwner)).ReverseMap();
             
-            CreateMap<RegistrationResponse, RegistrationResponseDTO>().ReverseMap();
+            CreateMap<RegistrationResult, RegistrationResponseDTO>().ReverseMap();
             CreateMap<LoginRequest, LoginRequestDTO>().ReverseMap();
-            CreateMap<LoginResponse, LoginResponseDTO>().ReverseMap();
+            CreateMap<LoginResult, LoginResponseDTO>().ReverseMap();
             
             CreateMap<LocaleInfo, LocaleDTO>().ReverseMap();
             CreateMap<Language, LocaleDTO>()
@@ -44,6 +45,9 @@ namespace Qurrah.Web.APIs.Mapping
                     .ForMember(dto => dto.LanguageId, lp => lp.MapFrom(p => p.FKLanguageId)).ReverseMap();
             CreateMap<LocalizedProperty, LocalizedPropertyUpdateDTO>()
                     .ForMember(dto => dto.LanguageId, lp => lp.MapFrom(p => p.FKLanguageId)).ReverseMap();
+
+            CreateMap<FileDetails, FileDTO>()
+                    .ForMember(dto => dto.FileTypeId, lp => lp.MapFrom(p => p.FKFileTypeId)).ReverseMap();
         }
     }
 }

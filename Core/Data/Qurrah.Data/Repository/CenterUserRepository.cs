@@ -14,7 +14,7 @@ namespace Qurrah.Data.Repository
         #endregion
 
         #region Methods
-        public async Task<RegistrationResponse> RegisterWithSaveAsync(CenterUserRegistrationRequest registrationRequest)
+        public async Task<RegistrationResult> RegisterWithSaveAsync(CenterUserRegistrationRequest registrationRequest)
         {
             bool succeeded = false;
             ApplicationUser user = new();
@@ -62,7 +62,7 @@ namespace Qurrah.Data.Repository
                 transaction?.Rollback();
                 throw;
             }
-            return new RegistrationResponse(succeeded);
+            return new RegistrationResult(succeeded);
         }
         #endregion
     }
