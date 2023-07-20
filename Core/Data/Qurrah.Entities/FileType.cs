@@ -12,6 +12,10 @@ namespace Qurrah.Entities
         [StringLength(500)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(500)]
+        public string ContentType { get; set; }
+
         public List<FileDetails> FileDetails { get; set; }
     }
 }

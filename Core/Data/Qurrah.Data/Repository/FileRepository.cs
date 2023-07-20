@@ -23,16 +23,17 @@ namespace Qurrah.Data.Repository
                 await AddAsync(new FileDetails
                 {
                     Id = fileId,
-                    FileName = file.FileName,
-                    FileData = file.FileData,
-                    FKFileTypeId = file.FileType
+                    FileName = file.FileName.Trim(),
+                    FileExtension = file.FileExtension.ToLower().Trim(),
+                    FileData = file.FileData.Trim(),
+                    FKFileTypeId = (FileTypeId)file.FileTypeId
                 });
                 await DbContext.SaveChangesAsync();
 
                 result.FileId = fileId;
                 result.Succeeded = true;
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -41,24 +42,25 @@ namespace Qurrah.Data.Repository
 
         public async Task<UploadMultipleFilesResult> UploadMultipleFilesWithSaveAsync(UploadMultipleFilesRequest files)
         {
-            UploadMultipleFilesResult result = new(false, Enumerable.Empty<Guid>());
+            UploadMultipleFilesResult result = new(false, Enumerable.Empty<FileDetails>());
             try
             {
                 var fileEntities = files.Files.Select(file => new FileDetails
                 {
                     Id = Guid.NewGuid(),
-                    FileName = file.FileName,
-                    FileData = file.FileData,
-                    FKFileTypeId = file.FileType
+                    FileName = file.FileName.Trim(),
+                    FileExtension = file.FileExtension.ToLower().Trim(),
+                    FileData = file.FileData.Trim(),
+                    FKFileTypeId = (FileTypeId)file.FileTypeId
                 });
 
                 await AddRangeAsync(fileEntities);
                 await DbContext.SaveChangesAsync();
 
-                result.FileIds = fileEntities.Select(f => f.Id);
+                result.Files = fileEntities;
                 result.Succeeded = true;
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -81,7 +83,7 @@ namespace Qurrah.Data.Repository
                 else
                     result = ActionResult.ItemNotFound;
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -106,7 +108,7 @@ namespace Qurrah.Data.Repository
                 else
                     result = ActionResult.AllOrSomeItemsNotFound;
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -123,7 +125,7 @@ namespace Qurrah.Data.Repository
                 result.File = file;
                 result.ActionResult = null != file ? ActionResult.Success : ActionResult.ItemNotFound;
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

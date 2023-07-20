@@ -7,6 +7,7 @@ using Qurrah.Data;
 using Qurrah.Data.Repository;
 using Qurrah.Data.Repository.IRepository;
 using Qurrah.Entities;
+using Qurrah.Web.APIs.Handlers;
 using Qurrah.Web.APIs.Mapping;
 using System.Text;
 
@@ -32,6 +33,10 @@ builder.Services.AddControllers();
 
         #region AutoMapper
         builder.Services.AddAutoMapper(typeof(MappingConfiguration));
+        #endregion
+
+        #region Handlers
+        builder.Services.AddSingleton<IFileHandler, FileHandler>();
         #endregion
 
         #region Authentication

@@ -38,7 +38,7 @@ namespace Qurrah.Web.APIs.Controllers.Localization
             }
             catch (Exception ex)
             {
-                return APIUtility.HandleException(ex);
+                return ExceptionUtility.HandleException(ex);
             }
         }
         #endregion

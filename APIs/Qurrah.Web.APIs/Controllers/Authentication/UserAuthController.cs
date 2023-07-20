@@ -46,7 +46,7 @@ namespace Qurrah.Web.APIs.Controllers.Authentication
             }
             catch (Exception ex)
             {
-                return APIUtility.HandleException(ex);
+                return ExceptionUtility.HandleException(ex);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Qurrah.Web.APIs.Controllers.Authentication
             }
             catch (Exception ex)
             {
-                return APIUtility.HandleException(ex);
+                return ExceptionUtility.HandleException(ex);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Qurrah.Web.APIs.Controllers.Authentication
             }
             catch (Exception ex)
             {
-                return APIUtility.HandleException(ex);
+                return ExceptionUtility.HandleException(ex);
             }
         }
         #endregion

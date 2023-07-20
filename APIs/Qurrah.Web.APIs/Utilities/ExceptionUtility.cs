@@ -3,7 +3,7 @@ using System.Net;
 
 namespace Qurrah.Web.APIs.Utilities
 {
-    public static class APIUtility
+    public static class ExceptionUtility
     {
         public static APIResponse HandleException(Exception ex)
         {

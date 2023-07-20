@@ -84,13 +84,45 @@ namespace Qurrah.Data
                         .IsUnique();
 
             modelBuilder.Entity<FileType>()
-                        .HasData(Enum.GetValues(typeof(FileTypeId))
-                                     .Cast<FileTypeId>()
-                                     .Select(e => new FileType()
-                                     {
-                                         Id = e,
-                                         Name = e.ToString()
-                                     }));
+                        .HasData(new List<FileType>
+                        {
+                            new FileType()
+                            {
+                                Id = FileTypeId.PDF,
+                                Name = FileTypeId.PDF.ToString(),
+                                ContentType = "application/pdf"
+                            },
+                            new FileType()
+                            {
+                                Id = FileTypeId.DOCX,
+                                Name = FileTypeId.DOCX.ToString(),
+                                ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                            },
+                            new FileType()
+                            {
+                                Id = FileTypeId.DOC,
+                                Name = FileTypeId.DOC.ToString(),
+                                ContentType = "application/msword"
+                            },
+                            new FileType()
+                            {
+                                Id = FileTypeId.PNG,
+                                Name = FileTypeId.PNG.ToString(),
+                                ContentType = "image/x-png"
+                            },
+                            new FileType()
+                            {
+                                Id = FileTypeId.JPG,
+                                Name = FileTypeId.JPG.ToString(),
+                                ContentType = "image/jpeg"
+                            },
+                            new FileType()
+                            {
+                                Id = FileTypeId.JPEG,
+                                Name = FileTypeId.JPEG.ToString(),
+                                ContentType = "image/jpeg"
+                            }
+                        });
 
             modelBuilder.Entity<CenterLicenseStatus>()
                         .HasIndex(l => l.Name)

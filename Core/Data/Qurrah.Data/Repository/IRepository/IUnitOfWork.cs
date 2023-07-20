@@ -8,6 +8,7 @@
         CenterUserRepository CenterUser { get; }
         LanguageDescriptionRepository LanguageDescription { get; }
         FileRepository File { get; }
+        FileTypeRepository FileType { get; }
         Task SaveAsync();
     }
 }
