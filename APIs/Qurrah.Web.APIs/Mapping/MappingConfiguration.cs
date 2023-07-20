@@ -46,6 +46,9 @@ namespace Qurrah.Web.APIs.Mapping
             CreateMap<LocalizedProperty, LocalizedPropertyUpdateDTO>()
                     .ForMember(dto => dto.LanguageId, lp => lp.MapFrom(p => p.FKLanguageId)).ReverseMap();
 
+            CreateMap<UploadSingleFileRequest, UploadFileDTO>().ReverseMap();
+            CreateMap<UploadMultipleFilesRequest, UploadMultipleFilesDTO>().ReverseMap();
+            CreateMap<FileDTO, UploadFileDTO>().ReverseMap();
             CreateMap<FileDetails, FileDTO>()
                     .ForMember(dto => dto.FileTypeId, lp => lp.MapFrom(p => p.FKFileTypeId)).ReverseMap();
         }
