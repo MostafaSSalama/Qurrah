@@ -1,5 +1,4 @@
-﻿
-namespace Qurrah.Integration.ServiceWrappers.Services.IServices
+﻿namespace Qurrah.Integration.ServiceWrappers.Services.IServices
 {
     public interface IBaseService
     {

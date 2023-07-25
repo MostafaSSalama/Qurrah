@@ -3,22 +3,27 @@
 @inject LanguageService _localization
 @model RegisterModel
 @{
-    ViewData["Title"] = @_localization.GetLocalizedString("Identity.Register.Parent.HeaderTitle");
+    ViewData["Title"] = @_localization.GetLocalizedString("Identity.Register.HeaderTitle");
 }
 
 <section class="container mt-5">
     <div class="p-3">
         <form id="registerForm" method="post">
-            <h2>@_localization.GetLocalizedString("Identity.Register.Parent.HeaderTitle")</h2>
+            <h2>@_localization.GetLocalizedString("Identity.Register.HeaderTitle")</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
 
                 <div class="col-12">
                     <div class="form-floating my-2">
-                        <input asp-for="RegistrationRequest.Email" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.Email" />
-                        <label asp-for="RegistrationRequest.Email"></label>
-                        <span asp-validation-for="RegistrationRequest.Email" class="text-danger"></span>
+                        <select asp-for="RegistrationRequest.FKUserTypeId"
+                                asp-items="Model.UserTypes"
+                                class="form-select"
+                                aria-required="true">
+                            <option></option>
+                        </select>
+                        <label asp-for="RegistrationRequest.FKUserTypeId"></label>
+                        <span asp-validation-for="RegistrationRequest.FKUserTypeId" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -32,9 +37,9 @@
 
                 <div class="col-6">
                     <div class="form-floating my-2">
-                        <input asp-for="RegistrationRequest.IdNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.IdNumber" />
-                        <label asp-for="RegistrationRequest.IdNumber"></label>
-                        <span asp-validation-for="RegistrationRequest.IdNumber" class="text-danger"></span>
+                        <input asp-for="RegistrationRequest.Email" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.Email" />
+                        <label asp-for="RegistrationRequest.Email"></label>
+                        <span asp-validation-for="RegistrationRequest.Email" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -76,6 +81,14 @@
                         <label asp-for="RegistrationRequest.MobileNumber"></label>
                         <span asp-validation-for="RegistrationRequest.MobileNumber" class="text-danger"></span>
                         <small class="text-muted">@_localization.GetLocalizedString("Hints.MobileExample")</small>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating my-2">
+                        <input asp-for="RegistrationRequest.IdNumber" class="form-control" aria-required="true" placeholder="Model.RegistrationRequest.IdNumber" />
+                        <label asp-for="RegistrationRequest.IdNumber"></label>
+                        <span asp-validation-for="RegistrationRequest.IdNumber" class="text-danger"></span>
                     </div>
                 </div>
 

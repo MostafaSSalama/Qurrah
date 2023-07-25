@@ -34,7 +34,8 @@ namespace Qurrah.Entities
 
         public string RejectionReason { get; set; }
 
-        public DateTime? StatusDate { get; set; }
+        [Required]
+        public DateTime StatusDate { get; set; }
         
         [ForeignKey(nameof(StatusUpdatedByUser))]
         public string FKStatusUpdatedByUserId { get; set; }

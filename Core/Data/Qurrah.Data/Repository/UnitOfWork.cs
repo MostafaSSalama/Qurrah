@@ -14,9 +14,10 @@ namespace Qurrah.Data.Repository
         #region Properties
         public FAQTypeRepository FAQType { get; private set; }
         public FAQRepository FAQ { get; private set; }
-        public ParentUserRepository ParentUser { get; private set; }
-        public CenterUserRepository CenterUser { get; private set; }
+        public ApplicationUserRepository ApplicationUser { get; private set; }
         public LanguageDescriptionRepository LanguageDescription { get; private set; }
+        public GenderDescriptionRepository GenderDescription { get; private set; }
+        public UserTypeDescriptionRepository UserTypeDescription { get; private set; }
         public FileRepository File { get; private set; }
         public FileTypeRepository FileType { get; private set; }
 
@@ -28,9 +29,10 @@ namespace Qurrah.Data.Repository
             _dbContext = dbContext;
             FAQType = new FAQTypeRepository(dbContext);
             FAQ = new FAQRepository(dbContext);
-            ParentUser = new ParentUserRepository(dbContext, userManager, configuration);
-            CenterUser = new CenterUserRepository(dbContext, userManager, configuration);
+            ApplicationUser = new ApplicationUserRepository(dbContext, userManager, configuration);
             LanguageDescription = new LanguageDescriptionRepository(dbContext);
+            GenderDescription = new GenderDescriptionRepository(dbContext);
+            UserTypeDescription = new UserTypeDescriptionRepository(dbContext);
             File = new FileRepository(dbContext);
             FileType = new FileTypeRepository(dbContext);
         }

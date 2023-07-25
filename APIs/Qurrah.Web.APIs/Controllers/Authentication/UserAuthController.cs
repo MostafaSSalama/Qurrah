@@ -27,44 +27,21 @@ namespace Qurrah.Web.APIs.Controllers.Authentication
         #endregion
 
         #region APIs
-        [HttpPost("RegisterParentUser")]
+        [HttpPost("Register")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<APIResponse>> RegisterParentUser([FromBody] ParentUserRegistrationRequestDTO registrationRequestDTO)
+        public async Task<ActionResult<APIResponse>> Register([FromBody] ApplicationUserRegistrationRequestDTO registrationRequestDTO)
         {
             try
             {
-                if (!await _unitOfWork.ParentUser.IsUniqueAsync(registrationRequestDTO.UserName, registrationRequestDTO.Email))
+                if (!await _unitOfWork.ApplicationUser.IsUniqueAsync(registrationRequestDTO.UserName, registrationRequestDTO.Email))
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null, new List<string[]>() { new string[] { "Username or Email is already used" } }));
 
-                var registrationRequest = _mapper.Map<ParentUserRegistrationRequest>(registrationRequestDTO);
+                var user = _mapper.Map<ApplicationUser>(registrationRequestDTO);
                 
-                var registrationResult = await _unitOfWork.ParentUser.RegisterWithSaveAsync(registrationRequest);
-                var registrationResultDTO = _mapper.Map<RegistrationResponseDTO>(registrationResult);
+                var registrationResult = await _unitOfWork.ApplicationUser.RegisterWithSaveAsync(user, registrationRequestDTO.Password);
+                var registrationResultDTO = _mapper.Map<ApplicationUserRegistrationResponseDTO>(registrationResult);
                 
-                return Ok(new APIResponse(true, HttpStatusCode.OK, registrationResultDTO));
-            }
-            catch (Exception ex)
-            {
-                return ExceptionUtility.HandleException(ex);
-            }
-        }
-
-        [HttpPost("RegisterCenterUser")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<APIResponse>> RegisterCenterUser([FromBody] CenterUserRegistrationRequestDTO registrationRequestDTO)
-        {
-            try
-            {
-                if (!await _unitOfWork.CenterUser.IsUniqueAsync(registrationRequestDTO.CenterOwner.UserName, registrationRequestDTO.CenterOwner.Email))
-                    return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null, new List<string[]>() { new string[] { "Username or Email is already used" } }));
-
-                var registrationRequest = _mapper.Map<CenterUserRegistrationRequest>(registrationRequestDTO);
-
-                var registrationResult = await _unitOfWork.CenterUser.RegisterWithSaveAsync(registrationRequest);
-                var registrationResultDTO = _mapper.Map<RegistrationResponseDTO>(registrationResult);
-
                 return Ok(new APIResponse(true, HttpStatusCode.OK, registrationResultDTO));
             }
             catch (Exception ex)
@@ -81,7 +58,7 @@ namespace Qurrah.Web.APIs.Controllers.Authentication
             try
             {
                 var loginRequest = _mapper.Map<LoginRequest>(loginRequestDTO);
-                var loginResponse = await _unitOfWork.ParentUser.LoginAsync(loginRequest);
+                var loginResponse = await _unitOfWork.ApplicationUser.LoginAsync(loginRequest);
                 if (null == loginResponse || !loginResponse.UserExists || string.IsNullOrWhiteSpace(loginResponse.Token))
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null, new List<string[]>() { new string[] { "Username or Password is incorrect" } }));
 

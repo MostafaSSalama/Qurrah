@@ -4,9 +4,10 @@
     {
         FAQTypeRepository FAQType { get; }
         FAQRepository FAQ { get; }
-        ParentUserRepository ParentUser { get; }
-        CenterUserRepository CenterUser { get; }
+        ApplicationUserRepository ApplicationUser { get; }
         LanguageDescriptionRepository LanguageDescription { get; }
+        GenderDescriptionRepository GenderDescription { get; }
+        UserTypeDescriptionRepository UserTypeDescription { get; }
         FileRepository File { get; }
         FileTypeRepository FileType { get; }
         Task SaveAsync();
