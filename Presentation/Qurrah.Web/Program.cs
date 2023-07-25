@@ -10,6 +10,7 @@ using Qurrah.Business.Localization;
 using Qurrah.Business.Logging;
 using Qurrah.Business.Logging.ILogger;
 using Qurrah.Business.Logging.Logger;
+using Qurrah.Business.Lookup;
 using Qurrah.Data;
 using Qurrah.Data.Repository;
 using Qurrah.Data.Repository.IRepository;
@@ -117,12 +118,16 @@ var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddHttpClient<ILocalizationService, LocalizationService>();
         builder.Services.AddScoped<ILocalizationService, LocalizationService>();
+
+        builder.Services.AddHttpClient<ILookupService, LookupService>();
+        builder.Services.AddScoped<ILookupService, LookupService>();
         #endregion
 
         #region Managers
         builder.Services.AddScoped<IFAQTypeManager, FAQTypeManager>();
         builder.Services.AddScoped<IFAQManager, FAQManager>();
         builder.Services.AddScoped<ILocalizatonManager, LocalizatonManager>();
+        builder.Services.AddScoped<ILookupManager, LookupManager>();
         #endregion
 
         #region Misc

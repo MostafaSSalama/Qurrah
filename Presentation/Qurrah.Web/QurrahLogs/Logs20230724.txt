@@ -1,0 +1,259 @@
+2023-07-24 21:53:01.896 +03:00 [ERR] An error occured while loading User Types!
+2023-07-24 21:53:02.276 +03:00 [ERR] An error occured while loading Genders!
+2023-07-24 21:53:18.530 +03:00 [ERR] An error occured while loading User Types!
+2023-07-24 21:53:18.702 +03:00 [ERR] An error occured while loading Genders!
+2023-07-24 22:01:06.540 +03:00 [ERR] An error occured while loading User Types!
+2023-07-24 22:01:06.849 +03:00 [ERR] An error occured while loading Genders!
+2023-07-24 22:01:43.584 +03:00 [ERR] An error occured while loading User Types!
+2023-07-24 22:01:43.731 +03:00 [ERR] An error occured while loading Genders!
+2023-07-24 22:01:57.667 +03:00 [ERR] An error occured while loading User Types!
+2023-07-24 22:01:57.831 +03:00 [ERR] An error occured while loading Genders!
+2023-07-24 22:02:09.603 +03:00 [ERR] An error occured while loading User Types!
+2023-07-24 22:02:23.977 +03:00 [ERR] An error occured while loading Genders!
+2023-07-24 22:02:26.860 +03:00 [ERR] An error occured while loading User Types!
+2023-07-24 22:20:40.914 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: 'value' must not be null for <input> if 'type' is 'radio'.
+   at Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper.GenerateRadio(ModelExplorer modelExplorer, IDictionary`2 htmlAttributes)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper.Process(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.TagHelpers.TagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.RunAsync(TagHelperExecutionContext executionContext)
+   at AspNetCoreGeneratedDocument.Areas_Identity_Pages_Account_Register.<ExecuteAsync>b__45_0() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml:line 21
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.GetChildContentAsync(Boolean useCachedResult, HtmlEncoder encoder)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
+   at AspNetCoreGeneratedDocument.Areas_Identity_Pages_Account_Register.ExecuteAsync() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml:line 6
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeResultAsync>g__Logged|22_0(ResourceInvoker invoker, IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2023-07-24 23:31:53.638 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:31:53.901 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:31:59.449 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:31:59.594 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:00.886 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:01.050 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:02.135 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:02.296 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:05.491 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:05.631 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:07.551 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:07.706 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:16.151 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:16.334 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:19.278 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:19.453 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:20.741 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:20.991 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:24.957 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:25.122 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:25.974 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:26.139 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:27.888 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:28.030 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:29.361 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:29.589 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:35.434 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:35.602 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:32:37.266 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:32:37.400 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 79
+2023-07-24 23:38:29.427 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:38:29.682 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 80
+2023-07-24 23:38:30.570 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:38:30.729 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 80
+2023-07-24 23:38:33.856 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:38:33.992 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 80
+2023-07-24 23:38:39.861 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:38:40.047 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 80
+2023-07-24 23:38:53.418 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:38:53.574 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 80
+2023-07-24 23:38:55.137 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture) in E:\Qurrah\SC\Qurrah\Core\Integration\Qurrah.Integration.ServiceWrappers\Services\LookupService.cs:line 36
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Integration.ServiceWrappers.Services.LookupService.GetAllUserTypes[T](String culture)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 61
+2023-07-24 23:38:55.297 +03:00 [ERR] An error occured System.Threading.ThreadAbortException: System error.
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture) in E:\Qurrah\SC\Qurrah\Core\Business\Qurrah.Business\Lookup\LookupManager.cs:line 83
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at Qurrah.Business.Lookup.LookupManager.GetAllUserTypesAsync(String culture)
+   at Qurrah.Web.Areas.Identity.Pages.Account.RegisterModel.get_UserTypes() in E:\Qurrah\SC\Qurrah\Presentation\Qurrah.Web\Areas\Identity\Pages\Account\Register.cshtml.cs:line 80

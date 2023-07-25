@@ -16,8 +16,6 @@ namespace Qurrah.Data
 
         #region DbSets
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<Center> Center { get; set; }
-        public DbSet<CenterOwnerUser> CenterOwnerUser { get; set; }
         public DbSet<FAQ> FAQ { get; set; }
         public DbSet<FAQType> FAQType { get; set; }
         public DbSet<Gender> Gender { get; set; }
@@ -25,14 +23,18 @@ namespace Qurrah.Data
         public DbSet<Language> Language { get; set; }
         public DbSet<LanguageDescription> LanguageDescription { get; set; }
         public DbSet<LocalizedProperty> LocalizedProperty { get; set; }
-        public DbSet<ParentUser> ParentUser { get; set; }
         public DbSet<UserType> UserType { get; set; }
-
-        public DbSet<CenterLicense> CenterLicense { get; set; }
+        public DbSet<UserTypeDescription> UserTypeDescription { get; set; }
+        public DbSet<CenterType> CenterType { get; set; }
+        public DbSet<CenterTypeDescription> CenterTypeDescription { get; set; }
+        public DbSet<CenterStatus> CenterStatus { get; set; }
+        public DbSet<CenterStatusDescription> CenterStatusDescription { get; set; }
+        public DbSet<Center> Center { get; set; }
         public DbSet<CenterLicenseStatus> CenterLicenseStatus { get; set; }
+        public DbSet<CenterLicense> CenterLicense { get; set; }
         public DbSet<CenterLicenseStatusDescription> CenterLicenseStatusDescription { get; set; }
-        public DbSet<FileDetails> FileDetails { get; set; }
         public DbSet<FileType> FileType { get; set; }
+        public DbSet<FileDetails> FileDetails { get; set; }
         #endregion
 
         #region OnModelCreating
@@ -47,6 +49,19 @@ namespace Qurrah.Data
                         .HasData(Enum.GetValues(typeof(GenderId))
                                      .Cast<GenderId>()
                                      .Select(e => new Gender()
+                                     {
+                                         Id = e,
+                                         Name = e.ToString()
+                                     }));
+
+            modelBuilder.Entity<UserType>()
+                       .HasIndex(l => l.Name)
+                       .IsUnique();
+
+            modelBuilder.Entity<UserType>()
+                        .HasData(Enum.GetValues(typeof(UserTypeId))
+                                     .Cast<UserTypeId>()
+                                     .Select(e => new UserType()
                                      {
                                          Id = e,
                                          Name = e.ToString()
@@ -136,6 +151,32 @@ namespace Qurrah.Data
                                          Id = e,
                                          Name = e.ToString()
                                      }));
+
+            modelBuilder.Entity<CenterType>()
+                        .HasIndex(l => l.Name)
+                        .IsUnique();
+
+            modelBuilder.Entity<CenterType>()
+                        .HasData(Enum.GetValues(typeof(CenterTypeId))
+                                     .Cast<CenterTypeId>()
+                                     .Select(e => new CenterType()
+                                     {
+                                         Id = e,
+                                         Name = e.ToString()
+                                     }));
+
+            modelBuilder.Entity<CenterStatus>()
+                        .HasIndex(l => l.Name)
+                        .IsUnique();
+
+            modelBuilder.Entity<CenterStatus>()
+                        .HasData(Enum.GetValues(typeof(CenterStatusId))
+                                     .Cast<CenterStatusId>()
+                                     .Select(e => new CenterStatus()
+                                     {
+                                         Id = e,
+                                         Name = e.ToString()
+                                     }));
             #endregion
 
             #region GenderDescription
@@ -184,6 +225,84 @@ namespace Qurrah.Data
                     FKGenderId = GenderId.Female,
                     FKLanguageId = LanguageId.English,
                     Description = "Female"
+                }
+            });
+            #endregion
+
+            #region GenderDescription
+            modelBuilder.Entity<UserTypeDescription>()
+                        .Property(e => e.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<UserTypeDescription>()
+                        .Property(e => e.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<UserTypeDescription>()
+                        .HasIndex(l => new
+                        {
+                            l.FKLanguageId,
+                            l.FKUserTypeId
+                        })
+                        .IsUnique();
+
+            modelBuilder.Entity<UserTypeDescription>().HasData(new List<UserTypeDescription>
+            {
+                new UserTypeDescription
+                {
+                    Id = 1,
+                    FKUserTypeId = UserTypeId.Administrator,
+                    FKLanguageId = LanguageId.Arabic,
+                    Description = "مدير النظام"
+                },
+                new UserTypeDescription
+                {
+                    Id = 2,
+                    FKUserTypeId = UserTypeId.Administrator,
+                    FKLanguageId = LanguageId.English,
+                    Description = "Administrator"
+                },
+                new UserTypeDescription
+                {
+                    Id = 3,
+                    FKUserTypeId = UserTypeId.Parent,
+                    FKLanguageId = LanguageId.Arabic,
+                    Description = "ولي أمر"
+                },
+                new UserTypeDescription
+                {
+                    Id = 4,
+                    FKUserTypeId = UserTypeId.Parent,
+                    FKLanguageId = LanguageId.English,
+                    Description = "Parent"
+                },
+                new UserTypeDescription
+                {
+                    Id = 5,
+                    FKUserTypeId = UserTypeId.Center,
+                    FKLanguageId = LanguageId.Arabic,
+                    Description = "مركز"
+                },
+                new UserTypeDescription
+                {
+                    Id = 6,
+                    FKUserTypeId = UserTypeId.Center,
+                    FKLanguageId = LanguageId.English,
+                    Description = "Center"
+                },
+                new UserTypeDescription
+                {
+                    Id = 7,
+                    FKUserTypeId = UserTypeId.CenterApprover,
+                    FKLanguageId = LanguageId.Arabic,
+                    Description = "مراجع مراكز"
+                },
+                new UserTypeDescription
+                {
+                    Id = 8,
+                    FKUserTypeId = UserTypeId.CenterApprover,
+                    FKLanguageId = LanguageId.English,
+                    Description = "Center Approver"
                 }
             });
             #endregion
@@ -310,6 +429,122 @@ namespace Qurrah.Data
                         });
             #endregion
 
+            #region CenterTypeDescription
+            modelBuilder.Entity<CenterTypeDescription>()
+                        .Property(ctd => ctd.FKCenterTypeId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<CenterTypeDescription>()
+                        .Property(ctd => ctd.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<CenterTypeDescription>()
+                        .HasIndex(l => new
+                        {
+                            l.FKLanguageId,
+                            l.FKCenterTypeId
+                        })
+                        .IsUnique();
+
+            modelBuilder.Entity<CenterTypeDescription>()
+                        .HasData(new List<CenterTypeDescription>
+                        {
+                            new CenterTypeDescription
+                            {
+                                Id = 1,
+                                FKLanguageId = LanguageId.English,
+                                FKCenterTypeId = CenterTypeId.InDependent,
+                                Description = "InDependent"
+                            },
+                            new CenterTypeDescription
+                            {
+                                Id = 2,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKCenterTypeId = CenterTypeId.InDependent,
+                                Description = "غير مستقل"
+                            },
+                            new CenterTypeDescription
+                            {
+                                Id = 3,
+                                FKLanguageId = LanguageId.English,
+                                FKCenterTypeId = CenterTypeId.Dependent,
+                                Description = "Dependent"
+                            },
+                            new CenterTypeDescription
+                            {
+                                Id = 4,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKCenterTypeId = CenterTypeId.Dependent,
+                                Description = "مستقل"
+                            }
+                        });
+            #endregion
+
+            #region CenterStatusDescription
+            modelBuilder.Entity<CenterStatusDescription>()
+                        .Property(csd => csd.FKCenterStatusId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<CenterStatusDescription>()
+                        .Property(csd => csd.FKLanguageId)
+                        .HasConversion<int>();
+
+            modelBuilder.Entity<CenterStatusDescription>()
+                        .HasIndex(l => new
+                        {
+                            l.FKLanguageId,
+                            l.FKCenterStatusId
+                        })
+                        .IsUnique();
+
+            modelBuilder.Entity<CenterStatusDescription>()
+                        .HasData(new List<CenterStatusDescription>
+                        {
+                            new CenterStatusDescription
+                            {
+                                Id = 1,
+                                FKLanguageId = LanguageId.English,
+                                FKCenterStatusId = CenterStatusId.UnderConsideration,
+                                Description = "Under Consideration"
+                            },
+                            new CenterStatusDescription
+                            {
+                                Id = 2,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKCenterStatusId = CenterStatusId.UnderConsideration,
+                                Description = "قيد الدراسة"
+                            },
+                            new CenterStatusDescription
+                            {
+                                Id = 3,
+                                FKLanguageId = LanguageId.English,
+                                FKCenterStatusId = CenterStatusId.Approved,
+                                Description = "Approved"
+                            },
+                            new CenterStatusDescription
+                            {
+                                Id = 4,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKCenterStatusId = CenterStatusId.Approved,
+                                Description = "مقبول"
+                            },
+                            new CenterStatusDescription
+                            {
+                                Id = 5,
+                                FKLanguageId = LanguageId.English,
+                                FKCenterStatusId = CenterStatusId.Rejected,
+                                Description = "Rejected"
+                            },
+                            new CenterStatusDescription
+                            {
+                                Id = 6,
+                                FKLanguageId = LanguageId.Arabic,
+                                FKCenterStatusId = CenterStatusId.Rejected,
+                                Description = "مرفوض"
+                            }
+                        });
+            #endregion
+
             #region LocalizedProperty
             modelBuilder.Entity<LocalizedProperty>()
                         .Property(e => e.FKLanguageId)
@@ -329,39 +564,32 @@ namespace Qurrah.Data
                         .IsUnique();
             #endregion
 
-            #region ApplicationUser/UserType
+            #region ApplicationUser
             modelBuilder.Entity<ApplicationUser>()
                         .Property(e => e.FKUserTypeId)
                         .HasConversion<int>();
 
-            modelBuilder.Entity<UserType>().HasData(Enum.GetValues(typeof(UserTypeId))
-                                                        .Cast<UserTypeId>()
-                                                        .Select(e => new UserType()
-                                                        {
-                                                            Id = e,
-                                                            Name = e.ToString()
-                                                        }));
-
+            modelBuilder.Entity<ApplicationUser>()
+                       .Property(e => e.FKGenderId)
+                       .HasConversion<int>();
             #endregion
 
-            #region ParentUser
-            modelBuilder.Entity<ParentUser>()
-                        .Property(e => e.FKGenderId)
-                        .HasConversion<int>();
-
-            modelBuilder.Entity<ParentUser>()
-                        .HasIndex(u => u.FKUserId)
-                        .IsUnique();
-            #endregion
-
-            #region Center/CenterOwnerUser
-            modelBuilder.Entity<CenterOwnerUser>()
-                        .HasIndex(u => u.FKUserId)
-                        .IsUnique();
-
+            #region Center
             modelBuilder.Entity<Center>()
                         .HasIndex(u => u.Name)
                         .IsUnique();
+
+            modelBuilder.Entity<Center>()
+                        .HasIndex(u => u.IBAN)
+                        .IsUnique();
+
+            modelBuilder.Entity<Center>()
+                       .Property(e => e.FKCenterTypeId)
+                       .HasConversion<int>();
+
+            modelBuilder.Entity<Center>()
+                       .Property(e => e.FKCenterStatusId)
+                       .HasConversion<int>();
             #endregion
 
             #region Roles/Users
@@ -401,6 +629,11 @@ namespace Qurrah.Data
                 new ApplicationUser
                 {
                     Id = adminId,
+                    FirstName = "Administrator",
+                    FourthName = "",
+                    IdNumber = "",
+                    MobileNumber = "",
+                    FKGenderId = GenderId.Male,
                     UserName = "Admin",
                     NormalizedUserName = "Admin",
                     PasswordHash = hasher.HashPassword(null, "P@ssw0rd"),
@@ -413,6 +646,11 @@ namespace Qurrah.Data
                 new ApplicationUser
                 {
                     Id = centerReviewerId,
+                    FirstName = "Reviewer",
+                    FourthName = "",
+                    IdNumber = "",
+                    MobileNumber = "",
+                    FKGenderId = GenderId.Male,
                     UserName = "CenterReviewer",
                     NormalizedUserName = "CenterReviewer",
                     PasswordHash = hasher.HashPassword(null, "P@ssw0rd"),

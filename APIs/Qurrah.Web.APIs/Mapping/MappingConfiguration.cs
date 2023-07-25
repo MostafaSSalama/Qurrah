@@ -5,6 +5,7 @@ using Qurrah.Web.APIs.Models.DTOs.FAQ;
 using Qurrah.Web.APIs.Models.DTOs.FAQType;
 using Qurrah.Web.APIs.Models.DTOs.File;
 using Qurrah.Web.APIs.Models.DTOs.Localization;
+using Qurrah.Web.APIs.Models.DTOs.Lookup;
 
 namespace Qurrah.Web.APIs.Mapping
 {
@@ -23,12 +24,8 @@ namespace Qurrah.Web.APIs.Mapping
             CreateMap<FAQClassifiedWithLocalizedProperties, FAQClassifiedWithLocalizedPropertiesDTO>().ReverseMap();
             CreateMap<FAQWithLocalizedProperties, FAQWithLocalizedPropertiesDTO>().ReverseMap();
 
-            CreateMap<ParentUserRegistrationRequest, ParentUserRegistrationRequestDTO>().ReverseMap();
-            CreateMap<CenterOwnerDTO, CenterOwner>();
-            CreateMap<CenterUserRegistrationRequestDTO, CenterUserRegistrationRequest>()
-                    .ForMember(dto => dto.CenterOwner, c => c.MapFrom(r => r.CenterOwner)).ReverseMap();
-            
-            CreateMap<RegistrationResult, RegistrationResponseDTO>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserRegistrationRequestDTO>().ReverseMap();
+            CreateMap<ApplicationUserRegistrationResult, ApplicationUserRegistrationResponseDTO>().ReverseMap();
             CreateMap<LoginRequest, LoginRequestDTO>().ReverseMap();
             CreateMap<LoginResult, LoginResponseDTO>().ReverseMap();
             
@@ -38,6 +35,8 @@ namespace Qurrah.Web.APIs.Mapping
                     .ForMember(dto => dto.LanguageName, l => l.MapFrom(r => r.Name))
                     .ForMember(dto => dto.Description, l => l.Ignore()) 
                     .ReverseMap();
+
+            CreateMap<LookupInfo, LookupInfoDTO>().ReverseMap();
 
             CreateMap<LocalizedProperty, LocalizedPropertyCreateDTO>()
                     .ForMember(dto => dto.LanguageId, lp => lp.MapFrom(p => p.FKLanguageId)).ReverseMap();

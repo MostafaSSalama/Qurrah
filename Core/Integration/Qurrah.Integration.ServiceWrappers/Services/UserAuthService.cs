@@ -28,22 +28,13 @@ namespace Qurrah.Integration.ServiceWrappers.Services
                 URL = $"{serviceURL}/Login"
             });
         }
-        public async Task<T> RegisterAsync<T>(ParentUserRegistrationRequest parentRegistrationRequest)
+        public async Task<T> RegisterAsync<T>(RegistrationRequest registrationRequest)
         {
             return await SendAsync<T>(new APIRequest
             {
                 APIType = APIType.HTTPPost,
-                Data = parentRegistrationRequest,
-                URL = $"{serviceURL}/RegisterParentUser"
-            });
-        }
-        public async Task<T> RegisterAsync<T>(CenterUserRegistrationRequest centerRegistrationRequest)
-        {
-            return await SendAsync<T>(new APIRequest
-            {
-                APIType = APIType.HTTPPost,
-                Data = centerRegistrationRequest,
-                URL = $"{serviceURL}/RegisterCenterUser"
+                Data = registrationRequest,
+                URL = $"{serviceURL}/Register"
             });
         }
         #endregion

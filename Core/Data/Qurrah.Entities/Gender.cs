@@ -12,8 +12,7 @@ namespace Qurrah.Entities
         [StringLength(500)]
         public string Name { get; set; }
 
-        public List<ParentUser> ParentUsers { get; set; }
-        public List<CenterOwnerUser> CenterOwnerUsers { get; set; }
+        public List<ApplicationUser> ApplicationUsers { get; set; }
         public List<GenderDescription> GenderDescriptions { get; set; }
     }
 }

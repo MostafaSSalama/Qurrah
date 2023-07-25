@@ -1,5 +1,4 @@
-﻿
-using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
+﻿using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 
 namespace Qurrah.Integration.ServiceWrappers.Services.IServices
 {

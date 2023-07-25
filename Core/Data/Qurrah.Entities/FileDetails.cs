@@ -26,5 +26,6 @@ namespace Qurrah.Entities
         public FileType FileType { get; set; }
 
         public List<CenterLicense> CenterLicenses { get; set; }
+        public List<Center> Centers { get; set; }
     }
 }

@@ -21,7 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <ProjectReference Include="..\..\Core\Business\Qurrah.Business\Qurrah.Business.csproj" />
     <ProjectReference Include="..\..\Core\Data\Qurrah.Data\Qurrah.Data.csproj" />
     <ProjectReference Include="..\..\Core\Integration\Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj" />
@@ -42,6 +43,8 @@
 
   <ItemGroup>
     <Folder Include="QurrahLogs\" />
+    <Folder Include="Areas\Center\Data\" />
+    <Folder Include="Areas\Center\Models\" />
   </ItemGroup>
 
 </Project>

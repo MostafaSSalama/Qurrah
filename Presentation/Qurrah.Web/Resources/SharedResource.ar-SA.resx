@@ -204,29 +204,23 @@
   <data name="Identity.Buttons.Register" xml:space="preserve">
     <value>مستخدم جديد</value>
   </data>
-  <data name="Identity.Buttons.RegisterCenter" xml:space="preserve">
-    <value>مركز</value>
-  </data>
-  <data name="Identity.Buttons.RegisterParent" xml:space="preserve">
-    <value>ولي أمر</value>
-  </data>
   <data name="Identity.Login.HeaderTitle" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
   <data name="Identity.Register.Buttons.Register" xml:space="preserve">
     <value>تسجيل</value>
   </data>
-  <data name="Identity.Register.Center.HeaderTitle" xml:space="preserve">
-    <value>تسجيل مستخدم (مركز)</value>
-  </data>
-  <data name="Identity.Register.Parent.HeaderTitle" xml:space="preserve">
-    <value>تسجيل مستخدم (ولي أمر)</value>
+  <data name="Identity.Register.HeaderTitle" xml:space="preserve">
+    <value>تسجيل مستخدم</value>
   </data>
   <data name="Menu.TopMenu.Admin.FAQ" xml:space="preserve">
     <value>الأسئلة المتكررة</value>
   </data>
   <data name="Menu.TopMenu.Admin.FAQType" xml:space="preserve">
     <value>أنواع الأسئلة المتكررة</value>
+  </data>
+  <data name="Menu.TopMenu.Center.Dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
   </data>
   <data name="Menu.TopMenu.Home" xml:space="preserve">
     <value>الرئيسية</value>
@@ -270,9 +264,6 @@
   <data name="Qurrah" xml:space="preserve">
     <value>قرة</value>
   </data>
-  <data name="Registration.CenterUser.CenterName" xml:space="preserve">
-    <value>اسم المركز</value>
-  </data>
   <data name="Registration.Login.Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
@@ -282,44 +273,47 @@
   <data name="Registration.Login.UserNameOrEmail" xml:space="preserve">
     <value>اسم المستخدم أو البريد الإلكتروني</value>
   </data>
-  <data name="Registration.ParentUser.ConfirmPassword" xml:space="preserve">
+  <data name="Registration.User.ConfirmPassword" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
   </data>
-  <data name="Registration.ParentUser.Email" xml:space="preserve">
+  <data name="Registration.User.Email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
   </data>
-  <data name="Registration.ParentUser.FirstName" xml:space="preserve">
+  <data name="Registration.User.FirstName" xml:space="preserve">
     <value>الاسم الأول</value>
   </data>
-  <data name="Registration.ParentUser.FourthName" xml:space="preserve">
+  <data name="Registration.User.FourthName" xml:space="preserve">
     <value>اسم العائلة</value>
   </data>
-  <data name="Registration.ParentUser.Gender" xml:space="preserve">
+  <data name="Registration.User.Gender" xml:space="preserve">
     <value>الجنس</value>
   </data>
-  <data name="Registration.ParentUser.IdNumber" xml:space="preserve">
+  <data name="Registration.User.IdNumber" xml:space="preserve">
     <value>رقم الهوية</value>
   </data>
-  <data name="Registration.ParentUser.Login.Password" xml:space="preserve">
+  <data name="Registration.User.Login.Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
-  <data name="Registration.ParentUser.MobileNumber" xml:space="preserve">
+  <data name="Registration.User.MobileNumber" xml:space="preserve">
     <value>رقم الجوال</value>
   </data>
-  <data name="Registration.ParentUser.Password" xml:space="preserve">
+  <data name="Registration.User.Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
-  <data name="Registration.ParentUser.PhoneNumber" xml:space="preserve">
+  <data name="Registration.User.PhoneNumber" xml:space="preserve">
     <value>رقم التليفون</value>
   </data>
-  <data name="Registration.ParentUser.SecondName" xml:space="preserve">
+  <data name="Registration.User.SecondName" xml:space="preserve">
     <value>الاسم الثاني</value>
   </data>
-  <data name="Registration.ParentUser.ThirdName" xml:space="preserve">
+  <data name="Registration.User.ThirdName" xml:space="preserve">
     <value>الاسم الثالث</value>
   </data>
-  <data name="Registration.ParentUser.UserName" xml:space="preserve">
+  <data name="Registration.User.UserName" xml:space="preserve">
     <value>اسم المستخدم</value>
+  </data>
+  <data name="Registration.User.UserType" xml:space="preserve">
+    <value>نوع المستخدم</value>
   </data>
   <data name="SweetAlert.CancelButtonText" xml:space="preserve">
     <value>إلغاء</value>
