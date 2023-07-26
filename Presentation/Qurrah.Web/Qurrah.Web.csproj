@@ -1,54 +1,54 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
-    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
+		<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\SharedResource.ar-SA.resx">
-      <Generator></Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\SharedResource.ar-SA.resx">
+			<Generator></Generator>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Center\Models\" />
-    <Folder Include="QurrahLogs\" />
-  </ItemGroup>
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Areas\Center\Models\" />
+		<Folder Include="QurrahLogs\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Business\Qurrah.Business\Qurrah.Business.csproj" />
+		<ProjectReference Include="..\..\Core\Data\Qurrah.Data\Qurrah.Data.csproj" />
+		<ProjectReference Include="..\..\Core\Integration\Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj" />
+		<ProjectReference Include="..\..\Qurrah.Utilities\Qurrah.Utilities.csproj" />
+	</ItemGroup>
 
-    <ProjectReference Include="..\..\Core\Business\Qurrah.Business\Qurrah.Business.csproj" />
-    <ProjectReference Include="..\..\Core\Data\Qurrah.Data\Qurrah.Data.csproj" />
-    <ProjectReference Include="..\..\Core\Integration\Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj" />
-    <ProjectReference Include="..\..\Qurrah.Utilities\Qurrah.Utilities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="QurrahLogs\" />
-    <Folder Include="Areas\Center\Data\" />
-    <Folder Include="Areas\Center\Models\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="QurrahLogs\" />
+		<Folder Include="Areas\Center\Data\" />
+		<Folder Include="Areas\Center\Models\" />
+	</ItemGroup>
 
 </Project>
