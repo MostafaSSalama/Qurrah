@@ -57,6 +57,14 @@ namespace Qurrah.Data.Repository
             var entities = await query.Where(filter).ToListAsync();
             return entities;
         }
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _dbSet.AnyAsync(filter);
+        }
+        public async Task<int> CountAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _dbSet.CountAsync(filter);
+        }
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);

@@ -42,7 +42,9 @@
                     <li class="nav-item fw-bold">
                         <a asp-area="Public" asp-controller="Home" asp-action="Index" class="nav-link px-2 text-light">@_localization.GetLocalizedString("Menu.TopMenu.Home")</a>
                     </li>
+
                     <partial name="_LoginPartial" />
+                    <partial name="_Localization" for="@_localizationUtility.Locales" />
 
                     @if (UserManager.IsJWTTokenValid(out string token))
                     {
@@ -60,11 +62,10 @@
                         else if (User.IsInRole(Role.Center))
                         {
                             <li class="nav-item fw-bold">
-                                <a asp-area="Center" asp-controller="Home" asp-action="Index" class="nav-link px-2 text-light">@_localization.GetLocalizedString("Menu.TopMenu.Home")</a>
+                                <a asp-area="Center" asp-controller="Home" asp-action="Index" class="nav-link px-2 fw-bold">@_localization.GetLocalizedString("Menu.TopMenu.Center.Dashboard")</a>
                             </li>
                         }
                     }
-                    <partial name="_Localization" for="@_localizationUtility.Locales" />
 
                 </ul>
 

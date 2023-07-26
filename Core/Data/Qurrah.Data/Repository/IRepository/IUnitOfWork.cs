@@ -10,6 +10,7 @@
         UserTypeDescriptionRepository UserTypeDescription { get; }
         FileRepository File { get; }
         FileTypeRepository FileType { get; }
+        CenterRepository Center { get; }
         Task SaveAsync();
     }
 }

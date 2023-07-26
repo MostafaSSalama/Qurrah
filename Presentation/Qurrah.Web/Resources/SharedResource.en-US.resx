@@ -138,6 +138,18 @@
   <data name="Button.Submit.DefaultValue" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="Center.Alerts.NoCentersAdded" xml:space="preserve">
+    <value>No centers added yet</value>
+  </data>
+  <data name="Center.Buttons.NewCenter" xml:space="preserve">
+    <value>Add New Center</value>
+  </data>
+  <data name="Center.Create.HeaderTitle" xml:space="preserve">
+    <value>Add New Center</value>
+  </data>
+  <data name="Center.Home.Index.HeaderTitle" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="FAQ.Create.Answer" xml:space="preserve">
     <value>Answer</value>
   </data>
@@ -317,7 +329,7 @@
     <value>User Name</value>
   </data>
   <data name="Registration.User.UserType" xml:space="preserve">
-    <value>User Type</value>
+    <value>Register as</value>
   </data>
   <data name="SweetAlert.CancelButtonText" xml:space="preserve">
     <value>Cancel</value>

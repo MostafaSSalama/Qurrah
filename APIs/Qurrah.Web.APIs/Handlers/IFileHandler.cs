@@ -7,7 +7,7 @@ namespace Qurrah.Web.APIs.Handlers
     {
         bool IsBase64String(string base64);
         bool IsValidFileSize(string base64);
-        ValidateFileResult ValidateFile(UploadFileDTO file);
+        ValidateResult ValidateFile(UploadFileDTO file);
         ValidateFilesResult ValidateFiles(UploadMultipleFilesDTO files);
     }
 }

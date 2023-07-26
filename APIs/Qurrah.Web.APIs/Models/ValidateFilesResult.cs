@@ -3,6 +3,6 @@
     public class ValidateFilesResult
     {
         public bool IsValid { get; set; }
-        public List<ValidateFileResult> FileResults { get; set; } = new List<ValidateFileResult>();
+        public List<ValidateResult> FileResults { get; set; } = new List<ValidateResult>();
     }
 }

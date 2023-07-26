@@ -61,9 +61,9 @@ namespace Qurrah.Web.APIs.Handlers
             }
         }
 
-        public ValidateFileResult ValidateFile(UploadFileDTO file)
+        public ValidateResult ValidateFile(UploadFileDTO file)
         {
-            ValidateFileResult result = new();
+            ValidateResult result = new();
 
             //Invalid file name
             if (file.FileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
@@ -103,7 +103,7 @@ namespace Qurrah.Web.APIs.Handlers
 
             //Empty files list
             if (files.Files.IsNullOrEmpty())
-                result.FileResults.Add(new ValidateFileResult
+                result.FileResults.Add(new ValidateResult
                 {
                     IsValid = false,
                     ErrorCodes = new List<string>
@@ -113,7 +113,7 @@ namespace Qurrah.Web.APIs.Handlers
                 });
             //Invalid file 
             else if (files.Files.Count() > _allowedFilesCount)
-                result.FileResults.Add(new ValidateFileResult
+                result.FileResults.Add(new ValidateResult
                 {
                     IsValid = false,
                     ErrorCodes = new List<string>
@@ -124,7 +124,7 @@ namespace Qurrah.Web.APIs.Handlers
             else
                 foreach (var file in files.Files)
                 {
-                    ValidateFileResult fileResult = ValidateFile(file);
+                    ValidateResult fileResult = ValidateFile(file);
                     result.FileResults.Add(fileResult);
                 }
 

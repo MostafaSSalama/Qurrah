@@ -34,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Center\Models\" />
+    <Folder Include="QurrahLogs\" />
+  </ItemGroup>
+  </ItemGroup>
 
     <ProjectReference Include="..\..\Core\Business\Qurrah.Business\Qurrah.Business.csproj" />
     <ProjectReference Include="..\..\Core\Data\Qurrah.Data\Qurrah.Data.csproj" />

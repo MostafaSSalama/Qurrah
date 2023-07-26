@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Qurrah.Data.Repository
 {
-    public class ApplicationUserRepository : IApplicationUserRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         #region Fields
         private readonly QurrahDbContext _dbContext;
@@ -19,9 +19,8 @@ namespace Qurrah.Data.Repository
         #endregion
 
         #region Ctor
-        public ApplicationUserRepository(QurrahDbContext dbContext, UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public ApplicationUserRepository(QurrahDbContext dbContext, UserManager<ApplicationUser> userManager, IConfiguration configuration): base(dbContext)
         {
-            _dbContext = dbContext;
             _userManager = userManager;
             _secretKey = configuration.GetSection("ApiSettings:LoginSecretKey").Value;
         }
@@ -80,6 +79,10 @@ namespace Qurrah.Data.Repository
                 throw;
             }
             return new ApplicationUserRegistrationResult(succeeded);
+        }
+        public async Task<bool> IsUserInRoleAsync(ApplicationUser user, string roleName)
+        {
+            return await _userManager.IsInRoleAsync(user, roleName);
         }
         #endregion
 

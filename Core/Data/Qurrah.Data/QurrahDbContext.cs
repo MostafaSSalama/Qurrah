@@ -33,6 +33,7 @@ namespace Qurrah.Data
         public DbSet<CenterLicenseStatus> CenterLicenseStatus { get; set; }
         public DbSet<CenterLicense> CenterLicense { get; set; }
         public DbSet<CenterLicenseStatusDescription> CenterLicenseStatusDescription { get; set; }
+        public DbSet<CenterUser> CenterUser { get; set; }
         public DbSet<FileType> FileType { get; set; }
         public DbSet<FileDetails> FileDetails { get; set; }
         #endregion
@@ -580,7 +581,7 @@ namespace Qurrah.Data
                         .IsUnique();
 
             modelBuilder.Entity<Center>()
-                        .HasIndex(u => u.IBAN)
+                        .HasIndex(cl => cl.FKIBANFileId)
                         .IsUnique();
 
             modelBuilder.Entity<Center>()
@@ -590,6 +591,31 @@ namespace Qurrah.Data
             modelBuilder.Entity<Center>()
                        .Property(e => e.FKCenterStatusId)
                        .HasConversion<int>();
+
+            modelBuilder.Entity<Center>()
+                        .HasOne(ld => ld.CreatedByUser)
+                        .WithMany(l => l.CentersCreatedBy)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Center>()
+                        .HasOne(ld => ld.StatusUpdatedByUser)
+                        .WithMany(l => l.CentersUpdatedBy)
+                        .OnDelete(DeleteBehavior.Restrict);
+            #endregion
+
+            #region CenterLicense
+            modelBuilder.Entity<CenterLicense>()
+                        .HasIndex(cl => new { cl.FKCenterId, cl.LicenseNumber })
+                        .IsUnique();
+
+            modelBuilder.Entity<CenterLicense>()
+                        .HasIndex(cl => cl.FKFileId)
+                        .IsUnique();
+            #endregion
+
+            #region CenterUsers
+            modelBuilder.Entity<CenterUser>()
+                        .HasKey(cu => new { cu.FKCenterId, cu.FKUserId });
             #endregion
 
             #region Roles/Users

@@ -11,21 +11,30 @@ namespace Qurrah.Entities
         public int Id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [StringLength(500)]
         public string Name { get; set; }
 
+        [Required(AllowEmptyStrings = false)]
         [StringLength(24, MinimumLength = 24)]
         public string IBAN { get; set; }
 
+        [Required]
         [ForeignKey(nameof(CenterType))]
-        public CenterTypeId? FKCenterTypeId { get; set; }
-        public CenterType CenterType { get; set; }
+        public CenterTypeId FKCenterTypeId { get; set; }
+        public virtual CenterType CenterType { get; set; }
 
+        [Required]
         [ForeignKey(nameof(File))]
-        public Guid? FKIBANFileId { get; set; }
-        public FileDetails File { get; set; }
+        public Guid FKIBANFileId { get; set; }
+        public virtual FileDetails File { get; set; }
 
         [Required]
         public DateTime CreatedOn { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(CreatedByUser))]
+        public string FKCreatedByUserId { get; set; }
+        public virtual ApplicationUser CreatedByUser { get; set; }
 
         [Required]
         [ForeignKey(nameof(CenterStatus))]
@@ -39,6 +48,9 @@ namespace Qurrah.Entities
 
         [ForeignKey(nameof(StatusUpdatedByUser))]
         public string FKStatusUpdatedByUserId { get; set; }
-        public ApplicationUser StatusUpdatedByUser { get; set; }
+        public virtual ApplicationUser StatusUpdatedByUser { get; set; }
+
+        public virtual List<CenterUser> CenterUsers { get; set; }
+        public virtual List<CenterLicense> CenterLicenses { get; set; }
     }
 }
