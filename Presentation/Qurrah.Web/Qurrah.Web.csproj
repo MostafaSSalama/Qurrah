@@ -37,12 +37,18 @@
     <Folder Include="Areas\Center\Models\" />
     <Folder Include="QurrahLogs\" />
   </ItemGroup>
+  </ItemGroup>
 
-  <ItemGroup>
     <ProjectReference Include="..\..\Core\Business\Qurrah.Business\Qurrah.Business.csproj" />
     <ProjectReference Include="..\..\Core\Data\Qurrah.Data\Qurrah.Data.csproj" />
     <ProjectReference Include="..\..\Core\Integration\Qurrah.Integration.ServiceWrappers\Qurrah.Integration.ServiceWrappers.csproj" />
     <ProjectReference Include="..\..\Qurrah.Utilities\Qurrah.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="QurrahLogs\" />
+    <Folder Include="Areas\Center\Data\" />
+    <Folder Include="Areas\Center\Models\" />
   </ItemGroup>
 
 </Project>
