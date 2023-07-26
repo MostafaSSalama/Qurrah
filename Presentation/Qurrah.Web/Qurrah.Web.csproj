@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Center\Data\" />
     <Folder Include="Areas\Center\Models\" />
     <Folder Include="QurrahLogs\" />
   </ItemGroup>

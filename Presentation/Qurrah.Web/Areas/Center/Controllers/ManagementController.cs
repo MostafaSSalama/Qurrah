@@ -3,9 +3,9 @@
 namespace Qurrah.Web.Areas.Center.Controllers
 {
     [Area("Center")]
-    public class AccreditationController : Controller
+    public class ManagementController : Controller
     {
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }

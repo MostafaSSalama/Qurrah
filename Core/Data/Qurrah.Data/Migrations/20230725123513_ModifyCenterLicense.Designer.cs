@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Qurrah.Data;
 
@@ -11,9 +12,11 @@ using Qurrah.Data;
 namespace Qurrah.Data.Migrations
 {
     [DbContext(typeof(QurrahDbContext))]
-    partial class QurrahDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230725123513_ModifyCenterLicense")]
+    partial class ModifyCenterLicense
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,25 +54,25 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6984c564-24de-497d-abde-fb61767ceb55",
+                            Id = "c4f8fb8a-af31-4682-8c14-69b31debe396",
                             Name = "Parent",
                             NormalizedName = "Parent"
                         },
                         new
                         {
-                            Id = "72f8ca2b-c207-4e20-b40d-04ee35845d61",
+                            Id = "9339b590-e6c7-45bd-90aa-707f36b8b3ad",
                             Name = "Center",
                             NormalizedName = "Center"
                         },
                         new
                         {
-                            Id = "00d53884-0be4-4dce-9846-b88f3709fe53",
+                            Id = "6e9c36c2-7efa-44e6-8403-0cce3a8f8bbe",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
-                            Id = "490af17a-9a64-42e3-acaa-a6b113cd7c8b",
+                            Id = "72b941f0-2b63-4bed-844f-448bdee0d8a6",
                             Name = "CenterApprover",
                             NormalizedName = "CenterApprover"
                         });
@@ -164,13 +167,13 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b8f66af3-ab49-4532-a39f-a39313af572b",
-                            RoleId = "00d53884-0be4-4dce-9846-b88f3709fe53"
+                            UserId = "ffe35a84-5f8c-4b16-922f-64fa661cb3ab",
+                            RoleId = "6e9c36c2-7efa-44e6-8403-0cce3a8f8bbe"
                         },
                         new
                         {
-                            UserId = "d80e3c96-1fd9-4d56-a818-d18462b9d6a4",
-                            RoleId = "490af17a-9a64-42e3-acaa-a6b113cd7c8b"
+                            UserId = "41c2e096-8eed-4a16-908b-bdeada951859",
+                            RoleId = "72b941f0-2b63-4bed-844f-448bdee0d8a6"
                         });
                 });
 
@@ -309,10 +312,10 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8f66af3-ab49-4532-a39f-a39313af572b",
+                            Id = "ffe35a84-5f8c-4b16-922f-64fa661cb3ab",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f539115e-7411-43a2-9cf5-30aec9154d2b",
-                            CreatedOn = new DateTime(2023, 7, 26, 16, 14, 4, 707, DateTimeKind.Local).AddTicks(591),
+                            ConcurrencyStamp = "35d7e2f6-f988-4d60-8fda-b2f7deb87977",
+                            CreatedOn = new DateTime(2023, 7, 25, 15, 35, 12, 603, DateTimeKind.Local).AddTicks(3852),
                             Email = "Admin@Qurrah.com",
                             EmailConfirmed = false,
                             FKGenderId = 1,
@@ -324,19 +327,19 @@ namespace Qurrah.Data.Migrations
                             MobileNumber = "",
                             NormalizedEmail = "Admin@Qurrah.com",
                             NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEKNs2rbHOENcD40eWazfCPcvCza9KFDTnHNpBdi+54j0aJtFFlK4RYAT6FQvP3Hzg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBvHbPB5ySPnOfWDisVKMMapC5SrBDMQLH+YcyIEJ6r027pIe9N11iPodc1d3wM6Cw==",
                             PhoneNumber = "0543700744",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "398578dc-519e-4e31-8ed7-cc5384c7447d",
+                            SecurityStamp = "cd39a8a1-27b2-4bb3-b6ae-a35db73fe45d",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
                         new
                         {
-                            Id = "d80e3c96-1fd9-4d56-a818-d18462b9d6a4",
+                            Id = "41c2e096-8eed-4a16-908b-bdeada951859",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bd90ee37-cb73-4c19-bce6-ac7ba25af19f",
-                            CreatedOn = new DateTime(2023, 7, 26, 16, 14, 4, 807, DateTimeKind.Local).AddTicks(5008),
+                            ConcurrencyStamp = "a618e807-17c4-460b-9274-db49f3283251",
+                            CreatedOn = new DateTime(2023, 7, 25, 15, 35, 12, 703, DateTimeKind.Local).AddTicks(3495),
                             Email = "CenterReviewer@Qurrah.com",
                             EmailConfirmed = false,
                             FKGenderId = 1,
@@ -348,10 +351,10 @@ namespace Qurrah.Data.Migrations
                             MobileNumber = "",
                             NormalizedEmail = "CenterReviewer@Qurrah.com",
                             NormalizedUserName = "CenterReviewer",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBQID5zDoqUeoB3sZUmzi/nPsPVbhJdHRF3zFtEtjPBA68U1F60lnBuBXt168QvU0w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHifRI25gxKYx0XVrhi7E+kht0hPOakH0LEbJ9gja/4vOXqymjWSGPrBSZM3N5C0Hg==",
                             PhoneNumber = "0543700745",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a8e71b15-aa42-4aea-bae3-5b3920ae5603",
+                            SecurityStamp = "be1d5427-a7d7-41d1-af4f-2e308c2d8c0e",
                             TwoFactorEnabled = false,
                             UserName = "CenterReviewer"
                         });
@@ -371,21 +374,20 @@ namespace Qurrah.Data.Migrations
                     b.Property<int>("FKCenterStatusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FKCenterTypeId")
+                    b.Property<int?>("FKCenterTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("FKCreatedByUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("FKIBANFileId")
+                    b.Property<Guid?>("FKIBANFileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FKStatusUpdatedByUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IBAN")
-                        .IsRequired()
                         .HasMaxLength(24)
                         .HasColumnType("nvarchar(24)");
 
@@ -409,9 +411,14 @@ namespace Qurrah.Data.Migrations
                     b.HasIndex("FKCreatedByUserId");
 
                     b.HasIndex("FKIBANFileId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[FKIBANFileId] IS NOT NULL");
 
                     b.HasIndex("FKStatusUpdatedByUserId");
+
+                    b.HasIndex("IBAN")
+                        .IsUnique()
+                        .HasFilter("[IBAN] IS NOT NULL");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -1394,8 +1401,7 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Qurrah.Entities.CenterType", "CenterType")
                         .WithMany()
                         .HasForeignKey("FKCenterTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Qurrah.Entities.ApplicationUser", "CreatedByUser")
                         .WithMany("CentersCreatedBy")
@@ -1406,8 +1412,7 @@ namespace Qurrah.Data.Migrations
                     b.HasOne("Qurrah.Entities.FileDetails", "File")
                         .WithMany("Centers")
                         .HasForeignKey("FKIBANFileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Qurrah.Entities.ApplicationUser", "StatusUpdatedByUser")
                         .WithMany("CentersUpdatedBy")

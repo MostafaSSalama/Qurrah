@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -14,8 +15,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
-
 {
     {
         #region Database
@@ -36,7 +35,8 @@ builder.Services.AddControllers();
         #endregion
 
         #region Handlers
-        builder.Services.AddSingleton<IFileHandler, FileHandler>();
+        builder.Services.AddScoped<IFileHandler, FileHandler>();
+        builder.Services.AddScoped<ICenterHandler, CenterHandler>();
         #endregion
 
         #region Authentication
@@ -57,6 +57,19 @@ builder.Services.AddControllers();
                 ValidateAudience = false
             };
         });
+        #endregion
+
+        #region Caching
+        builder.Services.AddResponseCaching();
+        builder.Services.AddControllers(options =>
+        {
+            //Cache Profiles
+            options.CacheProfiles.Add("Default1Day", new CacheProfile()
+            {
+                Duration = 60 * 60 * 24
+            });
+        });
+
         #endregion
 
         #region Swagger

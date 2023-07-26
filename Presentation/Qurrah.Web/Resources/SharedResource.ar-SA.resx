@@ -138,6 +138,18 @@
   <data name="Button.Submit.DefaultValue" xml:space="preserve">
     <value>حفظ</value>
   </data>
+  <data name="Center.Alerts.NoCentersAdded" xml:space="preserve">
+    <value>لم يتم إضافة أي مركز إلى الآن</value>
+  </data>
+  <data name="Center.Buttons.NewCenter" xml:space="preserve">
+    <value>إضافة مركز جديد</value>
+  </data>
+  <data name="Center.Create.HeaderTitle" xml:space="preserve">
+    <value>إضافة مركز جديد</value>
+  </data>
+  <data name="Center.Home.Index.HeaderTitle" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
   <data name="FAQ.Create.Answer" xml:space="preserve">
     <value>الجواب</value>
   </data>
@@ -313,7 +325,7 @@
     <value>اسم المستخدم</value>
   </data>
   <data name="Registration.User.UserType" xml:space="preserve">
-    <value>نوع المستخدم</value>
+    <value>التسجبل كـــ</value>
   </data>
   <data name="SweetAlert.CancelButtonText" xml:space="preserve">
     <value>إلغاء</value>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Qurrah.Data;
 
@@ -11,9 +12,11 @@ using Qurrah.Data;
 namespace Qurrah.Data.Migrations
 {
     [DbContext(typeof(QurrahDbContext))]
-    partial class QurrahDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230726131405_RemoveIBANUniqueness")]
+    partial class RemoveIBANUniqueness
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Qurrah.Entities;
 using Qurrah.Web.APIs.Models.DTOs.Authentication;
+using Qurrah.Web.APIs.Models.DTOs.Center;
 using Qurrah.Web.APIs.Models.DTOs.FAQ;
 using Qurrah.Web.APIs.Models.DTOs.FAQType;
 using Qurrah.Web.APIs.Models.DTOs.File;
@@ -50,6 +51,15 @@ namespace Qurrah.Web.APIs.Mapping
             CreateMap<FileDTO, UploadFileDTO>().ReverseMap();
             CreateMap<FileDetails, FileDTO>()
                     .ForMember(dto => dto.FileTypeId, lp => lp.MapFrom(p => p.FKFileTypeId)).ReverseMap();
+
+            CreateMap<CenterCreateDTO, Center>()
+                    .ForMember(dto => dto.FKCenterTypeId, c => c.MapFrom(c => c.CenterTypeId))
+                    .ForMember(dto => dto.FKCreatedByUserId, c => c.MapFrom(c => c.CreatedByUserId))
+                    .ForMember(dto => dto.CreatedByUser, c => c.Ignore())
+                    .ForMember(dto => dto.FKIBANFileId, c => c.MapFrom(c => c.IBANFileId)).ReverseMap();
+            CreateMap<CenterLicense, CenterLicenseCreateDTO>()
+                    .ForMember(dto => dto.FileId, cl => cl.MapFrom(cl => cl.FKFileId)).ReverseMap();
+
         }
     }
 }

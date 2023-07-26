@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Qurrah.Data.Repository.IRepository;
-using Qurrah.Entities;
 using Qurrah.Web.APIs.Models;
 using Qurrah.Web.APIs.Models.DTOs.Localization;
 using Qurrah.Web.APIs.Utilities;
@@ -27,6 +26,7 @@ namespace Qurrah.Web.APIs.Controllers.Localization
         #endregion
 
         #region APIs
+        [ResponseCache(CacheProfileName = "Default1Day")]
         [HttpGet("GetLocales")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<APIResponse>> GetLocales([FromQuery] string culture)

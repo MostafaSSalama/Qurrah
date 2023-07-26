@@ -6,7 +6,7 @@
         var localesWithoutCurrent = Model.Where(l => l.LanguageCulture.ToLower().Trim() != currentCulture);
         string currentLocalesName = Model.SingleOrDefault(l => l.LanguageCulture.ToLower().Trim() == currentCulture)?.Description;
 
-        <a class="nav-link dropdown-toggle fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle fw-bold px-2 text-body" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             @currentLocalesName
         </a>
         <div class="dropdown-menu">

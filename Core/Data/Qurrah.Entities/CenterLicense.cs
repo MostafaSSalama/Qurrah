@@ -20,6 +20,11 @@ namespace Qurrah.Entities
         public DateTime ExpiryDate { get; set; }
 
         [Required]
+        [ForeignKey(nameof(Center))]
+        public int FKCenterId { get; set; }
+        public Center Center { get; set; }
+
+        [Required]
         [ForeignKey(nameof(FileDetails))]
         public Guid FKFileId { get; set; }
         public FileDetails FileDetails { get; set; }

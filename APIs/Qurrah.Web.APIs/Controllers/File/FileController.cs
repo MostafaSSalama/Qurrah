@@ -39,15 +39,12 @@ namespace Qurrah.Web.APIs.Controllers.File
         {
             try
             {
-                ValidateFileResult result = _fileHandler.ValidateFile(file);
+                ValidateResult result = _fileHandler.ValidateFile(file);
                 if (!result.IsValid)
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null, new List<string[]> { result.ErrorCodes.ToArray() }));
 
                 var uploadFileRequest = _mapper.Map<UploadSingleFileRequest>(file);
                 var uploadFileResult = await _unitOfWork.File.UploadSingleFileWithSaveAsync(uploadFileRequest);
-
-                if (!uploadFileResult.Succeeded || uploadFileResult.FileId == Guid.Empty)
-                    throw new Exception("An error occured while uploading the file");
 
                 var fileDTO = _mapper.Map<FileDTO>(file);
                 fileDTO.Id = uploadFileResult.FileId;
@@ -80,7 +77,7 @@ namespace Qurrah.Web.APIs.Controllers.File
                 var uploadFilesRequest = _mapper.Map<UploadMultipleFilesRequest>(files);
                 var uploadFilesResult = await _unitOfWork.File.UploadMultipleFilesWithSaveAsync(uploadFilesRequest);
 
-                if (!uploadFilesResult.Succeeded || uploadFilesResult.Files.IsNullOrEmpty())
+                if (!uploadFilesResult.Files.IsNullOrEmpty())
                     throw new Exception("An error occured while uploading the files");
 
                 var filesDTO = _mapper.Map<IEnumerable<FileDTO>>(uploadFilesResult.Files);
@@ -167,7 +164,7 @@ namespace Qurrah.Web.APIs.Controllers.File
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null));
 
                 var removeResult = await _unitOfWork.File.RemoveMultipleFilesWithSaveAsync(fileIds.Distinct());
-                if (removeResult == Entities.ActionResult.AllOrSomeItemsNotFound)
+                if (removeResult == Entities.ActionResult.ItemNotFound)
                     return NotFound(new APIResponse(false
                                                         , HttpStatusCode.NotFound
                                                         , null

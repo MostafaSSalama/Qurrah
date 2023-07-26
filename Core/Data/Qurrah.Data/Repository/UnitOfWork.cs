@@ -20,6 +20,7 @@ namespace Qurrah.Data.Repository
         public UserTypeDescriptionRepository UserTypeDescription { get; private set; }
         public FileRepository File { get; private set; }
         public FileTypeRepository FileType { get; private set; }
+        public CenterRepository Center { get; private set; }
 
         #endregion
 
@@ -35,6 +36,7 @@ namespace Qurrah.Data.Repository
             UserTypeDescription = new UserTypeDescriptionRepository(dbContext);
             File = new FileRepository(dbContext);
             FileType = new FileTypeRepository(dbContext);
+            Center = new CenterRepository(dbContext);
         }
         #endregion
 

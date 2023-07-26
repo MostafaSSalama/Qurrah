@@ -15,7 +15,7 @@ namespace Qurrah.Data.Repository
         #region Methods
         public async Task<UploadSingleFileResult> UploadSingleFileWithSaveAsync(UploadSingleFileRequest file)
         {
-            UploadSingleFileResult result = new(false, Guid.Empty);
+            UploadSingleFileResult result = new();
             try
             {
                 Guid fileId = Guid.NewGuid();
@@ -31,7 +31,6 @@ namespace Qurrah.Data.Repository
                 await DbContext.SaveChangesAsync();
 
                 result.FileId = fileId;
-                result.Succeeded = true;
             }
             catch
             {
@@ -42,7 +41,8 @@ namespace Qurrah.Data.Repository
 
         public async Task<UploadMultipleFilesResult> UploadMultipleFilesWithSaveAsync(UploadMultipleFilesRequest files)
         {
-            UploadMultipleFilesResult result = new(false, Enumerable.Empty<FileDetails>());
+            UploadMultipleFilesResult result = new();
+
             try
             {
                 var fileEntities = files.Files.Select(file => new FileDetails
@@ -58,7 +58,6 @@ namespace Qurrah.Data.Repository
                 await DbContext.SaveChangesAsync();
 
                 result.Files = fileEntities;
-                result.Succeeded = true;
             }
             catch
             {
@@ -96,17 +95,16 @@ namespace Qurrah.Data.Repository
             try
             {
                 var fileIdsDistinct = fileIds.Distinct();
-
                 var files = await WhereAsync(f => fileIdsDistinct.Contains(f.Id));
-                if (files.Count() == fileIdsDistinct.Count())
+
+                if (files?.Any() == true)
                 {
                     RemoveRange(files);
                     await DbContext.SaveChangesAsync();
-
                     result = ActionResult.Success;
                 }
                 else
-                    result = ActionResult.AllOrSomeItemsNotFound;
+                    result = ActionResult.ItemNotFound;
             }
             catch
             {

@@ -49,6 +49,9 @@ namespace Qurrah.Entities
 
         public DateTime? LastModifiedOn { get; set; }
 
+        public List<Center> CentersCreatedBy { get; set; }
+        public List<Center> CentersUpdatedBy { get; set; }
+        public List<CenterUser> CenterUsers { get; set; }
         public List<CenterLicense> CenterLicenses { get; set; }
     }
 }

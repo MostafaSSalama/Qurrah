@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Qurrah.Data.Repository.IRepository;
 using Qurrah.Web.APIs.Models;
-using Qurrah.Web.APIs.Models.DTOs.Localization;
 using Qurrah.Web.APIs.Models.DTOs.Lookup;
 using Qurrah.Web.APIs.Utilities;
 using System.Net;
-using System.Text.RegularExpressions;
 
 namespace Qurrah.Web.APIs.Controllers.Lookup
 {
@@ -28,6 +26,7 @@ namespace Qurrah.Web.APIs.Controllers.Lookup
         #endregion
 
         #region APIs
+        [ResponseCache(CacheProfileName = "Default1Day")]
         [HttpGet("GetAllGenders")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -44,6 +43,7 @@ namespace Qurrah.Web.APIs.Controllers.Lookup
             }
         }
 
+        [ResponseCache(CacheProfileName = "Default1Day")]
         [HttpGet("GetAllUserTypes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
