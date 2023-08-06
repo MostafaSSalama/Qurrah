@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BusinessEntities = Qurrah.Business.Localization.Entities;
 using BusinessEntitiesDTOs = Qurrah.Integration.ServiceWrappers.DTOs.Localization;
-using Qurrah.Web.Areas.Admin.Models;
+using Qurrah.Web.Models;
 
 namespace Qurrah.Web.Mapping
 {

@@ -31,6 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -62,7 +63,7 @@
                         else if (User.IsInRole(Role.Center))
                         {
                             <li class="nav-item fw-bold">
-                                <a asp-area="Center" asp-controller="Home" asp-action="Index" class="nav-link px-2 fw-bold">@_localization.GetLocalizedString("Menu.TopMenu.Center.Dashboard")</a>
+                                <a asp-area="Center" asp-controller="Dashboard" asp-action="Index" class="nav-link px-2 fw-bold">@_localization.GetLocalizedString("Menu.TopMenu.Center.Dashboard")</a>
                             </li>
                         }
                     }
@@ -84,9 +85,10 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @*<script src="~/js/bootstrap.bundle.min.js"></script>*@
+    
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 

@@ -34,7 +34,6 @@ namespace Qurrah.Data
         public DbSet<CenterLicense> CenterLicense { get; set; }
         public DbSet<CenterLicenseStatusDescription> CenterLicenseStatusDescription { get; set; }
         public DbSet<CenterUser> CenterUser { get; set; }
-        public DbSet<FileType> FileType { get; set; }
         public DbSet<FileDetails> FileDetails { get; set; }
         #endregion
 
@@ -93,52 +92,6 @@ namespace Qurrah.Data
                                          RTL = false
                                      }
                               });
-
-
-            modelBuilder.Entity<FileType>()
-                        .HasIndex(l => l.Name)
-                        .IsUnique();
-
-            modelBuilder.Entity<FileType>()
-                        .HasData(new List<FileType>
-                        {
-                            new FileType()
-                            {
-                                Id = FileTypeId.PDF,
-                                Name = FileTypeId.PDF.ToString(),
-                                ContentType = "application/pdf"
-                            },
-                            new FileType()
-                            {
-                                Id = FileTypeId.DOCX,
-                                Name = FileTypeId.DOCX.ToString(),
-                                ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                            },
-                            new FileType()
-                            {
-                                Id = FileTypeId.DOC,
-                                Name = FileTypeId.DOC.ToString(),
-                                ContentType = "application/msword"
-                            },
-                            new FileType()
-                            {
-                                Id = FileTypeId.PNG,
-                                Name = FileTypeId.PNG.ToString(),
-                                ContentType = "image/x-png"
-                            },
-                            new FileType()
-                            {
-                                Id = FileTypeId.JPG,
-                                Name = FileTypeId.JPG.ToString(),
-                                ContentType = "image/jpeg"
-                            },
-                            new FileType()
-                            {
-                                Id = FileTypeId.JPEG,
-                                Name = FileTypeId.JPEG.ToString(),
-                                ContentType = "image/jpeg"
-                            }
-                        });
 
             modelBuilder.Entity<CenterLicenseStatus>()
                         .HasIndex(l => l.Name)
@@ -611,6 +564,16 @@ namespace Qurrah.Data
             modelBuilder.Entity<CenterLicense>()
                         .HasIndex(cl => cl.FKFileId)
                         .IsUnique();
+
+            modelBuilder.Entity<CenterLicense>()
+                        .HasOne(ld => ld.CreatedByUser)
+                        .WithMany(l => l.CenterLicensesCreatedBy)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CenterLicense>()
+                        .HasOne(ld => ld.StatusUpdatedByUser)
+                        .WithMany(l => l.CenterLicensesUpdatedBy)
+                        .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             #region CenterUsers

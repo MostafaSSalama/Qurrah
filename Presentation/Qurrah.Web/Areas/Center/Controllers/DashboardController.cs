@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Qurrah.Web.Areas.Center.Controllers
 {
     [Area("Center")]
-    public class HomeController : Controller
+    [Authorize(Roles = "Center")]
+    public class DashboardController : Controller
     {
         public ActionResult Index()
         {

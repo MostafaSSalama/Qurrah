@@ -10,10 +10,9 @@
             public static readonly string InvalidBase64 = "File10004";
             public static readonly string InvalidFileSize = "File10005";
             public static readonly string InvalidFileName = "File10006";
-            public static readonly string InvalidFileType = "File10007";
-            public static readonly string InvalidFilesCount = "File10008";
-            public static readonly string EmptyFilesList = "File10009";
-            public static readonly string AllOrSomeItemsNotFound = "File10010";
+            public static readonly string InvalidFilesCount = "File10007";
+            public static readonly string EmptyFilesList = "File10008";
+            public static readonly string AllOrSomeItemsNotFound = "File10009";
         }
         public static class Center
         {
@@ -25,6 +24,7 @@
             public static readonly string UserNotFound = "Center10006";
             public static readonly string UserNotAllowed = "Center10007";
             public static readonly string InvalidIBAN = "Center10008";
+            public static readonly string EndDateMustbeGreaterThanStartDate = "Center10009";
         }
         public static class IBAN
         {

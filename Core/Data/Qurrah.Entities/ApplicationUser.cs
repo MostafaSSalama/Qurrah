@@ -52,6 +52,7 @@ namespace Qurrah.Entities
         public List<Center> CentersCreatedBy { get; set; }
         public List<Center> CentersUpdatedBy { get; set; }
         public List<CenterUser> CenterUsers { get; set; }
-        public List<CenterLicense> CenterLicenses { get; set; }
+        public List<CenterLicense> CenterLicensesCreatedBy { get; set; }
+        public List<CenterLicense> CenterLicensesUpdatedBy { get; set; }
     }
 }

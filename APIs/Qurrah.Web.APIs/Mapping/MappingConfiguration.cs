@@ -46,11 +46,7 @@ namespace Qurrah.Web.APIs.Mapping
             CreateMap<LocalizedProperty, LocalizedPropertyUpdateDTO>()
                     .ForMember(dto => dto.LanguageId, lp => lp.MapFrom(p => p.FKLanguageId)).ReverseMap();
 
-            CreateMap<UploadSingleFileRequest, UploadFileDTO>().ReverseMap();
-            CreateMap<UploadMultipleFilesRequest, UploadMultipleFilesDTO>().ReverseMap();
-            CreateMap<FileDTO, UploadFileDTO>().ReverseMap();
-            CreateMap<FileDetails, FileDTO>()
-                    .ForMember(dto => dto.FileTypeId, lp => lp.MapFrom(p => p.FKFileTypeId)).ReverseMap();
+            CreateMap<FileDetails, FileDTO>().ReverseMap();
 
             CreateMap<CenterCreateDTO, Center>()
                     .ForMember(dto => dto.FKCenterTypeId, c => c.MapFrom(c => c.CenterTypeId))
@@ -58,7 +54,8 @@ namespace Qurrah.Web.APIs.Mapping
                     .ForMember(dto => dto.CreatedByUser, c => c.Ignore())
                     .ForMember(dto => dto.FKIBANFileId, c => c.MapFrom(c => c.IBANFileId)).ReverseMap();
             CreateMap<CenterLicense, CenterLicenseCreateDTO>()
-                    .ForMember(dto => dto.FileId, cl => cl.MapFrom(cl => cl.FKFileId)).ReverseMap();
+                    .ForMember(dto => dto.FileId, cl => cl.MapFrom(cl => cl.FKFileId))
+                    .ReverseMap();
 
         }
     }

@@ -1,10 +1,9 @@
 ﻿using Qurrah.Integration.ServiceWrappers.DTOs.Localization;
-
-namespace Qurrah.Web.Areas.Admin.Models
+namespace Qurrah.Integration.ServiceWrappers.DTOs.Center
 {
-    public class LocalizedPropertyGroupVM
+    public class CenterWithLocalizedProperties
     {
-        public int LocaleId { get; set; }
+        public Center Center { get; set; }
         public List<LocalizedProperty> LocalizedProperties { get; set; }
     }
 }

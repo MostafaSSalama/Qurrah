@@ -123,6 +123,9 @@
   <data name="Button.Cancel.DefaultValue" xml:space="preserve">
     <value>إلغاء</value>
   </data>
+  <data name="Button.Clear.DefaultValue" xml:space="preserve">
+    <value>مسح</value>
+  </data>
   <data name="Button.Create.DefaultValue" xml:space="preserve">
     <value>إضافة</value>
   </data>
@@ -144,11 +147,47 @@
   <data name="Center.Buttons.NewCenter" xml:space="preserve">
     <value>إضافة مركز جديد</value>
   </data>
+  <data name="Center.Create.ConfirmIBAN" xml:space="preserve">
+    <value>تأكيد رقم الآيبان</value>
+  </data>
+  <data name="Center.Create.FKCenterTypeId" xml:space="preserve">
+    <value>نوع المركز</value>
+  </data>
+  <data name="Center.Create.FKIBANFileId" xml:space="preserve">
+    <value>شهادة الآيبان</value>
+  </data>
   <data name="Center.Create.HeaderTitle" xml:space="preserve">
     <value>إضافة مركز جديد</value>
   </data>
+  <data name="Center.Create.IBAN" xml:space="preserve">
+    <value>رقم الآيبان</value>
+  </data>
+  <data name="Center.Create.IBANInfo" xml:space="preserve">
+    <value>بيانات الحساب البنكي</value>
+  </data>
+  <data name="Center.Create.LicenseInfo" xml:space="preserve">
+    <value>بيانات الترخيص</value>
+  </data>
+  <data name="Center.Create.MainInfo" xml:space="preserve">
+    <value>البيانات الرئيسية</value>
+  </data>
+  <data name="Center.Create.Name" xml:space="preserve">
+    <value>اسم المركز</value>
+  </data>
   <data name="Center.Home.Index.HeaderTitle" xml:space="preserve">
     <value>لوحة التحكم</value>
+  </data>
+  <data name="Center.License.Create.ExpiryDate" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="Center.License.Create.FKFileId" xml:space="preserve">
+    <value>مرفق الترخيص</value>
+  </data>
+  <data name="Center.License.Create.LicenseNumber" xml:space="preserve">
+    <value>رقم الترخيص</value>
+  </data>
+  <data name="Center.License.Create.StartDate" xml:space="preserve">
+    <value>تاريخ البداية</value>
   </data>
   <data name="FAQ.Create.Answer" xml:space="preserve">
     <value>الجواب</value>
@@ -203,6 +242,9 @@
   </data>
   <data name="FAQType.View.HeaderTitle" xml:space="preserve">
     <value>استعراض نوع أسئلة متكررة</value>
+  </data>
+  <data name="Hints.IBANExample" xml:space="preserve">
+    <value>مثال: SA1234567891234567891234</value>
   </data>
   <data name="Hints.MobileExample" xml:space="preserve">
     <value>مثال: 0123456789</value>
@@ -342,8 +384,32 @@
   <data name="Tabs.Title.Standard" xml:space="preserve">
     <value>أساسي</value>
   </data>
+  <data name="Validation.Compare.NotMatchedIBAN" xml:space="preserve">
+    <value>رقم الآيبان غير متطابق</value>
+  </data>
   <data name="Validation.Compare.NotMatchedPassword" xml:space="preserve">
     <value>كلمة المرور غير متطابقة</value>
+  </data>
+  <data name="Validation.Custom.Center.CenterNameAlreadyUsed" xml:space="preserve">
+    <value>يوجد مركز آخر يحمل نفس الاسم</value>
+  </data>
+  <data name="Validation.Custom.Center.GeneralCreateCenterError" xml:space="preserve">
+    <value>حدث خطأ ما أثناء تسجيل المركز</value>
+  </data>
+  <data name="Validation.Custom.Center.GeneralFileUploadError" xml:space="preserve">
+    <value>حدث خطأ ما أثناء رفع المرفقات</value>
+  </data>
+  <data name="Validation.Custom.Center.InvalidFileCount" xml:space="preserve">
+    <value>يسمح فقط بإرفاق عدد {0} ملف</value>
+  </data>
+  <data name="Validation.Custom.Center.InvalidFileExtension" xml:space="preserve">
+    <value>امتداد المرفق غير مسموح به، يسمح فقط بالامتدادات: {0}</value>
+  </data>
+  <data name="Validation.Custom.Center.InvalidFileSize" xml:space="preserve">
+    <value>حجم المرفق غير مسموح به، يسمح فقط بحجم: {0} ميجا بايت</value>
+  </data>
+  <data name="Validation.Custom.CenterLicense.ExpiryDateLessThanStartDate" xml:space="preserve">
+    <value>تاريخ الانتهاء يجب أن يكون أكبر من تاريخ البداية</value>
   </data>
   <data name="Validation.GeneralErrorMessage" xml:space="preserve">
     <value>برجاء مراجعة البيانات المدخلة</value>
@@ -351,8 +417,17 @@
   <data name="Validation.Range.OneToThousandErrorMessage" xml:space="preserve">
     <value>قيمة الحقل يجب أن تكون بين 1 و 1000</value>
   </data>
+  <data name="Validation.RegularExp.InvalidIBAN" xml:space="preserve">
+    <value>رقم الآيبان غير صالح</value>
+  </data>
   <data name="Validation.RegularExpression.10Digits" xml:space="preserve">
     <value>يجب إدخال 10 أرقام فقط</value>
+  </data>
+  <data name="Validation.Required.Center.FKFileId" xml:space="preserve">
+    <value>برجاء إرفاق مرفق الترخيص</value>
+  </data>
+  <data name="Validation.Required.Center.IBANFile" xml:space="preserve">
+    <value>برجاء إرفاق شهادة الآيبان</value>
   </data>
   <data name="Validation.Required.GeneralErrorMessage" xml:space="preserve">
     <value>هذا الحقل مطلوب</value>

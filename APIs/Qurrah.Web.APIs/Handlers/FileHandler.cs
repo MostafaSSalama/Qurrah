@@ -1,9 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Qurrah.Data.Repository.IRepository;
-using Qurrah.Entities;
 using Qurrah.Web.APIs.Models;
 using Qurrah.Web.APIs.Models.DTOs.File;
-using System.Net;
 using System.Text.RegularExpressions;
 
 namespace Qurrah.Web.APIs.Handlers
@@ -14,7 +11,6 @@ namespace Qurrah.Web.APIs.Handlers
         private readonly string[] _allowedFileExtensions;
         private readonly int _allowedFileSize;
         private readonly int _allowedFilesCount;
-        private readonly FileTypeId[] _fileTypes;
         #endregion
 
         #region Properties
@@ -27,7 +23,6 @@ namespace Qurrah.Web.APIs.Handlers
                                                   .ToLower().Split(',', StringSplitOptions.RemoveEmptyEntries);
             _allowedFileSize = int.Parse(configuration.GetValue<string>("ApiSettings:AllowedFileSize"));
             _allowedFilesCount = int.Parse(configuration.GetValue<string>("ApiSettings:AllowedFilesCount"));
-            _fileTypes = Enum.GetValues<FileTypeId>();
         }
         #endregion
 
@@ -61,7 +56,7 @@ namespace Qurrah.Web.APIs.Handlers
             }
         }
 
-        public ValidateResult ValidateFile(UploadFileDTO file)
+        public ValidateResult ValidateFile(FileDTO file)
         {
             ValidateResult result = new();
 
@@ -89,20 +84,16 @@ namespace Qurrah.Web.APIs.Handlers
             if (!IsValidFileSize(file.FileData))
                 result.ErrorCodes.Add(Constants.File.InvalidFileSize);
 
-            //Invalid file type
-            if (!_fileTypes.Contains((FileTypeId)file.FileTypeId))
-                result.ErrorCodes.Add(Constants.File.InvalidFileType);
-
             result.IsValid = !result.ErrorCodes.Any();
             return result;
         }
 
-        public ValidateFilesResult ValidateFiles(UploadMultipleFilesDTO files)
+        public ValidateFilesResult ValidateFiles(IEnumerable<FileDTO> files)
         {
             ValidateFilesResult result = new ValidateFilesResult();
 
             //Empty files list
-            if (files.Files.IsNullOrEmpty())
+            if (files.IsNullOrEmpty())
                 result.FileResults.Add(new ValidateResult
                 {
                     IsValid = false,
@@ -112,7 +103,7 @@ namespace Qurrah.Web.APIs.Handlers
                     }
                 });
             //Invalid file 
-            else if (files.Files.Count() > _allowedFilesCount)
+            else if (files.Count() > _allowedFilesCount)
                 result.FileResults.Add(new ValidateResult
                 {
                     IsValid = false,
@@ -122,7 +113,7 @@ namespace Qurrah.Web.APIs.Handlers
                     }
                 });
             else
-                foreach (var file in files.Files)
+                foreach (var file in files)
                 {
                     ValidateResult fileResult = ValidateFile(file);
                     result.FileResults.Add(fileResult);

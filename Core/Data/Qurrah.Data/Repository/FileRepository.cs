@@ -13,57 +13,30 @@ namespace Qurrah.Data.Repository
         #endregion
 
         #region Methods
-        public async Task<UploadSingleFileResult> UploadSingleFileWithSaveAsync(UploadSingleFileRequest file)
+        public async Task UploadSingleFileWithSaveAsync(FileDetails file)
         {
-            UploadSingleFileResult result = new();
             try
             {
-                Guid fileId = Guid.NewGuid();
-
-                await AddAsync(new FileDetails
-                {
-                    Id = fileId,
-                    FileName = file.FileName.Trim(),
-                    FileExtension = file.FileExtension.ToLower().Trim(),
-                    FileData = file.FileData.Trim(),
-                    FKFileTypeId = (FileTypeId)file.FileTypeId
-                });
+                await AddAsync(file);
                 await DbContext.SaveChangesAsync();
-
-                result.FileId = fileId;
             }
             catch
             {
                 throw;
             }
-            return result;
         }
 
-        public async Task<UploadMultipleFilesResult> UploadMultipleFilesWithSaveAsync(UploadMultipleFilesRequest files)
+        public async Task UploadMultipleFilesWithSaveAsync(IEnumerable<FileDetails> files)
         {
-            UploadMultipleFilesResult result = new();
-
             try
             {
-                var fileEntities = files.Files.Select(file => new FileDetails
-                {
-                    Id = Guid.NewGuid(),
-                    FileName = file.FileName.Trim(),
-                    FileExtension = file.FileExtension.ToLower().Trim(),
-                    FileData = file.FileData.Trim(),
-                    FKFileTypeId = (FileTypeId)file.FileTypeId
-                });
-
-                await AddRangeAsync(fileEntities);
+                await AddRangeAsync(files);
                 await DbContext.SaveChangesAsync();
-
-                result.Files = fileEntities;
             }
             catch
             {
                 throw;
             }
-            return result;
         }
 
         public async Task<ActionResult> RemoveSingleFileWithSaveAsync(Guid fileId)
@@ -76,7 +49,6 @@ namespace Qurrah.Data.Repository
                 {
                     Remove(file);
                     await DbContext.SaveChangesAsync();
-
                     result = ActionResult.Success;
                 }
                 else

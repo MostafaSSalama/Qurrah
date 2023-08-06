@@ -6,9 +6,6 @@ namespace Qurrah.Data.Repository
 {
     public class CenterRepository : Repository<Center>, ICenterRepository
     {
-        #region Fields
-        #endregion
-
         #region Ctor
         public CenterRepository(QurrahDbContext dbContext) : base(dbContext)
         {
@@ -33,6 +30,7 @@ namespace Qurrah.Data.Repository
                     license.CreatedOn = DateTime.Now;
                     license.FKStatusId = CenterLicenseStatusId.UnderConsideration;
                     license.StatusDate = DateTime.Now;
+                    license.FKCreatedByUserId = center.FKCreatedByUserId;
                 });
 
                 await AddAsync(center);

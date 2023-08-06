@@ -34,6 +34,14 @@ namespace Qurrah.Integration.ServiceWrappers.Services
                 URL = $"{serviceURL}/GetAllUserTypes?culture={culture}"
             });
         }
+        public async Task<T> GetAllCenterTypes<T>(string culture)
+        {
+            return await SendAsync<T>(new APIRequest
+            {
+                APIType = APIType.HTTPGet,
+                URL = $"{serviceURL}/GetAllCenterTypes?culture={culture}"
+            });
+        }
         #endregion
     }
 }

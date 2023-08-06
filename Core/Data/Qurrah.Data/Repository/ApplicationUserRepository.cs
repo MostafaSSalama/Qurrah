@@ -13,7 +13,6 @@ namespace Qurrah.Data.Repository
     public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         #region Fields
-        private readonly QurrahDbContext _dbContext;
         private UserManager<ApplicationUser> _userManager;
         private readonly string _secretKey;
         #endregion
@@ -29,14 +28,14 @@ namespace Qurrah.Data.Repository
         #region Methods
         public async Task<bool> IsUniqueAsync(string userName, string email)
         {
-            bool userExists = await _dbContext.ApplicationUser.AnyAsync(u => u.Email.ToLower().Trim().Equals(email.ToLower().Trim())
+            bool userExists = await DbContext.ApplicationUser.AnyAsync(u => u.Email.ToLower().Trim().Equals(email.ToLower().Trim())
                                                                                || u.UserName.ToLower().Trim().Equals(userName.ToLower().Trim()));
             return !userExists;
         }
 
         public async Task<LoginResult> LoginAsync(LoginRequest loginRequest)
         {
-            var user = await _dbContext.ApplicationUser.FirstOrDefaultAsync(u => u.UserName.Trim().ToLower().Equals(loginRequest.UserName.Trim().ToLower())
+            var user = await DbContext.ApplicationUser.FirstOrDefaultAsync(u => u.UserName.Trim().ToLower().Equals(loginRequest.UserName.Trim().ToLower())
                                                                                             || u.Email.Trim().ToLower().Equals(loginRequest.UserName.Trim().ToLower()));
             bool isPasswordValid = false;
             if (null != user)
@@ -53,7 +52,7 @@ namespace Qurrah.Data.Repository
         public async Task<ApplicationUserRegistrationResult> RegisterWithSaveAsync(ApplicationUser user, string password)
         {
             bool succeeded = false;
-            using var transaction = _dbContext.Database.BeginTransaction();
+            using var transaction = DbContext.Database.BeginTransaction();
             try
             {
                 user.CreatedOn = DateTime.Now;
@@ -62,7 +61,7 @@ namespace Qurrah.Data.Repository
                 {
                     Role role = GetRole(user.FKUserTypeId);
                     await _userManager.AddToRoleAsync(user, role.ToString());
-                    await _dbContext.SaveChangesAsync();
+                    await DbContext.SaveChangesAsync();
                     transaction.Commit();
                     succeeded = true;
                 }

@@ -1,11 +1,15 @@
 ﻿@using Qurrah.Business.Localization;
+@using Qurrah.Web.Areas.Center.Models;
 
+@model CenterVM
 @inject LanguageService _localization
+
 @{
     ViewData["Title"] = @_localization.GetLocalizedString("Center.Create.HeaderTitle");
+    bool isLocalized = Model.Locales?.Any() == true && Model.LocalizedPropertyGroups?.Any() == true;
 }
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="container p-3 p-4 mt-4">
         <div class="row pt-4">
             <div class="col-6">
@@ -15,5 +19,113 @@
             </div>
             <hr />
         </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <h2 class="mt-4">@_localization.GetLocalizedString("Center.Create.MainInfo")</h2>
+        <hr />
+
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.CenterTypeId"></label></strong>
+            <select asp-for="Center.CenterTypeId" asp-items="@Model.CenterTypes" class="form-select">
+                <option></option>
+            </select>
+            <span asp-validation-for="Center.CenterTypeId" class="text-danger"></span>
+        </div>
+
+        @if (isLocalized)
+        {
+            <div class="row pt-4"></div>
+            <partial name="_FormTabs" model="@Model.Locales" />
+        }
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel">
+                <div class='row px-3 @(isLocalized ? "pt-4" : string.Empty)'>
+                    <strong class="mb-2"><label asp-for="Center.Name"></label></strong>
+                    <input asp-for="Center.Name" class="form-control" />
+                    <span asp-validation-for="Center.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            @if (isLocalized)
+            {
+                <partial name="_LocalizedProperties" for="@Model.LocalizedPropertyGroups" />
+            }
+        </div>
+        
+        <div class="mt-5"></div>
+        <h2 class="mt-4">@_localization.GetLocalizedString("Center.Create.IBANInfo")</h2>
+        <hr />
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.IBAN"></label></strong>
+            <input asp-for="Center.IBAN" class="form-control" autocomplete="off" />
+            <span asp-validation-for="Center.IBAN" class="text-danger"></span>
+            <small class="text-muted">@_localization.GetLocalizedString("Hints.IBANExample")</small>
+        </div>
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.ConfirmIBAN"></label></strong>
+            <input asp-for="Center.ConfirmIBAN" class="form-control" autocomplete="off" />
+            <span asp-validation-for="Center.ConfirmIBAN" class="text-danger"></span>
+            <small class="text-muted">@_localization.GetLocalizedString("Hints.IBANExample")</small>
+        </div>
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.IBANFileId"></label></strong>
+            <input type="file" name="ibanFile" class="form-control" />
+        </div>
+
+        <div class="mt-5"></div>
+        <h2 class="mt-4">@_localization.GetLocalizedString("Center.Create.LicenseInfo")</h2>
+        <hr />
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.CenterLicenses[0].LicenseNumber"></label></strong>
+            <input asp-for="Center.CenterLicenses[0].LicenseNumber" class="form-control" />
+            <span asp-validation-for="Center.CenterLicenses[0].LicenseNumber" class="text-danger"></span>
+        </div>
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.CenterLicenses[0].StartDate"></label></strong>
+            <div class="input-group">
+                <input type="text" asp-for="Center.CenterLicenses[0].StartDate" class="form-control datepicker" readonly autocomplete="off" aria-describedby="button-StartDate" />
+                <button class="btn btn-primary cleardatepicker" type="button" id="button-StartDate">@_localization.GetLocalizedString("Button.Clear.DefaultValue")</button>
+            </div>
+            <span asp-validation-for="Center.CenterLicenses[0].StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.CenterLicenses[0].ExpiryDate"></label></strong>
+            <div class="input-group">
+                <input type="text" asp-for="Center.CenterLicenses[0].ExpiryDate" class="form-control datepicker" readonly autocomplete="off" aria-describedby="button-ExpiryDate" />
+                <button class="btn btn-primary cleardatepicker" type="button" id="button-ExpiryDate">@_localization.GetLocalizedString("Button.Clear.DefaultValue")</button>
+            </div>
+            <span asp-validation-for="Center.CenterLicenses[0].ExpiryDate" class="text-danger"></span>
+        </div>
+
+        <div class="row px-3 mt-4">
+            <strong class="mb-2"><label asp-for="Center.CenterLicenses[0].FileId"></label></strong>
+            <input type="file" name="licenseFile" class="form-control" />
+        </div>
+
+        <div class="row px-3 pt-4">
+            <button type="submit" class="btn btn-primary mx-1" style="width:150px">
+                @_localization.GetLocalizedString("Button.Submit.DefaultValue")
+            </button>
+            <a class="btn btn-secondary" asp-controller="Dashboard" asp-action="Index" style="width:150px">
+                @_localization.GetLocalizedString("Button.Cancel.DefaultValue")
+            </a>
+        </div>
     </div>
+    <input hidden asp-for="Center.CreatedByUserId" />
 </form>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript" src="~/js/center/create.js">
+    </script>
+}

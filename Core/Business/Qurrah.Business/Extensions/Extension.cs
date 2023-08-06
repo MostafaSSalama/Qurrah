@@ -19,7 +19,7 @@ namespace Qurrah.Business.Extensions
                 if (earr?.Any() == true)
                     result.AddRange(earr.ToList());
             });
-            return result;
+            return result.Distinct().ToList();
         }
     }
 }
