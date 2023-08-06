@@ -42,6 +42,11 @@ namespace Qurrah.Entities
         [Required]
         public DateTime StatusDate { get; set; }
         
+        [Required]
+        [ForeignKey(nameof(CreatedByUser))]
+        public string FKCreatedByUserId { get; set; }
+        public virtual ApplicationUser CreatedByUser { get; set; }
+
         [ForeignKey(nameof(StatusUpdatedByUser))]
         public string FKStatusUpdatedByUserId { get; set; }
         public ApplicationUser StatusUpdatedByUser { get; set; }

@@ -35,7 +35,7 @@ namespace Qurrah.Web.APIs.Controllers.File
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UploadSingleFile([FromBody] UploadFileDTO file)
+        public async Task<ActionResult<APIResponse>> UploadSingleFile([FromBody] FileDTO file)
         {
             try
             {
@@ -43,14 +43,9 @@ namespace Qurrah.Web.APIs.Controllers.File
                 if (!result.IsValid)
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null, new List<string[]> { result.ErrorCodes.ToArray() }));
 
-                var uploadFileRequest = _mapper.Map<UploadSingleFileRequest>(file);
-                var uploadFileResult = await _unitOfWork.File.UploadSingleFileWithSaveAsync(uploadFileRequest);
-
-                var fileDTO = _mapper.Map<FileDTO>(file);
-                fileDTO.Id = uploadFileResult.FileId;
-
-                APIResponse apiResponse = new APIResponse(true, HttpStatusCode.Created, fileDTO);
-                return CreatedAtRoute("DownloadFile", new { fileId = fileDTO.Id }, apiResponse);
+                var fileEntity = _mapper.Map<FileDetails>(file);
+                await _unitOfWork.File.UploadSingleFileWithSaveAsync(fileEntity);
+                return Ok(new APIResponse(true, HttpStatusCode.Created, null));
             }
             catch (Exception ex)
             {
@@ -58,32 +53,21 @@ namespace Qurrah.Web.APIs.Controllers.File
             }
         }
 
-        [HttpPost("UploadMultipleFile")]
+        [HttpPost("UploadMultipleFiles")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UploadMultipleFile([FromBody] UploadMultipleFilesDTO files)
+        public async Task<ActionResult<APIResponse>> UploadMultipleFiles([FromBody] IEnumerable<FileDTO> files)
         {
             try
             {
                 ValidateFilesResult result = _fileHandler.ValidateFiles(files);
-
                 if (!result.IsValid)
-                    return BadRequest(new APIResponse(false
-                                                          , HttpStatusCode.BadRequest
-                                                          , null
-                                                          , result.FileResults.Select(fr => fr.ErrorCodes.ToArray()).ToList()));
+                    return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null, result.FileResults.Select(fr => fr.ErrorCodes.ToArray()).ToList()));
 
-                var uploadFilesRequest = _mapper.Map<UploadMultipleFilesRequest>(files);
-                var uploadFilesResult = await _unitOfWork.File.UploadMultipleFilesWithSaveAsync(uploadFilesRequest);
-
-                if (!uploadFilesResult.Files.IsNullOrEmpty())
-                    throw new Exception("An error occured while uploading the files");
-
-                var filesDTO = _mapper.Map<IEnumerable<FileDTO>>(uploadFilesResult.Files);
-
-                APIResponse apiResponse = new APIResponse(true, HttpStatusCode.Created, filesDTO.Select(f => f.Id));
-                return Ok(apiResponse);
+                var fileEntities = _mapper.Map<IEnumerable<FileDetails>>(files);
+                await _unitOfWork.File.UploadMultipleFilesWithSaveAsync(fileEntities);
+                return Ok(new APIResponse(true, HttpStatusCode.Created, null));
             }
             catch (Exception ex)
             {

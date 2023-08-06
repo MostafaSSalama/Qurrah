@@ -40,6 +40,9 @@ namespace Qurrah.Web.APIs.Handlers
                     int count = await _unitOfWork.File.CountAsync(f => licenseFileIds.Contains(f.Id));
                     if (licenseFileIds.IsNullOrEmpty() || licenseFileIds.Count != count)
                         result.ErrorCodes.Add(Constants.Center.LicenseFileNotFound);
+
+                    if (center.CenterLicenses.Any(cl => cl.StartDate >= cl.ExpiryDate))
+                        result.ErrorCodes.Add(Constants.Center.EndDateMustbeGreaterThanStartDate);
                 }
 
                 if (await _unitOfWork.Center.AnyAsync(c => c.Name.Trim().ToLower().Equals(center.Name.ToLower())))

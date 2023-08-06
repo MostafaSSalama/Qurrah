@@ -81,6 +81,35 @@ namespace Qurrah.Business.Lookup
             }
             return apiResult;
         }
+
+        public async Task<APIResult> GetAllCenterTypesAsync(string culture)
+        {
+            APIResult apiResult = new APIResult();
+            try
+            {
+                var response = await _lookupService.GetAllCenterTypes<APIResponse>(culture);
+
+                if (response?.IsSuccess == true && response.StatusCode == HttpStatusCode.OK)
+                {
+                    apiResult.ActionResult = ActionResult.Success;
+                    apiResult.Result = JsonConvert.DeserializeObject<IEnumerable<LookupInfo>>(Convert.ToString(response.Result));
+                }
+                else if (response?.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    apiResult.ActionResult = ActionResult.InternalServerError;
+                    apiResult.ErrorMessages = response.Errors.ToFlatList();
+                }
+                else
+                    apiResult.ActionResult = ActionResult.GeneralFailure;
+            }
+            catch (Exception ex)
+            {
+                apiResult.ActionResult = ActionResult.GeneralFailure;
+                _exceptionLogging.Log(ex);
+                throw;
+            }
+            return apiResult;
+        }
         #endregion
     }
 }

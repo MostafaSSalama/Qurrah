@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Qurrah.Business.Center;
 using Qurrah.Business.EmailService;
 using Qurrah.Business.FAQ;
+using Qurrah.Business.File;
 using Qurrah.Business.Localization;
 using Qurrah.Business.Logging;
 using Qurrah.Business.Logging.ILogger;
@@ -113,6 +115,9 @@ var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddHttpClient<IFAQService, FAQService>();
         builder.Services.AddScoped<IFAQService, FAQService>();
 
+        builder.Services.AddHttpClient<ICenterService, CenterService>();
+        builder.Services.AddScoped<ICenterService, CenterService>();
+
         builder.Services.AddHttpClient<IUserAuthService, UserAuthService>();
         builder.Services.AddScoped<IUserAuthService, UserAuthService>();
 
@@ -121,12 +126,19 @@ var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddHttpClient<ILookupService, LookupService>();
         builder.Services.AddScoped<ILookupService, LookupService>();
+
+        builder.Services.AddHttpClient<IFileService, FileService>();
+        builder.Services.AddScoped<IFileService, FileService>();
+
         #endregion
 
         #region Managers
         builder.Services.AddScoped<IFAQTypeManager, FAQTypeManager>();
         builder.Services.AddScoped<IFAQManager, FAQManager>();
+        builder.Services.AddScoped<ICenterManager, CenterManager>();
+        builder.Services.AddScoped<IFileManager, FileManager>();
         builder.Services.AddScoped<ILocalizatonManager, LocalizatonManager>();
+        builder.Services.AddScoped<ILocalizedPropertyManager, LocalizedPropertyManager>();
         builder.Services.AddScoped<ILookupManager, LookupManager>();
         #endregion
 

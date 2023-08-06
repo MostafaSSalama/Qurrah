@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Qurrah.Entities;
-using Qurrah.Web.APIs.Models.DTOs.Localization;
+﻿using Qurrah.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,9 +21,6 @@ namespace Qurrah.Web.APIs.Models.DTOs.Center
 
         [ForeignKey(nameof(File))]
         public Guid? IBANFileId { get; set; }
-
-        [ValidateNever]
-        public IEnumerable<LocalizedPropertyCreateDTO> LocalizedProperties { get; set; }
 
         [Required]
         public List<CenterLicenseCreateDTO> CenterLicenses { get; set; }

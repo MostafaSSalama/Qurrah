@@ -18,8 +18,8 @@ namespace Qurrah.Data.Repository
         public LanguageDescriptionRepository LanguageDescription { get; private set; }
         public GenderDescriptionRepository GenderDescription { get; private set; }
         public UserTypeDescriptionRepository UserTypeDescription { get; private set; }
+        public CenterTypeDescriptionRepository CenterTypeDescription { get; private set; }
         public FileRepository File { get; private set; }
-        public FileTypeRepository FileType { get; private set; }
         public CenterRepository Center { get; private set; }
 
         #endregion
@@ -34,8 +34,8 @@ namespace Qurrah.Data.Repository
             LanguageDescription = new LanguageDescriptionRepository(dbContext);
             GenderDescription = new GenderDescriptionRepository(dbContext);
             UserTypeDescription = new UserTypeDescriptionRepository(dbContext);
+            CenterTypeDescription = new CenterTypeDescriptionRepository(dbContext);
             File = new FileRepository(dbContext);
-            FileType = new FileTypeRepository(dbContext);
             Center = new CenterRepository(dbContext);
         }
         #endregion

@@ -51,25 +51,25 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6984c564-24de-497d-abde-fb61767ceb55",
+                            Id = "da04b97c-9ee7-4824-8059-4a5130d88ac0",
                             Name = "Parent",
                             NormalizedName = "Parent"
                         },
                         new
                         {
-                            Id = "72f8ca2b-c207-4e20-b40d-04ee35845d61",
+                            Id = "2f346ee4-a8f2-4f72-919b-41c282e14528",
                             Name = "Center",
                             NormalizedName = "Center"
                         },
                         new
                         {
-                            Id = "00d53884-0be4-4dce-9846-b88f3709fe53",
+                            Id = "a0a27b81-4225-47d9-bd15-97965064b2de",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
-                            Id = "490af17a-9a64-42e3-acaa-a6b113cd7c8b",
+                            Id = "0e36fc34-1ef1-4a3a-8b7b-6918f73ece0b",
                             Name = "CenterApprover",
                             NormalizedName = "CenterApprover"
                         });
@@ -164,13 +164,13 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b8f66af3-ab49-4532-a39f-a39313af572b",
-                            RoleId = "00d53884-0be4-4dce-9846-b88f3709fe53"
+                            UserId = "b5ad2e0c-18a7-4d1f-979c-3a2c38f481f2",
+                            RoleId = "a0a27b81-4225-47d9-bd15-97965064b2de"
                         },
                         new
                         {
-                            UserId = "d80e3c96-1fd9-4d56-a818-d18462b9d6a4",
-                            RoleId = "490af17a-9a64-42e3-acaa-a6b113cd7c8b"
+                            UserId = "0f9a7545-5a0a-4056-8b24-ede6fea05314",
+                            RoleId = "0e36fc34-1ef1-4a3a-8b7b-6918f73ece0b"
                         });
                 });
 
@@ -309,10 +309,10 @@ namespace Qurrah.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8f66af3-ab49-4532-a39f-a39313af572b",
+                            Id = "b5ad2e0c-18a7-4d1f-979c-3a2c38f481f2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f539115e-7411-43a2-9cf5-30aec9154d2b",
-                            CreatedOn = new DateTime(2023, 7, 26, 16, 14, 4, 707, DateTimeKind.Local).AddTicks(591),
+                            ConcurrencyStamp = "3a6b6ec4-e5c7-46bf-93ec-5c6dc2dd8d14",
+                            CreatedOn = new DateTime(2023, 8, 2, 14, 58, 40, 724, DateTimeKind.Local).AddTicks(1037),
                             Email = "Admin@Qurrah.com",
                             EmailConfirmed = false,
                             FKGenderId = 1,
@@ -324,19 +324,19 @@ namespace Qurrah.Data.Migrations
                             MobileNumber = "",
                             NormalizedEmail = "Admin@Qurrah.com",
                             NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEKNs2rbHOENcD40eWazfCPcvCza9KFDTnHNpBdi+54j0aJtFFlK4RYAT6FQvP3Hzg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM2YLr2aJ61bj7ERfIDZ7Mp/IVybjjEBeRlKi6uZyfPewI2qmi6YJwDmOmWTDJxwAA==",
                             PhoneNumber = "0543700744",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "398578dc-519e-4e31-8ed7-cc5384c7447d",
+                            SecurityStamp = "2b474f59-7669-4b15-bedb-bd6e96d3dfe9",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
                         new
                         {
-                            Id = "d80e3c96-1fd9-4d56-a818-d18462b9d6a4",
+                            Id = "0f9a7545-5a0a-4056-8b24-ede6fea05314",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bd90ee37-cb73-4c19-bce6-ac7ba25af19f",
-                            CreatedOn = new DateTime(2023, 7, 26, 16, 14, 4, 807, DateTimeKind.Local).AddTicks(5008),
+                            ConcurrencyStamp = "6eaa7076-9d25-4ece-9533-34038aaa3b90",
+                            CreatedOn = new DateTime(2023, 8, 2, 14, 58, 40, 812, DateTimeKind.Local).AddTicks(4134),
                             Email = "CenterReviewer@Qurrah.com",
                             EmailConfirmed = false,
                             FKGenderId = 1,
@@ -348,10 +348,10 @@ namespace Qurrah.Data.Migrations
                             MobileNumber = "",
                             NormalizedEmail = "CenterReviewer@Qurrah.com",
                             NormalizedUserName = "CenterReviewer",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBQID5zDoqUeoB3sZUmzi/nPsPVbhJdHRF3zFtEtjPBA68U1F60lnBuBXt168QvU0w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECIvanJU6QaMfLnU3aLJSVUf5UTxVThE8wgAMw8MofXncr1hEjZfCNAaX/GxcGwP1A==",
                             PhoneNumber = "0543700745",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a8e71b15-aa42-4aea-bae3-5b3920ae5603",
+                            SecurityStamp = "e8877825-18d3-4a53-beb4-2100c6896e67",
                             TwoFactorEnabled = false,
                             UserName = "CenterReviewer"
                         });
@@ -436,6 +436,10 @@ namespace Qurrah.Data.Migrations
                     b.Property<int>("FKCenterId")
                         .HasColumnType("int");
 
+                    b.Property<string>("FKCreatedByUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid>("FKFileId")
                         .HasColumnType("uniqueidentifier");
 
@@ -460,6 +464,8 @@ namespace Qurrah.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FKCreatedByUserId");
 
                     b.HasIndex("FKFileId")
                         .IsUnique();
@@ -854,8 +860,9 @@ namespace Qurrah.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("FKFileTypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileData")
                         .IsRequired()
@@ -872,70 +879,7 @@ namespace Qurrah.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FKFileTypeId");
-
                     b.ToTable("FileDetails");
-                });
-
-            modelBuilder.Entity("Qurrah.Entities.FileType", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("FileType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ContentType = "application/pdf",
-                            Name = "PDF"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                            Name = "DOCX"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ContentType = "application/msword",
-                            Name = "DOC"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ContentType = "image/x-png",
-                            Name = "PNG"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ContentType = "image/jpeg",
-                            Name = "JPG"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ContentType = "image/jpeg",
-                            Name = "JPEG"
-                        });
                 });
 
             modelBuilder.Entity("Qurrah.Entities.Gender", b =>
@@ -1433,6 +1377,12 @@ namespace Qurrah.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Qurrah.Entities.ApplicationUser", "CreatedByUser")
+                        .WithMany("CenterLicensesCreatedBy")
+                        .HasForeignKey("FKCreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Qurrah.Entities.FileDetails", "FileDetails")
                         .WithMany("CenterLicenses")
                         .HasForeignKey("FKFileId")
@@ -1446,11 +1396,13 @@ namespace Qurrah.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Qurrah.Entities.ApplicationUser", "StatusUpdatedByUser")
-                        .WithMany("CenterLicenses")
+                        .WithMany("CenterLicensesUpdatedBy")
                         .HasForeignKey("FKStatusUpdatedByUserId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Center");
+
+                    b.Navigation("CreatedByUser");
 
                     b.Navigation("FileDetails");
 
@@ -1545,17 +1497,6 @@ namespace Qurrah.Data.Migrations
                     b.Navigation("FAQType");
                 });
 
-            modelBuilder.Entity("Qurrah.Entities.FileDetails", b =>
-                {
-                    b.HasOne("Qurrah.Entities.FileType", "FileType")
-                        .WithMany("FileDetails")
-                        .HasForeignKey("FKFileTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("FileType");
-                });
-
             modelBuilder.Entity("Qurrah.Entities.GenderDescription", b =>
                 {
                     b.HasOne("Qurrah.Entities.Gender", "Gender")
@@ -1626,7 +1567,9 @@ namespace Qurrah.Data.Migrations
 
             modelBuilder.Entity("Qurrah.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("CenterLicenses");
+                    b.Navigation("CenterLicensesCreatedBy");
+
+                    b.Navigation("CenterLicensesUpdatedBy");
 
                     b.Navigation("CenterUsers");
 
@@ -1667,11 +1610,6 @@ namespace Qurrah.Data.Migrations
                     b.Navigation("CenterLicenses");
 
                     b.Navigation("Centers");
-                });
-
-            modelBuilder.Entity("Qurrah.Entities.FileType", b =>
-                {
-                    b.Navigation("FileDetails");
                 });
 
             modelBuilder.Entity("Qurrah.Entities.Gender", b =>

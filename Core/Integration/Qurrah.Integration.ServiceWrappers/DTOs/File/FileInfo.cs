@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Qurrah.Web.APIs.Models.DTOs.File
+namespace Qurrah.Integration.ServiceWrappers.DTOs.File
 {
-    public class UploadFileDTO
+    public class FileInfo
     {
+        [Required]
+        public Guid Id { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         public string FileName { get; set; }
 
@@ -15,6 +18,6 @@ namespace Qurrah.Web.APIs.Models.DTOs.File
         public string FileData { get; set; }
         
         [Required]
-        public int FileTypeId { get; set; }
+        public string ContentType { get; set; }
     }
 }

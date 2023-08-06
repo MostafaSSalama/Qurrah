@@ -4,5 +4,6 @@
     {
         Task<T> GetAllGenders<T>(string culture);
         Task<T> GetAllUserTypes<T>(string culture);
+        Task<T> GetAllCenterTypes<T>(string culture);
     }
 }

@@ -6,6 +6,7 @@
         ResourceNotFound,
         Empty,
         InternalServerError,
+        BadRequest,
         GeneralFailure
     }
 }

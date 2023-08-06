@@ -108,3 +108,8 @@ body {
 th{
     text-align:right !important;
 }
+
+.datepicker {
+    background-color: #fff;
+    color: #000;
+}

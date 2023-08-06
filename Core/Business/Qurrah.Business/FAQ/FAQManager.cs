@@ -7,9 +7,7 @@ using Qurrah.Integration.ServiceWrappers.Services.IServices;
 using System.Net;
 using LocalizationDTOs = Qurrah.Integration.ServiceWrappers.DTOs.Localization;
 using FAQDTOs = Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
-using BusinessEntities = Qurrah.Business.Localization.Entities;
 using Qurrah.Integration.ServiceWrappers;
-using Qurrah.Entities;
 
 namespace Qurrah.Business.FAQ
 {
@@ -17,17 +15,15 @@ namespace Qurrah.Business.FAQ
     {
         #region Fields
         private readonly IFAQService _faqService;
-        private readonly LanguageService _localization;
-        private readonly ILocalizatonManager _localizatonManager;
         private readonly IExceptionLogging _exceptionLogging;
+        private readonly ILocalizedPropertyManager _localizedPropertyManager;
         #endregion
 
         #region Ctor
-        public FAQManager(IFAQService faqService, ILocalizatonManager localizatonManager, LanguageService localization, IExceptionLogging exceptionLogging)
+        public FAQManager(IFAQService faqService, ILocalizedPropertyManager localizedPropertyManager, IExceptionLogging exceptionLogging)
         {
             _faqService = faqService;
-            _localizatonManager = localizatonManager;
-            _localization = localization;
+            _localizedPropertyManager = localizedPropertyManager;
             _exceptionLogging = exceptionLogging;
         }
         #endregion
@@ -186,9 +182,9 @@ namespace Qurrah.Business.FAQ
                             Id = f.FAQ.Id,
                             DisplayOrder = f.FAQ.DisplayOrder,
                             FKTypeId = f.FAQ.FKTypeId,
-                            
+
                             Question = f.LocalizedProperties
-                                        ?.SingleOrDefault(lp => lp?.Language?.LanguageCulture?.ToLower() == currentCulture.ToLower() 
+                                        ?.SingleOrDefault(lp => lp?.Language?.LanguageCulture?.ToLower() == currentCulture.ToLower()
                                                                     && lp?.LocaleKey == nameof(Entities.FAQ.Question))?.LocaleValue
                                             ?? f.FAQ.Question,
 
@@ -219,54 +215,6 @@ namespace Qurrah.Business.FAQ
             return apiResult;
         }
 
-        public APIResult PopulateDefaultLocalizedPropertyGroups(List<LocalizationDTOs.LocaleInfo> locales)
-        {
-            APIResult apiresult = new();
-
-            try
-            {
-                var localizedPropertyGroups = new List<BusinessEntities.LocalizedPropertyGroup>();
-                if (locales?.Any() == true)
-                {
-                    locales.ForEach(locale =>
-                    {
-                        localizedPropertyGroups.Add(new BusinessEntities.LocalizedPropertyGroup
-                        {
-                            LocaleId = locale.LanguageId,
-                            LocalizedProperties = new List<BusinessEntities.LocalizedProperty>
-                            {
-                                new BusinessEntities.LocalizedProperty
-                                {
-                                    LanguageId = locale.LanguageId,
-                                    LocaleKeyGroup = nameof(Entities.FAQ),
-                                    LocaleKey = nameof(Entities.FAQ.Question),
-                                    Label = _localization.GetLocalizedString("FAQ.Create.Question"),
-                                    IsMultiLine = false
-                                },
-                                new BusinessEntities.LocalizedProperty
-                                {
-                                    LanguageId = locale.LanguageId,
-                                    LocaleKeyGroup = nameof(Entities.FAQ),
-                                    LocaleKey = nameof(Entities.FAQ.Answer),
-                                    Label = _localization.GetLocalizedString("FAQ.Create.Answer"),
-                                    IsMultiLine = true
-                                }
-                            }
-                        });
-                    });
-
-                    apiresult.ActionResult = ActionResult.Success;
-                    apiresult.Result = localizedPropertyGroups;
-                }
-            }
-            catch (Exception ex)
-            {
-                _exceptionLogging.Log(ex);
-                apiresult.ActionResult = ActionResult.GeneralFailure;
-            }
-
-            return apiresult;
-        }
         public APIResult PopulateLocalizedPropertyGroups(List<LocalizationDTOs.LocalizedProperty> sourceLocalizedProperties, List<LocalizationDTOs.LocaleInfo> locales, bool isReadonly)
         {
             APIResult apiResult = new();
@@ -275,28 +223,23 @@ namespace Qurrah.Business.FAQ
             {
                 if (locales?.Any() == true)
                 {
-                    apiResult = PopulateDefaultLocalizedPropertyGroups(locales);
-                    if (apiResult.ActionResult == ActionResult.Success)
+                    var loacalizedPropGroups = _localizedPropertyManager.PopulateLocalizedPropertyGroups(typeof(FAQDTOs.FAQ), locales);
+                    loacalizedPropGroups?.ForEach(defaultLPG =>
                     {
-                        var loacalizedPropGroups = apiResult.Result as List<BusinessEntities.LocalizedPropertyGroup>;
-
-                        loacalizedPropGroups.ForEach(defaultLPG =>
+                        defaultLPG.LocalizedProperties.ForEach(defaultLP =>
                         {
-                            defaultLPG.LocalizedProperties.ForEach(defaultLP =>
+                            var sourceLP = sourceLocalizedProperties.FirstOrDefault(s => s.LanguageId == defaultLP.LanguageId && s.LocaleKey == defaultLP.LocaleKey);
+                            if (sourceLP != null)
                             {
-                                var sourceLP = sourceLocalizedProperties.FirstOrDefault(s => s.LanguageId == defaultLP.LanguageId && s.LocaleKey == defaultLP.LocaleKey);
-                                if (sourceLP != null)
-                                {
-                                    defaultLP.Id = sourceLP.Id;
-                                    defaultLP.EntityId = sourceLP.EntityId;
-                                    defaultLP.LocaleValue = sourceLP.LocaleValue;
-                                    defaultLP.IsReadonly = isReadonly;
-                                }
-                            });
+                                defaultLP.Id = sourceLP.Id;
+                                defaultLP.EntityId = sourceLP.EntityId;
+                                defaultLP.LocaleValue = sourceLP.LocaleValue;
+                                defaultLP.IsReadonly = isReadonly;
+                            }
                         });
+                    });
 
-                        apiResult.Result = loacalizedPropGroups;
-                    }
+                    apiResult.Result = loacalizedPropGroups;
                 }
             }
             catch (Exception ex)

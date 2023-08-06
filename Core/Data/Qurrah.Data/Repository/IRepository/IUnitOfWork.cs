@@ -8,8 +8,8 @@
         LanguageDescriptionRepository LanguageDescription { get; }
         GenderDescriptionRepository GenderDescription { get; }
         UserTypeDescriptionRepository UserTypeDescription { get; }
+        CenterTypeDescriptionRepository CenterTypeDescription { get; }
         FileRepository File { get; }
-        FileTypeRepository FileType { get; }
         CenterRepository Center { get; }
         Task SaveAsync();
     }

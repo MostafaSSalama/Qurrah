@@ -4,5 +4,6 @@
     {
         Task<APIResult> GetAllGendersAsync(string culture);
         Task<APIResult> GetAllUserTypesAsync(string culture);
+        Task<APIResult> GetAllCenterTypesAsync(string culture);
     }
 }

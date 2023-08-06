@@ -7,11 +7,10 @@ using Qurrah.Business.Localization;
 using Qurrah.Business.Localization.Entities;
 using Qurrah.Business.Logging;
 using Qurrah.Business.UserAuth;
-using Qurrah.Integration.ServiceWrappers;
-using Qurrah.Integration.ServiceWrappers.Services.IServices;
+using Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 using Qurrah.Web.Areas.Admin.Models;
+using Qurrah.Web.Models;
 using Qurrah.Web.Utilities;
-using System.Net;
 using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using FAQDTOs = Qurrah.Integration.ServiceWrappers.DTOs.FAQ;
 using LocalizationDTOs = Qurrah.Integration.ServiceWrappers.DTOs.Localization;
@@ -24,11 +23,11 @@ namespace Qurrah.Web.Areas.Admin.Controllers
     {
         #region Fields
         private readonly IFAQTypeManager _faqTypeManager;
-        private readonly ILocalizatonManager _localizatonManager;
         private readonly LanguageService _localization;
         private readonly IExceptionLogging _exceptionLogging;
         private readonly IMapper _mapper;
         private readonly ILocalizationUtility _localizationUtility;
+        private readonly ILocalizedPropertyManager _localizedPropertyManager;
         #endregion
 
         #region Properties
@@ -42,10 +41,10 @@ namespace Qurrah.Web.Areas.Admin.Controllers
         #endregion
 
         #region Ctor
-        public FAQTypeController(IMapper mapper, ILocalizationUtility localizationUtility, ILocalizatonManager localizatonManager, IFAQTypeManager faqTypeManager, LanguageService localization, IExceptionLogging exceptionLogging)
+        public FAQTypeController(IMapper mapper, ILocalizedPropertyManager localizedPropertyManager, ILocalizationUtility localizationUtility, IFAQTypeManager faqTypeManager, LanguageService localization, IExceptionLogging exceptionLogging)
         {
             _mapper = mapper;
-            _localizatonManager = localizatonManager;
+            _localizedPropertyManager = localizedPropertyManager;
             _faqTypeManager = faqTypeManager;
             _localization = localization;
             _exceptionLogging = exceptionLogging;
@@ -66,7 +65,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
                 else
                 {
                     HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
-                    
+
                     if (result?.ActionResult == Business.ActionResult.InternalServerError && result.ErrorMessages?.Any() == true)
                         _exceptionLogging.Log(result.ErrorMessages.Concatenate());
                     else
@@ -90,7 +89,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
                 if (result.ActionResult == Business.ActionResult.Success)
                 {
                     var faqTypeWithLocalizedProps = result.Result as FAQDTOs.FAQTypeWithLocalizedProperties;
-                    
+
                     FAQTypeVM faqTypeVM = new();
                     faqTypeVM.Locales = await _localizationUtility.GetLocales();
                     faqTypeVM.FAQType = faqTypeWithLocalizedProps.FAQType;
@@ -99,7 +98,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
                     var localizedPropertyGroups = locGroupsResult.Result as List<LocalizedPropertyGroup>;
 
                     faqTypeVM.LocalizedPropertyGroups = _mapper.Map<List<LocalizedPropertyGroupVM>>(localizedPropertyGroups);
-                    
+
                     return View(faqTypeVM);
                 }
                 else if (result.ActionResult == Business.ActionResult.ResourceNotFound)
@@ -119,7 +118,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
                 _exceptionLogging.Log(ex);
                 HttpContext.Session.SetString(Business.Constants.Session_Error, _localization.GetLocalizedString("Messages.ErrorMessages.GeneralError"));
             }
-         
+
             return RedirectToAction("Index");
         }
 
@@ -130,13 +129,8 @@ namespace Qurrah.Web.Areas.Admin.Controllers
             try
             {
                 faqTypeCreateViewModel.Locales = await _localizationUtility.GetLocales();
-
-                var result = _faqTypeManager.PopulateDefaultLocalizedPropertyGroups(faqTypeCreateViewModel.Locales);
-                if (result.ActionResult == Business.ActionResult.Success)
-                {
-                    var localizedProps = result.Result as List<LocalizedPropertyGroup>;
-                    faqTypeCreateViewModel.LocalizedPropertyGroups = _mapper.Map<List<LocalizedPropertyGroupVM>>(localizedProps);
-                }
+                var localizedPropGroups = _localizedPropertyManager.PopulateLocalizedPropertyGroups(typeof(FAQType), faqTypeCreateViewModel.Locales);
+                faqTypeCreateViewModel.LocalizedPropertyGroups = _mapper.Map<List<LocalizedPropertyGroupVM>>(localizedPropGroups);
             }
             catch (Exception ex)
             {
@@ -201,7 +195,7 @@ namespace Qurrah.Web.Areas.Admin.Controllers
                 var result = await _faqTypeManager.GetAsync(id, AuthTokenValue);
                 if (result.ActionResult == Business.ActionResult.Success)
                 {
-                    var faqTypeWithLocalizedProps = result.Result as FAQDTOs.FAQTypeWithLocalizedProperties;
+                    var faqTypeWithLocalizedProps = result.Result as FAQTypeWithLocalizedProperties;
 
                     FAQTypeVM faqTypeVM = new();
                     faqTypeVM.Locales = await _localizationUtility.GetLocales();

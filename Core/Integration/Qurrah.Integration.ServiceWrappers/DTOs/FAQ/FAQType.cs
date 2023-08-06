@@ -10,9 +10,11 @@ namespace Qurrah.Integration.ServiceWrappers.DTOs.FAQ
         [Required(AllowEmptyStrings = false, ErrorMessage = "Validation.Required.GeneralErrorMessage")]
         [StringLength(1000, ErrorMessage = "Validation.StringLength.GeneralErrorMessage")]
         [Display(Name = "FAQType.Create.Name")]
+        [Localized(DisplayValue = "FAQType.Create.Name", LocaleKeyGroup = "FAQType", LocaleKey = "Name", IsMultiLine = false)]
         public string Name { get; set; }
 
         [Display(Name = "FAQType.Create.Description")]
+        [Localized(DisplayValue = "FAQType.Create.Name", LocaleKeyGroup = "FAQType", LocaleKey = "Description", IsMultiLine = true)]
         public string Description { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Validation.Required.GeneralErrorMessage")]

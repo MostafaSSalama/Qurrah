@@ -43,7 +43,7 @@ namespace Qurrah.Web.APIs.Controllers.Center
                 if (!result.IsValid)
                     return BadRequest(new APIResponse(false, HttpStatusCode.BadRequest, null, new List<string[]> { result.ErrorCodes.ToArray() }));
 
-                var localizedProperties = _mapper.Map<IEnumerable<LocalizedProperty>>(request.Center.LocalizedProperties).ToList();
+                var localizedProperties = _mapper.Map<IEnumerable<LocalizedProperty>>(request.LocalizedProperties).ToList();
                 await _unitOfWork.Center.AddWithLocalizedPropertiesWithSaveAsync(center, localizedProperties);
 
                 APIResponse apiResponse = new APIResponse(true, HttpStatusCode.Created, null);

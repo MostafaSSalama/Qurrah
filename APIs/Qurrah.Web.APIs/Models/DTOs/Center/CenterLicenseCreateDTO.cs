@@ -17,7 +17,6 @@ namespace Qurrah.Web.APIs.Models.DTOs.Center
         public DateTime ExpiryDate { get; set; }
 
         [Required]
-        [ForeignKey(nameof(FileDetails))]
         public Guid FileId { get; set; }
     }
 }
